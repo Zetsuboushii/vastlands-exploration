@@ -15,3 +15,8 @@ def calculate_age(birthday):
         return current_year - birth_year
     except (ValueError, IndexError, AttributeError):
         return None
+
+def get_day_of_year(birthday: str):
+    birthday_only_day_and_month = ".".join(birthday.split(".")[0:2])
+    date = datetime.strptime(birthday_only_day_and_month, "%d.%m")
+    return date.timetuple().tm_yday
