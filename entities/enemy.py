@@ -2,22 +2,22 @@ class Enemy:
     def __init__(self, name: str, boss: bool, bosstitle: str, type: str, hp: int, ac: int, movement: list[str],
                  str: int, dex: int, con: int, int: int, wis: int, cha: int, weaknesses: list[str],
                  resistances: list[str], immunities: list[str], actions: list[str]):
-        self.name = name,
-        self.boss = boss,
-        self.bosstitle = bosstitle,
-        self.type = type,
-        self.hp = hp,
-        self.ac = ac,
-        self.movement = movement,
-        self.str = str,
-        self.dex = dex,
-        self.con = con,
-        self.int = int,
-        self.wis = wis,
-        self.cha = cha,
-        self.weaknesses = weaknesses,
-        self.resistances = resistances,
-        self.immunities = immunities,
+        self.name = name
+        self.boss = boss
+        self.bosstitle = bosstitle
+        self.type = type
+        self.hp = hp
+        self.ac = ac
+        self.movement = movement
+        self.str = str
+        self.dex = dex
+        self.con = con
+        self.int = int
+        self.wis = wis
+        self.cha = cha
+        self.weaknesses = weaknesses
+        self.resistances = resistances
+        self.immunities = immunities
         self.actions = actions
 
 def json_to_enemy(data):

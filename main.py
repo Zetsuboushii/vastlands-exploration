@@ -13,7 +13,7 @@ def main():
     df_races = get_races_df(races_data)
     df_places = get_places_df(places_data)
     df_actions = get_actions_df(actions_data)
-    enemies_data = get_enemies_df(enemies_data)
+    df_enemies = get_enemies_df(enemies_data)
     create_gender_distribution(df_characters)
     create_age_distribution_200y_focus(df_characters)
     create_age_distribution_normalized(df_characters, df_races)

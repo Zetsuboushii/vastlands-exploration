@@ -3,6 +3,7 @@ import pandas as pd
 
 from entities.action import json_to_action
 from entities.character import json_to_character
+from entities.enemy import json_to_enemy
 from entities.place import json_to_place
 from entities.race import json_to_race
 
@@ -45,7 +46,7 @@ def get_actions_df(actions_data):
     return df_actions
 
 def get_enemies_df(enemies_data):
-    enemies_objects = [json_to_action(enemies_data) for enemies_data in enemies_data]
+    enemies_objects = [json_to_enemy(enemies_data) for enemies_data in enemies_data]
     enemy_dicts = [enemy.__dict__ for enemy in enemies_objects]
     df_enemies = pd.DataFrame(enemy_dicts)
     return df_enemies
