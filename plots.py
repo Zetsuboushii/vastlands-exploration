@@ -125,3 +125,57 @@ def create_resistance_distribution_pie_chart(df_enemies: pd.DataFrame):
     plt.title('Distribution of Resistances')
     plt.tight_layout()
     plt.show()
+
+def create_immunities_distribution_pie_chart(df_enemies: pd.DataFrame):
+    df_normalized = df_enemies.explode("immunities").reset_index(drop=True)
+    immunities_group = df_normalized.groupby("immunities").size().sort_values()
+    plt.figure(figsize=(6, 6))
+    plt.pie(immunities_group, labels=immunities_group.index, autopct='%1.1f%%', startangle=90)
+    plt.title('Distribution of Immunities')
+    plt.tight_layout()
+    plt.show()
+
+def create_combined_pie_charts(df_enemies: pd.DataFrame):
+    fig, axes = plt.subplots(1, 3, figsize=(18, 6))
+
+    # Weaknesses Pie Chart
+    df_normalized_weaknesses = df_enemies.explode("weaknesses").reset_index(drop=True)
+    weakness_group = df_normalized_weaknesses.groupby("weaknesses").size().sort_values()
+    axes[0].pie(weakness_group, labels=weakness_group.index, autopct='%1.1f%%', startangle=90)
+    axes[0].set_title('Distribution of Weaknesses')
+
+    # Resistances Pie Chart
+    df_normalized_resistances = df_enemies.explode("resistances").reset_index(drop=True)
+    resistances_group = df_normalized_resistances.groupby("resistances").size().sort_values()
+    axes[1].pie(resistances_group, labels=resistances_group.index, autopct='%1.1f%%', startangle=90)
+    axes[1].set_title('Distribution of Resistances')
+
+    # Immunities Pie Chart
+    df_normalized_immunities = df_enemies.explode("immunities").reset_index(drop=True)
+    immunities_group = df_normalized_immunities.groupby("immunities").size().sort_values()
+    axes[2].pie(immunities_group, labels=immunities_group.index, autopct='%1.1f%%', startangle=90)
+    axes[2].set_title('Distribution of Immunities')
+
+    # Adjust layout
+    plt.tight_layout()
+    plt.show()
+
+def create_stats_distribution_plot(df_enemies: pd.DataFrame):
+    stats_avg = df_enemies[["str", "dex", "con", "int", "wis", "cha"]].mean()
+    df_enemies['sum_stats'] = df_enemies[['str', 'dex', 'con', 'int', 'wis', 'cha']].sum(axis=1)
+    mean_sum_stats = df_enemies['sum_stats'].mean().round(2)
+    stats_avg = stats_avg.round(2)
+    overall_avg = stats_avg.mean().round(2)
+    stats_avg["overall_avg"] = overall_avg
+    stats_avg["sum_avg"] = mean_sum_stats
+    plt.figure(figsize=(8, 6))
+    stats_avg.plot(kind='bar')
+    plt.title('Average Stats of Enemies', fontsize=16)
+    plt.xlabel('Stats', fontsize=14)
+    plt.ylabel('Average Value', fontsize=14)
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.xticks(rotation=45, ha='right', fontsize=12)
+    plt.axhline(0, color='black', linewidth=1)
+    plt.tight_layout()
+    plt.show()
+
