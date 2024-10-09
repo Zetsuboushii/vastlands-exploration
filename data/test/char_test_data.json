@@ -1,0 +1,4938 @@
+[
+    {
+        "name": "Adrian",
+        "surname": "von Waldegrav",
+        "title": "Leidenschaftlicher Sch\u00e4tzesammler",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "4.5.365",
+        "height": "1,79",
+        "functions": [
+            "Besitzer der Taverne 'Adrians Schatzkiste'"
+        ],
+        "class": "Abenteurer",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Nordholm"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [],
+        "lover": ""
+    },
+    {
+        "name": "Aelua",
+        "surname": "",
+        "title": "Junggebliebene Dorf\u00e4lteste",
+        "race": "Elfen",
+        "sex": "w",
+        "birthday": "18.3.-420",
+        "height": "1,65",
+        "functions": [
+            "Dorf\u00e4lteste von Teryvnat"
+        ],
+        "class": "B\u00fcrger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Teryvnat"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Tannivh",
+                "Enkel"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Alden",
+        "surname": "",
+        "title": "Weltoffener Kutschfahrer",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "28.2.350",
+        "height": "1,76",
+        "functions": [
+            "Kutschfahrer"
+        ],
+        "class": "B\u00fcrger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Grenbrock"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [],
+        "lover": ""
+    },
+    {
+        "name": "Alice",
+        "surname": "",
+        "title": "Verliebte Nekromantin",
+        "race": "Halbelfen",
+        "sex": "w",
+        "birthday": "19.11.375",
+        "height": "1,68",
+        "functions": [
+            "Besitzerin eines Tr\u00e4nkeladens"
+        ],
+        "class": "Zauberer",
+        "subclasses": [
+            "Nekromant"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Schachendorf"
+        ],
+        "alignment": "CG",
+        "status": "true",
+        "relationships": [],
+        "lover": "Falk"
+    },
+    {
+        "name": "Amlin",
+        "surname": "",
+        "title": "Schnippisches Zeitorakel",
+        "race": "Menschen",
+        "sex": "w",
+        "birthday": "",
+        "height": "1,51",
+        "functions": [
+            "Hohef\u00fcrstin der Zeit"
+        ],
+        "class": "Hohef\u00fcrst",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Tempel der Zeit"
+        ],
+        "alignment": "CG",
+        "status": "true",
+        "relationships": [],
+        "lover": ""
+    },
+    {
+        "name": "Ar-Merer",
+        "surname": "",
+        "title": "Erbamungsloser Inquisitor",
+        "race": "Engel",
+        "sex": "m",
+        "birthday": "",
+        "height": "2,01",
+        "functions": [
+            "Recke der Justicia"
+        ],
+        "class": "Recke",
+        "subclasses": [
+            "Engelsmagier"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Hof der Gerechtigkeit"
+        ],
+        "alignment": "LN",
+        "status": "true",
+        "relationships": [
+            [
+                "Justicia",
+                "Mutter"
+            ],
+            [
+                "Inoro",
+                "Vorg\u00e4nger"
+            ],
+            [
+                "En-Troad",
+                "Bruder"
+            ],
+            [
+                "Il-Vernia",
+                "Schwester"
+            ],
+            [
+                "O-Gall",
+                "Bruder"
+            ],
+            [
+                "U-Ranos",
+                "Bruder, Rivale"
+            ],
+            [
+                "Fortuna",
+                "Tante"
+            ],
+            [
+                "Meilira",
+                "Cousine"
+            ],
+            [
+                "Unbenannter Gott",
+                "Onkel"
+            ],
+            [
+                "Thanatos",
+                "Todfeind"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Artie",
+        "surname": "",
+        "title": "Bestechlicher Ortsvorsteher",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "6.12.359",
+        "height": "1,72",
+        "functions": [
+            "Ehem. Ortsvorsteher von Schachendorf"
+        ],
+        "class": "B\u00fcrger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Schachendorf"
+        ],
+        "alignment": "NE",
+        "status": "false",
+        "relationships": [
+            [
+                "Sivert",
+                "Verhandlungspartner, sp\u00e4ter Erpresser"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Avarne",
+        "surname": "",
+        "title": "Werdender Abenteurer",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "27.5.375",
+        "height": "1,77",
+        "functions": [],
+        "class": "K\u00e4mpfer",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "D\u00fcnsberg"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Hosgrid",
+                "Hosgrid"
+            ],
+            [
+                "Burdig",
+                "Guter Freund der Familie"
+            ],
+            [
+                "Igmusur",
+                "Gro\u00dfv\u00e4terchen"
+            ]
+        ],
+        "lover": "Jofina"
+    },
+    {
+        "name": "Avila",
+        "surname": "",
+        "title": "Immerfrohe Verkupplerin",
+        "race": "Halbelfen",
+        "sex": "w",
+        "birthday": "",
+        "height": "1,68",
+        "functions": [
+            "Hohef\u00fcrstin der Liebe"
+        ],
+        "class": "Hohef\u00fcrst",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Schrein der Harmonie"
+        ],
+        "alignment": "CG",
+        "status": "true",
+        "relationships": [
+            [
+                "Rai",
+                "Bester Freund"
+            ],
+            [
+                "Farone",
+                "Gute Freundin"
+            ],
+            [
+                "Fortuna",
+                "Gute Freundin"
+            ],
+            [
+                "U-Ranos",
+                "Freund"
+            ],
+            [
+                "Mudo",
+                "Freund"
+            ],
+            [
+                "Scarlet",
+                "gute Freundin"
+            ],
+            [
+                "Il-Vernia",
+                "gute Freundin"
+            ],
+            [
+                "Thanatos",
+                "guter Freund"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Berthelot",
+        "surname": "",
+        "title": "Ruchloser Banditenanf\u00fchrer",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "15.7.350",
+        "height": "1,83",
+        "functions": [
+            "Anf\u00fchrer der Elpis-Banditenbande"
+        ],
+        "class": "Barbar",
+        "subclasses": [
+            "Berserker"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Elpis"
+        ],
+        "alignment": "NE",
+        "status": "false",
+        "relationships": [
+            [
+                "Banditenbande",
+                "Familie"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Burdig",
+        "surname": "",
+        "title": "Liebenswerter Tavernenbesitzer",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "14.10.348",
+        "height": "1,80",
+        "functions": [
+            "Besitzer der Taverne 'Mosthaus'"
+        ],
+        "class": "B\u00fcrger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "D\u00fcnsberg"
+        ],
+        "alignment": "LG",
+        "status": "true",
+        "relationships": [
+            [
+                "Hosgrid",
+                "Langj\u00e4hriger Freund"
+            ],
+            [
+                "Karl",
+                "Bruder"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Caeda",
+        "surname": "",
+        "title": "Sympathische Nachwuchsh\u00e4ndlerin",
+        "race": "Elfen",
+        "sex": "w",
+        "birthday": "9.1.143",
+        "height": "1,62",
+        "functions": [
+            "Betreiberin eines kleinen Marktstands"
+        ],
+        "class": "B\u00fcrger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Teryvnat"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Elkazel",
+                "Bruder"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Carmesine",
+        "surname": "",
+        "title": "Gebrochene Nonne mit gro\u00dfem Herz",
+        "race": "Menschen",
+        "sex": "w",
+        "birthday": "25.5.271",
+        "height": "1,73",
+        "functions": [
+            "Nonne"
+        ],
+        "class": "Kleriker",
+        "subclasses": [
+            "Kleriker der Fortuna"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Kloster Schicksalsweg"
+        ],
+        "alignment": "LG",
+        "status": "true",
+        "relationships": [
+            [
+                "Felix",
+                "Heimliche Liebe und Glaubensbruder"
+            ],
+            [
+                "Perrotus",
+                "Ziehvater"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Cassius",
+        "surname": "von Schattenberg",
+        "title": "Dubioser Minister",
+        "race": "Halbelfen",
+        "sex": "m",
+        "birthday": "28.10.359",
+        "height": "1,89",
+        "functions": [
+            "Minister des K\u00f6nigs"
+        ],
+        "class": "Adliger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Aegir"
+        ],
+        "alignment": "NE",
+        "status": "true",
+        "relationships": [
+            [
+                "Gralnach",
+                "K\u00f6nig"
+            ],
+            [
+                "Cathlen",
+                "K\u00f6nigin"
+            ],
+            [
+                "Marisa",
+                "Prinzessin"
+            ],
+            [
+                "Narcian",
+                "Prinz"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Cedrik",
+        "surname": "",
+        "title": "Trickreicher Betr\u00fcger",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "5.8.367",
+        "height": "1,79",
+        "functions": [],
+        "class": "Schurke",
+        "subclasses": [
+            "Betr\u00fcger"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Niddarvellir"
+        ],
+        "alignment": "NE",
+        "status": "false",
+        "relationships": [],
+        "lover": ""
+    },
+    {
+        "name": "Cicero",
+        "surname": "",
+        "title": "M\u00f6rderischer Gaukler",
+        "race": "Elfen",
+        "sex": "m",
+        "birthday": "8.12.71",
+        "height": "1,85",
+        "functions": [
+            "Vasall des Serff"
+        ],
+        "class": "Barde",
+        "subclasses": [
+            "S\u00e4nger der Stimmen"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Teryvnat"
+        ],
+        "alignment": "NE",
+        "status": "false",
+        "relationships": [
+            [
+                "Serff",
+                "Herr"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Cinnabar",
+        "surname": "",
+        "title": "S\u00fcndenstehlende Meisterdiebin",
+        "race": "D\u00e4monen",
+        "sex": "w",
+        "birthday": "",
+        "height": "1,67",
+        "functions": [
+            "Reckin des Thanatos"
+        ],
+        "class": "Recke",
+        "subclasses": [
+            "Dieb"
+        ],
+        "masterclass": "Meisterdieb",
+        "homes": [
+            "Gebirge der S\u00fcnde"
+        ],
+        "alignment": "NG",
+        "status": "vermisst",
+        "relationships": [
+            [
+                "Thanatos",
+                "Vater"
+            ],
+            [
+                "Scarlet",
+                "Gro\u00dfe Schwester"
+            ],
+            [
+                "Eliza",
+                "Schwester"
+            ],
+            [
+                "Farone",
+                "Freundin"
+            ],
+            [
+                "Ar-Merer",
+                "Todfeind"
+            ],
+            [
+                "U-Ranos",
+                "Guter Freund"
+            ],
+            [
+                "Nayru",
+                "Freundin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Cordelia",
+        "surname": "von Grenbrock",
+        "title": "Prinzessin mit Schussbefehl",
+        "race": "Menschen",
+        "sex": "w",
+        "birthday": "21.9.365",
+        "height": "1,83",
+        "functions": [
+            "Prinzessin von Thaugrien",
+            "Generalin d. thaugriner Armee"
+        ],
+        "class": "TODO",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Grenbrock"
+        ],
+        "alignment": "TN",
+        "status": "true",
+        "relationships": [
+            [
+                "Jervar",
+                "Kleiner Bruder"
+            ],
+            [
+                "Stephan",
+                "Cousin"
+            ],
+            [
+                "Tristan",
+                "Cousin"
+            ],
+            [
+                "Eliza",
+                "Cousine"
+            ],
+            [
+                "Narcian",
+                "Cousin"
+            ],
+            [
+                "Marisa",
+                "Cousine"
+            ],
+            [
+                "Kristian",
+                "Cousin"
+            ],
+            [
+                "Kristina",
+                "Cousin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Cornelius",
+        "surname": "",
+        "title": "Service-orientierter Kundukteur",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "9.4.357",
+        "height": "1,81",
+        "functions": [
+            "Lokf\u00fchrer"
+        ],
+        "class": "B\u00fcrger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Aegir"
+        ],
+        "alignment": "TN",
+        "status": "true",
+        "relationships": [
+            [
+                "Reichart",
+                "Arbeitskollege"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Deh",
+        "surname": "",
+        "title": "Naive Heilerin",
+        "race": "Drakonier",
+        "sex": "w",
+        "birthday": "7.12.382",
+        "height": "1,62",
+        "functions": [
+            "Studentin"
+        ],
+        "class": "Kleriker",
+        "subclasses": [
+            "Kleriker der Hama"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Darnax"
+        ],
+        "alignment": "LG",
+        "status": "true",
+        "relationships": [
+            [
+                "Suskinox",
+                "Ehemaliger Professor"
+            ],
+            [
+                "Thirthrazak",
+                "Lehrmeister"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Dorian",
+        "surname": "von Windthal",
+        "title": "G\u00fctiger Schlossher",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "16.3.320",
+        "height": "1,77",
+        "functions": [
+            "Ehem. Herr des Jadgschlosses D\u00fcnsberg"
+        ],
+        "class": "Adliger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "D\u00fcnsberg"
+        ],
+        "alignment": "NG",
+        "status": "false",
+        "relationships": [
+            [
+                "Karl",
+                "Ehemaliger Butler"
+            ],
+            [
+                "Edgar",
+                "Ehemaliger Koch"
+            ],
+            [
+                "Eris",
+                "Ehemalige Maid"
+            ],
+            [
+                "Grete",
+                "Ehemalige Maid"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Eberd",
+        "surname": "",
+        "title": "Ausdrucksschwacher Spelunkenbetreiber",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "24.7.344",
+        "height": "1,73",
+        "functions": [
+            "Besitzer der Hafenspelunke 'Kleines F\u00e4sschen'"
+        ],
+        "class": "B\u00fcrger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Aegir"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [],
+        "lover": ""
+    },
+    {
+        "name": "Edgar",
+        "surname": "",
+        "title": "Hasenf\u00fc\u00dfiger Koch",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "6.10.366",
+        "height": "1,89",
+        "functions": [
+            "Koch im Jagdschloss D\u00fcnsberg"
+        ],
+        "class": "B\u00fcrger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "D\u00fcnsberg"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Karl",
+                "Freund und Kollege"
+            ],
+            [
+                "Eris",
+                "Kleine Schwester"
+            ],
+            [
+                "Dorian von Windthal",
+                "Ehem. Herr"
+            ],
+            [
+                "Grete. Freundin und Kollegin",
+                ""
+            ],
+            [
+                "Siegmund",
+                "Herr"
+            ],
+            [
+                "U-Ranos",
+                "Herr"
+            ],
+            [
+                "Nayru",
+                "Herrin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Eliyen",
+        "surname": "",
+        "title": "Gutm\u00fctige Grenzpostlerin",
+        "race": "Elfen",
+        "sex": "w",
+        "birthday": "29.5.157",
+        "height": "1,57",
+        "functions": [
+            "Wache am Grenzposten nach Inidal"
+        ],
+        "class": "Waldl\u00e4ufer",
+        "subclasses": [
+            "J\u00e4ger"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Inidal-Grenzposten"
+        ],
+        "alignment": "NG",
+        "status": "?",
+        "relationships": [
+            [
+                "Malon",
+                "Freund und Kollege"
+            ],
+            [
+                "Nayru",
+                "Freundin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Eliza",
+        "surname": "von Nordholm",
+        "title": "Unbeugsame S\u00fcnde",
+        "race": "D\u00e4monen",
+        "sex": "w",
+        "birthday": "3.8.369",
+        "height": "1,78",
+        "functions": [
+            "Reckin des Thanatos"
+        ],
+        "class": "Recke",
+        "subclasses": [
+            "Paladin",
+            "Rachebringer"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Nordholm",
+            "Gebirge der S\u00fcnde"
+        ],
+        "alignment": "TN",
+        "status": "true",
+        "relationships": [
+            [
+                "Thanatos",
+                "Ziehvater"
+            ],
+            [
+                "Scarlet",
+                "gr\u00f6\u00dfte Schwester"
+            ],
+            [
+                "Cinnabar",
+                "gro\u00dfe Schwester"
+            ],
+            [
+                "Stephan",
+                "eigentlicher gro\u00dfer Bruder"
+            ],
+            [
+                "Tristan",
+                "eigentlicher kleiner Bruder"
+            ],
+            [
+                "Nayru",
+                "Freundin"
+            ],
+            [
+                "Jervar",
+                "Cousin"
+            ],
+            [
+                "Cordelia",
+                "Cousine"
+            ],
+            [
+                "Narcian",
+                "Cousin"
+            ],
+            [
+                "Kristian",
+                "Cousin"
+            ],
+            [
+                "Kristina",
+                "Cousin"
+            ],
+            [
+                "Marisa",
+                "Cousine, Freundin"
+            ]
+        ],
+        "lover": "U-Ranos"
+    },
+    {
+        "name": "Elkhazel",
+        "surname": "",
+        "title": "J\u00e4ger des Dorfes",
+        "race": "Elfen",
+        "sex": "m",
+        "birthday": "18.4.124",
+        "height": "1,78",
+        "functions": [
+            "Besch\u00fctzer von Teryvnat",
+            "J\u00e4ger"
+        ],
+        "class": "Waldl\u00e4ufer",
+        "subclasses": [
+            "J\u00e4ger"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Teryvnat"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Caeda",
+                "Kleine Schwester"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "En-Troad",
+        "surname": "",
+        "title": "Heiliger Krieger",
+        "race": "Engel",
+        "sex": "m",
+        "birthday": "",
+        "height": "1,87",
+        "functions": [
+            "Recke der Justicia"
+        ],
+        "class": "Recke",
+        "subclasses": [
+            "Paladin",
+            "Schildtr\u00e4ger"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Hof der Gerechtigkeit"
+        ],
+        "alignment": "LG",
+        "status": "false",
+        "relationships": [
+            [
+                "Justicia",
+                "Mutter"
+            ],
+            [
+                "Inoro",
+                "Vorg\u00e4nger"
+            ],
+            [
+                "Ar-Merer",
+                "Bruder"
+            ],
+            [
+                "Il-Vernia",
+                "Schwester"
+            ],
+            [
+                "O-Gall",
+                "Bruder"
+            ],
+            [
+                "U-Ranos",
+                "Bruder"
+            ],
+            [
+                "Fortuna",
+                "Tante"
+            ],
+            [
+                "Meilira",
+                "Cousine"
+            ],
+            [
+                "Unbenannter Gott",
+                "Onkel"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Erika",
+        "surname": "",
+        "title": "Leibgarde seit Kindertagen",
+        "race": "Menschen",
+        "sex": "w",
+        "birthday": "25.7.370",
+        "height": "1,71",
+        "functions": [
+            "Leibgarde am k\u00f6niglichen Hof"
+        ],
+        "class": "K\u00e4mpfer",
+        "subclasses": [
+            "Champion"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Aegir"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Marisa",
+                "Beste Freundin"
+            ],
+            [
+                "Lilia",
+                "Schwester"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Eris",
+        "surname": "",
+        "title": "Temperamentvolles Hausm\u00e4dchen",
+        "race": "Menschen",
+        "sex": "w",
+        "birthday": "1.2.374",
+        "height": "1,63",
+        "functions": [
+            "Hausm\u00e4dchen im Jagdschloss D\u00fcnsberg"
+        ],
+        "class": "B\u00fcrger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "D\u00fcnsberg"
+        ],
+        "alignment": "TN",
+        "status": "true",
+        "relationships": [
+            [
+                "Edgar",
+                "Gro\u00dfer Bruder"
+            ],
+            [
+                "Dorian",
+                "Ehem. Herr"
+            ],
+            [
+                "Grete",
+                "Freundin und Kollegin"
+            ],
+            [
+                "Siegmund",
+                "Herr"
+            ],
+            [
+                "Nayru",
+                "Herrin"
+            ],
+            [
+                "U-Ranos",
+                "Herr"
+            ],
+            [
+                "Karl",
+                "guter Freund und Kollege"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Ezekiel",
+        "surname": "von Bendel",
+        "title": "Anti-sozialer Ex-Kultist widerwillen",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "30.6.377",
+        "height": "1,72",
+        "functions": [
+            "Ehem. gezwungener Kultist"
+        ],
+        "class": "Hexer",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Aegir"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [],
+        "lover": ""
+    },
+    {
+        "name": "Falk",
+        "surname": "",
+        "title": "Gute Seele des Dorfes",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "30.6.376",
+        "height": "1,79",
+        "functions": [
+            "Buchh\u00e4ndler"
+        ],
+        "class": "B\u00fcrger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Schachendorf"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Gretchen",
+                "Freundin"
+            ]
+        ],
+        "lover": "Alice"
+    },
+    {
+        "name": "Farone",
+        "surname": "",
+        "title": "Leicht-Reizbares Nachtschattengew\u00e4chs",
+        "race": "G\u00f6tter",
+        "sex": "w",
+        "birthday": "",
+        "height": "1,44",
+        "functions": [
+            "G\u00f6ttin der Magie und der Natur"
+        ],
+        "class": "Gott",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Garten der Magie"
+        ],
+        "alignment": "CN",
+        "status": "false",
+        "relationships": [
+            [
+                "Finnea",
+                "Tochter"
+            ],
+            [
+                "Adamar",
+                "Sohn"
+            ],
+            [
+                "Phaerille",
+                "Tochter"
+            ],
+            [
+                "Nayru",
+                "Reckin in Ausbildung"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Felix",
+        "surname": "",
+        "title": "Bischof in Spe",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "18.10.371",
+        "height": "1,75",
+        "functions": [
+            "M\u00f6nch"
+        ],
+        "class": "Kleriker",
+        "subclasses": [
+            "Kleriker der Fortuna"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Kloster Schicksalsweg"
+        ],
+        "alignment": "LG",
+        "status": "true",
+        "relationships": [
+            [
+                "Vater Perrotus",
+                "Ziehvater"
+            ],
+            [
+                "Heimliche Liebe und Glaubensschwester",
+                ""
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Felldir",
+        "surname": "",
+        "title": "Unbesiegter Kommandant",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "18.8.335",
+        "height": "1,86",
+        "functions": [
+            "Kommandant der Stadtwache Grenbrock"
+        ],
+        "class": "Paladin",
+        "subclasses": [
+            "Thronw\u00e4chter"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Grenbrock"
+        ],
+        "alignment": "LN",
+        "status": "true",
+        "relationships": [
+            [
+                "Kurf\u00fcrst Jervar",
+                "ehem. Herr"
+            ],
+            [
+                "Hadubrandt",
+                "Oberste Instanz der Kirche"
+            ],
+            [
+                "Johann",
+                "Untergebener"
+            ],
+            [
+                "Siegmund",
+                "ehem. Feind, nun Herr"
+            ],
+            [
+                "U-Ranos",
+                "ehem. Feind, nun Herr"
+            ],
+            [
+                "Nayru",
+                "Herrin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Fl\u00fcstern",
+        "surname": "",
+        "title": "Erster Richter des Herzogs",
+        "race": "Tieflinge",
+        "sex": "m",
+        "birthday": "5.3.258",
+        "height": "1,85",
+        "functions": [
+            "Erster Richter des Herzogs von Markath"
+        ],
+        "class": "Hexer",
+        "subclasses": [
+            "Teufelsbringer"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Llurthargothr"
+        ],
+        "alignment": "CN",
+        "status": "true",
+        "relationships": [
+            [
+                "Morgen",
+                "Gro\u00dfe Schwester"
+            ],
+            [
+                "Horizont",
+                "Herr"
+            ],
+            [
+                "Grund",
+                "Freund und Kollege"
+            ],
+            [
+                "Grenze",
+                "Vorgesetzte"
+            ]
+        ],
+        "lover": "Spitze"
+    },
+    {
+        "name": "Fortuna",
+        "surname": "",
+        "title": "Stichelndes Schicksal",
+        "race": "G\u00f6tter",
+        "sex": "w",
+        "birthday": "",
+        "height": "1,89",
+        "functions": [
+            "G\u00f6ttin des Schicksals"
+        ],
+        "class": "Gott",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "See des Schicksals"
+        ],
+        "alignment": "NG",
+        "status": "verschwunden",
+        "relationships": [
+            [
+                "Meilira",
+                "Tochter"
+            ],
+            [
+                "Ar-Merer",
+                "Ungeliebter Neffe"
+            ],
+            [
+                "En-Troad",
+                "Neffe"
+            ],
+            [
+                "Il-Vernia",
+                "Nichte"
+            ],
+            [
+                "O-Gall",
+                "Neffe"
+            ],
+            [
+                "U-Ranos",
+                "Lieblingsneffe"
+            ],
+            [
+                "Inoro",
+                "Neffe"
+            ],
+            [
+                "Thanatos",
+                "Guter Freund"
+            ],
+            [
+                "Farone",
+                "Freundin"
+            ],
+            [
+                "Seloue",
+                "Freundin"
+            ],
+            [
+                "Scarlet",
+                "Beste Freundin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Francis",
+        "surname": "von Falkenhayn",
+        "title": "Vertr\u00e4umter 'Zauberer'",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "24.11.366",
+        "height": "1,72",
+        "functions": [
+            "Vasall des Serff"
+        ],
+        "class": "Zauberer",
+        "subclasses": [
+            "Phantasmant"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Frelia"
+        ],
+        "alignment": "CG",
+        "status": "false",
+        "relationships": [
+            [
+                "Volo",
+                "Herr"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Fubuki",
+        "surname": "",
+        "title": "Knuffiges Eis des Nordens",
+        "race": "Schutzgeist",
+        "sex": "w",
+        "birthday": "",
+        "height": "1,44",
+        "functions": [
+            "Hohef\u00fcrstin des Eises"
+        ],
+        "class": "Hohef\u00fcrst",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Kronen-Schneeberge"
+        ],
+        "alignment": "LG",
+        "status": "true",
+        "relationships": [
+            [
+                "U-Ranos",
+                "Adoptivvater"
+            ],
+            [
+                "Nayru",
+                "Pflegemutter"
+            ],
+            [
+                "Kaen",
+                "Freundin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Gerard",
+        "surname": "",
+        "title": "St\u00e4hlernes Kraftpaket der Wildnis",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "8.2.363",
+        "height": "1,96",
+        "functions": [],
+        "class": "K\u00e4mpfer",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Nordholm"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Nayru",
+                "Trainingspartnerin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Grenze",
+        "surname": "",
+        "title": "Schnitter der Verlorenen",
+        "race": "D\u00e4monen",
+        "sex": "w",
+        "birthday": "7.7.253",
+        "height": "1,78",
+        "functions": [
+            "Leibgarde des Herzogs von Markath"
+        ],
+        "class": "K\u00e4mpfer",
+        "subclasses": [
+            "Magieritter"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Llurthargothr"
+        ],
+        "alignment": "LN",
+        "status": "true",
+        "relationships": [
+            [
+                "Horizont",
+                "Herr und Retter"
+            ],
+            [
+                "Morgen",
+                "Herrin"
+            ],
+            [
+                "Fl\u00fcstern",
+                "Untergebener"
+            ],
+            [
+                "Spitze",
+                "Untergebene"
+            ],
+            [
+                "Grund",
+                "Untergebener"
+            ],
+            [
+                "U-Ranos",
+                "Anerkannter Rivale"
+            ],
+            [
+                "Nayru",
+                "Anerkannte Rivalin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Gretchen",
+        "surname": "",
+        "title": "Apothekerin des Waldes",
+        "race": "Menschen",
+        "sex": "w",
+        "birthday": "29.7.366",
+        "height": "1,63",
+        "functions": [
+            "Apothekerin"
+        ],
+        "class": "B\u00fcrger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Schachendorf"
+        ],
+        "alignment": "LG",
+        "status": "true",
+        "relationships": [
+            [
+                "Vernia",
+                "gro\u00dfe Schwester"
+            ],
+            [
+                "Falk",
+                "Freund"
+            ],
+            [
+                "Marjorie",
+                "Freundin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Grete",
+        "surname": "",
+        "title": "Gelangweiltes Hausm\u00e4dchen",
+        "race": "Menschen",
+        "sex": "w",
+        "birthday": "4.3.375",
+        "height": "1,76",
+        "functions": [
+            "Hausm\u00e4dchen im Jadgschloss D\u00fcnsberg"
+        ],
+        "class": "Maid",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "D\u00fcnsberg"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Edgar",
+                "Kollege"
+            ],
+            [
+                "Dorian",
+                "Ehem. Herr"
+            ],
+            [
+                "Eris",
+                "Freundin und Kollegin"
+            ],
+            [
+                "Karl",
+                "Guter Freund und Kollege"
+            ],
+            [
+                "Siegmund",
+                "Herr"
+            ],
+            [
+                "Nayru",
+                "Herr"
+            ],
+            [
+                "U-Ranos",
+                "Herr"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Grund",
+        "surname": "",
+        "title": "Tiefstes aller Wasser",
+        "race": "Tieflinge",
+        "sex": "m",
+        "birthday": "10.3.266",
+        "height": "1,76",
+        "functions": [
+            "Zweiter Richter des Herzogs von Markath"
+        ],
+        "class": "Druide",
+        "subclasses": [
+            "Mondwandler"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Llurthargothr",
+            "Undraridor"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Horizont",
+                "Herr"
+            ],
+            [
+                "Spitze",
+                "Kollegin"
+            ],
+            [
+                "Fl\u00fcstern",
+                "Kollege"
+            ],
+            [
+                "Grenze",
+                "Vorgesetzte"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Hama",
+        "surname": "",
+        "title": "Forsches Heilungswunder",
+        "race": "Pikori",
+        "sex": "w",
+        "birthday": "",
+        "height": "1,78",
+        "functions": [
+            "Hohef\u00fcrstin der Gesundheit"
+        ],
+        "class": "Hohef\u00fcrst",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "{}"
+        ],
+        "alignment": "LG",
+        "status": "true",
+        "relationships": [
+            [
+                "Ouin",
+                "Kleiner Bruder"
+            ],
+            [
+                "Seloue",
+                "Beste Freundin"
+            ],
+            [
+                "Thanatos",
+                "Bester Freund"
+            ],
+            [
+                "Rai",
+                "Guter Freund"
+            ],
+            [
+                "Mei",
+                "Gute Freundin"
+            ],
+            [
+                "Mudo",
+                "Guter Freund"
+            ],
+            [
+                "U-Ranos",
+                "Sehr guter Freund"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Hartwin",
+        "surname": "",
+        "title": "Pflichtbewusster Leibw\u00e4chter",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "13.6.369",
+        "height": "1,92",
+        "functions": [
+            "Leibgarde des Kurf\u00fcrsten von Thaugrien"
+        ],
+        "class": "Paladin",
+        "subclasses": [
+            "Tronw\u00e4chter"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Grenbrock"
+        ],
+        "alignment": "LN",
+        "status": "true",
+        "relationships": [
+            [
+                "Jervar",
+                "Herr"
+            ],
+            [
+                "Cordelia",
+                "Herrin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Hindrik",
+        "surname": "",
+        "title": "Muskul\u00f6ser Schreiner",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "17.1.357",
+        "height": "1,98",
+        "functions": [
+            "Besitzer der S\u00e4gem\u00fchle bei Brodia",
+            "Schreiner"
+        ],
+        "class": "Waldl\u00e4ufer",
+        "subclasses": [
+            "J\u00e4ger"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Brodia"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Linus",
+                "guter Freund"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Horizont",
+        "surname": "",
+        "title": "Br\u00fcckenbauender Herzog",
+        "race": "Tiefling",
+        "sex": "m",
+        "birthday": "28.5.151",
+        "height": "1,93",
+        "functions": [
+            "Herzog von Markath"
+        ],
+        "class": "Hexer",
+        "subclasses": [
+            "Fluchklinge"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Llurthargothr"
+        ],
+        "alignment": "TN",
+        "status": "true",
+        "relationships": [
+            [
+                "Fl\u00fcstern",
+                "Untergebener"
+            ],
+            [
+                "Spitze",
+                "Untergebene"
+            ],
+            [
+                "Grund",
+                "Untergebener"
+            ],
+            [
+                "Grenze",
+                "Untergebene"
+            ]
+        ],
+        "lover": "Morgen"
+    },
+    {
+        "name": "Hosgrid",
+        "surname": "",
+        "title": "D\u00fcnsbergs Ewiger B\u00fcrgermeister A.D.",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "17.8.331",
+        "height": "1,78",
+        "functions": [
+            "Ehem. B\u00fcrgermeister von D\u00fcnsberg"
+        ],
+        "class": "B\u00fcrger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "D\u00fcnsberg"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Avarne",
+                "Sohn"
+            ],
+            [
+                "Jofina",
+                "Schwiegertochter"
+            ],
+            [
+                "Burdig",
+                "bester Freund"
+            ],
+            [
+                "Igmusur",
+                "guter Freund"
+            ],
+            [
+                "Igor",
+                "guter Freund"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Iddra",
+        "surname": "",
+        "title": "R\u00e4tselhafte Verb\u00fcndete",
+        "race": "D\u00e4monen",
+        "sex": "w",
+        "birthday": "",
+        "height": "1,70",
+        "functions": [
+            "Hohef\u00fcrstin der Gier"
+        ],
+        "class": "Hohef\u00fcrst",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Niddarvellir"
+        ],
+        "alignment": "CG",
+        "status": "true",
+        "relationships": [
+            [
+                "Siegmund",
+                "Vasall und Liebschaft"
+            ],
+            [
+                "U-Ranos",
+                "Freund und Leidensgenosse"
+            ],
+            [
+                "Nayru",
+                "Freundin"
+            ],
+            [
+                "Mudo",
+                "Freund"
+            ],
+            [
+                "Invidianoir",
+                "Freundin"
+            ],
+            [
+                "Memoriae",
+                "Freundin"
+            ],
+            [
+                "Craindre",
+                "Rivalin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Igmusur",
+        "surname": "",
+        "title": "Gesicht der Renterbrigade",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "30.3.321",
+        "height": "1,76",
+        "functions": [
+            "Ehem. Hofkleriker des K\u00f6nigs"
+        ],
+        "class": "Kleriker",
+        "subclasses": [
+            "Erzbischof der Gerechtigkeit"
+        ],
+        "masterclass": "",
+        "homes": [
+            "D\u00fcnsberg",
+            "Aegir"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Marisa",
+                "Sch\u00fclerin"
+            ],
+            [
+                "U-Ranos",
+                "Langj\u00e4hriger Freund"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Ignaz",
+        "surname": "",
+        "title": "Experimentierfreudiger Neo-Alchemist",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "19.4.372",
+        "height": "1,71",
+        "functions": [
+            "Alchemist"
+        ],
+        "class": "B\u00fcrger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Frelia"
+        ],
+        "alignment": "CN",
+        "status": "true",
+        "relationships": [
+            [
+                "Nayru",
+                "Versuchskaninchen"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Il-Vernia",
+        "surname": "",
+        "title": "Lichtbringende Botin",
+        "race": "Engel",
+        "sex": "m",
+        "birthday": "",
+        "height": "1,70",
+        "functions": [
+            "Reckin der Justicia"
+        ],
+        "class": "Recke",
+        "subclasses": [
+            "S\u00e4nger des Wissens"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Hof der Gerechtigkeit"
+        ],
+        "alignment": "LG",
+        "status": "false",
+        "relationships": [
+            [
+                "Justicia",
+                "Mutter"
+            ],
+            [
+                "Inoro",
+                "Vorg\u00e4nger"
+            ],
+            [
+                "Ar-Merer",
+                "Bruder"
+            ],
+            [
+                "En-Troad",
+                "Bruder"
+            ],
+            [
+                "O-Gall",
+                "Bruder"
+            ],
+            [
+                "U-Ranos",
+                "Bruder"
+            ],
+            [
+                "Fortuna",
+                "Tante"
+            ],
+            [
+                "Meilira",
+                "Cousine"
+            ],
+            [
+                "Unbenannter Gott",
+                "Onkel"
+            ],
+            [
+                "Avila",
+                "Gute Freundin"
+            ],
+            [
+                "Zora",
+                "Gute Freundin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Invidianoir",
+        "surname": "",
+        "title": "Gef\u00e4hrliche Liebschaft",
+        "race": "Menschen",
+        "sex": "w",
+        "birthday": "",
+        "height": "1,78",
+        "functions": [
+            "Hohef\u00fcrstin der Eifersucht"
+        ],
+        "class": "Hohef\u00fcrst",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [],
+        "alignment": "CE",
+        "status": "true",
+        "relationships": [
+            [
+                "Iddra",
+                "Freundin"
+            ],
+            [
+                "Kaen",
+                "Schwester"
+            ],
+            [
+                "Memoriae",
+                "Freundin"
+            ],
+            [
+                "Craindre",
+                "Freundin"
+            ],
+            [
+                "Serff",
+                "Freund"
+            ],
+            [
+                "Volo",
+                "Freund"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Isabella",
+        "surname": "von Natrow",
+        "title": "Pittoreskes Multitalent der K\u00fcnste",
+        "race": "Menschen",
+        "sex": "w",
+        "birthday": "16.9.373",
+        "height": "1,57",
+        "functions": [
+            "Schriftstellerin",
+            "Schauspielerin"
+        ],
+        "class": "Adliger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Aegir"
+        ],
+        "alignment": "LG",
+        "status": "true",
+        "relationships": [
+            [
+                "Lilia",
+                "Freundin"
+            ],
+            [
+                "Arthur",
+                "Schriftstellerkollege"
+            ],
+            [
+                "Silvia",
+                "gute Freundin"
+            ],
+            [
+                "Frille",
+                "gute Freundin"
+            ],
+            [
+                "Jofina",
+                "gute Freundin"
+            ],
+            [
+                "U-Ranos",
+                "Freund"
+            ],
+            [
+                "Nayru",
+                "Freundin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Jervar",
+        "surname": "von Grenbrock",
+        "title": "Verblendeter Kriegsherr",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "23.6.372",
+        "height": "1,84",
+        "functions": [
+            "Kurf\u00fcrst von Thaugrien"
+        ],
+        "class": "Paladin",
+        "subclasses": [
+            "Eroberer"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Grenbrock"
+        ],
+        "alignment": "LN",
+        "status": "true",
+        "relationships": [
+            [
+                "Cordelia",
+                "gro\u00dfe Schwester"
+            ],
+            [
+                "Hartwin",
+                "Untergebener, Freunde"
+            ],
+            [
+                "Stephan",
+                "Cousin"
+            ],
+            [
+                "Tristan",
+                "Cousin"
+            ],
+            [
+                "Eliza",
+                "Cousine"
+            ],
+            [
+                "Narcian",
+                "lieblings Cousin"
+            ],
+            [
+                "Marisa",
+                "Cousine"
+            ],
+            [
+                "Felldir",
+                "enger Vertrauter"
+            ],
+            [
+                "Kristian",
+                "Cousin"
+            ],
+            [
+                "Kristina",
+                "Cousine"
+            ],
+            [
+                "Narcian",
+                "Cousin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Jofina",
+        "surname": "von Salten",
+        "title": "Frischer Wind von D\u00fcnsberg",
+        "race": "Halbelfen",
+        "sex": "w",
+        "birthday": "11.11.371",
+        "height": "1,72",
+        "functions": [
+            "B\u00fcrgermeisterin von D\u00fcnsberg"
+        ],
+        "class": "Adliger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "D\u00fcnsberg",
+            "Aegir"
+        ],
+        "alignment": "LG",
+        "status": "true",
+        "relationships": [
+            [
+                "Hosgrid",
+                "Schwiegervater"
+            ],
+            [
+                "Isabella",
+                "Freundin"
+            ],
+            [
+                "Ezekiel",
+                "Freund"
+            ]
+        ],
+        "lover": "Avarne"
+    },
+    {
+        "name": "Johann",
+        "surname": "",
+        "title": "Ritterlicher Ungl\u00fccksmagnet",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "17.10.365",
+        "height": "1,85",
+        "functions": [
+            "Ehem. Soldat der Stadtwache Grenbrock",
+            "Wache im Jagdschloss D\u00fcnsberg"
+        ],
+        "class": "K\u00e4mpfer",
+        "subclasses": [
+            "Samurai"
+        ],
+        "masterclass": "",
+        "homes": [
+            "D\u00fcnsberg",
+            "Grenbrock"
+        ],
+        "alignment": "CG",
+        "status": "true",
+        "relationships": [
+            [
+                "Siegmund",
+                "Herr"
+            ],
+            [
+                "U-Ranos",
+                "Herr"
+            ],
+            [
+                "Nayru",
+                "Herr"
+            ],
+            [
+                "Felldir",
+                "ehem. Vorgesetzter"
+            ],
+            [
+                "Rosalinde",
+                "gute Freundin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Joist",
+        "surname": "",
+        "title": "Beherzter Seemann",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "8.4.351",
+        "height": "1,70",
+        "functions": [
+            "Fischer"
+        ],
+        "class": "",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Lycia"
+        ],
+        "alignment": "TN",
+        "status": "true",
+        "relationships": [
+            [
+                "Eberd",
+                "guter Freund"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Julianne",
+        "surname": "",
+        "title": "Begeisterte Barfrau mit Alkoholproblem",
+        "race": "Menschen",
+        "sex": "w",
+        "birthday": "27.6.367",
+        "height": "1,66",
+        "functions": [
+            "Besitzerin der Bar 'F\u00f3lkvangr'"
+        ],
+        "class": "TODO",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Frelia"
+        ],
+        "alignment": "CG",
+        "status": "true",
+        "relationships": [
+            [
+                "U-Ranos",
+                "Freund"
+            ],
+            [
+                "Ignaz",
+                "Freund"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Justicia",
+        "surname": "",
+        "title": "Gerechte Mutter",
+        "race": "G\u00f6tter",
+        "sex": "w",
+        "birthday": "",
+        "height": "1,96",
+        "functions": [
+            "G\u00f6ttin der Gerechtigkeit und des Lichts"
+        ],
+        "class": "Gott",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Hof der Gerechtigkeit"
+        ],
+        "alignment": "LG",
+        "status": "verschwunden",
+        "relationships": [
+            [
+                "Inoro",
+                "Sohn"
+            ],
+            [
+                "En-Troad",
+                "Sohn"
+            ],
+            [
+                "Il-Vernia",
+                "Tochter"
+            ],
+            [
+                "O-Gall",
+                "Sohn"
+            ],
+            [
+                "U-Ranos",
+                "Sohn"
+            ],
+            [
+                "Fortuna",
+                "Schwester"
+            ],
+            [
+                "Meilira",
+                "Nichte"
+            ],
+            [
+                "Unbenannter Gott",
+                "Bruder"
+            ],
+            [
+                "Thanatos",
+                "guter Freund"
+            ],
+            [
+                "Farone",
+                "gute Freundin"
+            ],
+            [
+                "Seloue",
+                "beste Freundin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Kaen",
+        "surname": "",
+        "title": "Hitzk\u00f6pfige Zeitgenossin",
+        "race": "Menschen",
+        "sex": "w",
+        "birthday": "",
+        "height": "1,58",
+        "functions": [
+            "Hohef\u00fcrstin des Feuers"
+        ],
+        "class": "Hohef\u00fcrst",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Feuersanktuarium"
+        ],
+        "alignment": "CN",
+        "status": "true",
+        "relationships": [
+            [
+                "Invidianoir",
+                "Schwester"
+            ],
+            [
+                "Fubuki",
+                "Freundin"
+            ],
+            [
+                "Scarlet",
+                "Freundin"
+            ],
+            [
+                "U-Ranos",
+                "Freund"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Karl",
+        "surname": "",
+        "title": "Gottgleicher Haush\u00e4lter",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "16.10.372",
+        "height": "1,79",
+        "functions": [
+            "Haush\u00e4lter im Jagdschloss D\u00fcnsberg"
+        ],
+        "class": "B\u00fcrger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "D\u00fcnsberg"
+        ],
+        "alignment": "LN",
+        "status": "true",
+        "relationships": [
+            [
+                "Edgar",
+                "Angestellter"
+            ],
+            [
+                "Dorian",
+                "Ehem. Herr"
+            ],
+            [
+                "Grete",
+                "Angestellte"
+            ],
+            [
+                "Eris",
+                "Angestellte"
+            ],
+            [
+                "Siegmund",
+                "Herr"
+            ],
+            [
+                "Nayru",
+                "Herrin"
+            ],
+            [
+                "U-Ranos",
+                "Herr"
+            ],
+            [
+                "Phillip",
+                "Angestellter"
+            ],
+            [
+                "Johann",
+                "Angestellter"
+            ],
+            [
+                "Burdig",
+                "Bruder"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Konrad",
+        "surname": "von Silberbach",
+        "title": "K\u00fchne Stellvertretung",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "20.11.369",
+        "height": "1,78",
+        "functions": [
+            "Stellv. Gro\u00dfherzog v. Tinorland"
+        ],
+        "class": "Adliger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Tinorke"
+        ],
+        "alignment": "LN",
+        "status": "true",
+        "relationships": [
+            [
+                "Kristian",
+                "ehem. Herr"
+            ],
+            [
+                "Kristina",
+                "ehem. Herrin"
+            ],
+            [
+                "Cornelius",
+                "guter Freund"
+            ],
+            [
+                "Rosemarie",
+                "gute Freundin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Kristian",
+        "surname": "von Tinorke",
+        "title": "Sympathischer Herrscher",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "11.5.372",
+        "height": "1,81",
+        "functions": [
+            "Vasall des Terralion",
+            "Ehem. Gro\u00dfherzog von Tinorland"
+        ],
+        "class": "K\u00e4mpfer",
+        "subclasses": [
+            "Kavallerist"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Tinorke"
+        ],
+        "alignment": "TN",
+        "status": "false",
+        "relationships": [
+            [
+                "Konrad",
+                "ehem. Untergebener"
+            ],
+            [
+                "Kristina",
+                "Schwester"
+            ],
+            [
+                "Terralion",
+                "Herr"
+            ],
+            [
+                "Jervar",
+                "Cousin"
+            ],
+            [
+                "Cordelia",
+                "Cousine"
+            ],
+            [
+                "Stephan",
+                "Cousin"
+            ],
+            [
+                "Tristan",
+                "Cousin"
+            ],
+            [
+                "Eliza",
+                "Cousine"
+            ],
+            [
+                "Marisa",
+                "Cousine"
+            ],
+            [
+                "Narcian",
+                "Cousin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Kristina",
+        "surname": "von Tinorke",
+        "title": "Dorniges Veilchen",
+        "race": "Menschen",
+        "sex": "w",
+        "birthday": "11.5.372",
+        "height": "1,65",
+        "functions": [
+            "Vasallin der Invidianoir",
+            "Ehem. Gro\u00dfherzogin von Tinorland"
+        ],
+        "class": "Hexer",
+        "subclasses": [
+            "Gef\u00e4\u00df des Abgrunds"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Frelia"
+        ],
+        "alignment": "NE",
+        "status": "false",
+        "relationships": [
+            [
+                "Konrad",
+                "ehem. Untergebener"
+            ],
+            [
+                "Krisitan",
+                "Bruder"
+            ],
+            [
+                "Invidianoir",
+                "Herrin, Freundin"
+            ],
+            [
+                "Jervar",
+                "Cousin"
+            ],
+            [
+                "Cordelia",
+                "Cousine"
+            ],
+            [
+                "Stephan",
+                "Cousin"
+            ],
+            [
+                "Tristan",
+                "Cousin"
+            ],
+            [
+                "Eliza",
+                "Cousine"
+            ],
+            [
+                "Marisa",
+                "Cousine"
+            ],
+            [
+                "Narcian",
+                "Cousin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Lavande",
+        "surname": "",
+        "title": "Sch\u00fcchterne Bibliothekarin",
+        "race": "Menschen",
+        "sex": "w",
+        "birthday": "13.12.372",
+        "height": "1,55",
+        "functions": [
+            "Biblothekarin"
+        ],
+        "class": "Zauberer",
+        "subclasses": [
+            "Schriftgelehrter"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Frelia"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Seloue",
+                "Vorbild, Chefin"
+            ],
+            [
+                "U-Ranos",
+                "Retter"
+            ],
+            [
+                "Theodoric",
+                "guter Freund"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Lilia",
+        "surname": "",
+        "title": "Besorgte kleine Schwester",
+        "race": "Menschen",
+        "sex": "w",
+        "birthday": "26.2.371",
+        "height": "1,68",
+        "functions": [],
+        "class": "B\u00fcrger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Aegir"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Erika",
+                "Schwester"
+            ],
+            [
+                "Marisa",
+                "Freundin"
+            ],
+            [
+                "Igmusur",
+                "Freund"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Linet",
+        "surname": "",
+        "title": "Fahrendes Raubopfer",
+        "race": "Menschen",
+        "sex": "w",
+        "birthday": "19.8.367",
+        "height": "1,72",
+        "functions": [
+            "Fahrende H\u00e4ndlerin"
+        ],
+        "class": "B\u00fcrger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Elpis"
+        ],
+        "alignment": "LG",
+        "status": "true",
+        "relationships": [
+            [
+                "Siegmund",
+                "Retter"
+            ],
+            [
+                "U-Ranos",
+                "Retter"
+            ],
+            [
+                "Nayru",
+                "Retter"
+            ],
+            [
+                "Marjorie",
+                "Freundin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Linus",
+        "surname": "",
+        "title": "Authentischer Macher",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "23.7.362",
+        "height": "1,86",
+        "functions": [
+            "Besitzer der Taverne 'Stilles B\u00e4chlein'"
+        ],
+        "class": "Tavernenbesitzer",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Brodia"
+        ],
+        "alignment": "LG",
+        "status": "true",
+        "relationships": [
+            [
+                "Viktor",
+                "Stammkunde"
+            ],
+            [
+                "Modaharius",
+                "Stammkunde"
+            ],
+            [
+                "Hindrik",
+                "Stammkunde"
+            ],
+            [
+                "Rosemarie",
+                "Schwester"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Lysander",
+        "surname": "",
+        "title": "Blasser Theatraliker",
+        "race": "Vampire",
+        "sex": "m",
+        "birthday": "18.3.-116",
+        "height": "1,87",
+        "functions": [
+            "Herr des Vampiranwesens am Tellius"
+        ],
+        "class": "Magier",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Tellius"
+        ],
+        "alignment": "CN",
+        "status": "true",
+        "relationships": [],
+        "lover": ""
+    },
+    {
+        "name": "Malon",
+        "surname": "",
+        "title": "Vornehmer Held",
+        "race": "Elfen",
+        "sex": "m",
+        "birthday": "9.2.115",
+        "height": "1,94",
+        "functions": [
+            "Wache am Grenzposten zu Inidal"
+        ],
+        "class": "Waldl\u00e4ufer",
+        "subclasses": [
+            "Grenzstreifer"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Yerenas",
+            "Inidal-Grenzposten"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Eliyen",
+                "Freundin und Kollegin"
+            ],
+            [
+                "Nayru",
+                "Freundin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Marine",
+        "surname": "",
+        "title": "Raue Vertraute",
+        "race": "Halbelfen",
+        "sex": "w",
+        "birthday": "27.11.368",
+        "height": "1,78",
+        "functions": [
+            "Leibgarde der Kurf\u00fcrstin von Hal"
+        ],
+        "class": "Paladin",
+        "subclasses": [
+            "Thronw\u00e4chter"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Frelia"
+        ],
+        "alignment": "LN",
+        "status": "true",
+        "relationships": [
+            [
+                "Solenne",
+                "Herrin"
+            ],
+            [
+                "Sonya",
+                "Herrin, Freundin"
+            ]
+        ],
+        "lover": "name"
+    },
+    {
+        "name": "Marisa",
+        "surname": "von Aegir",
+        "title": "Unschuldige Blume",
+        "race": "Halbelfen",
+        "sex": "w",
+        "birthday": "17.3.375",
+        "height": "1,64",
+        "functions": [
+            "Prinzessin von Faergria"
+        ],
+        "class": "Kleriker",
+        "subclasses": [
+            "Kleriker der Justicia"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Aegir"
+        ],
+        "alignment": "LG",
+        "status": "true",
+        "relationships": [
+            [
+                "Gralnach",
+                "Vater"
+            ],
+            [
+                "Cathlen",
+                "Mutter"
+            ],
+            [
+                "Narcian",
+                "liebevoller Bruder"
+            ],
+            [
+                "Cassius",
+                "Berater"
+            ],
+            [
+                "Igmusur",
+                "ehem. Lehrmeister"
+            ],
+            [
+                "Erika",
+                "beste Freundin"
+            ],
+            [
+                "Lilia",
+                "Freundin"
+            ],
+            [
+                "Jervar",
+                "Cousin"
+            ],
+            [
+                "Cordelia",
+                "Cousine"
+            ],
+            [
+                "Kristian",
+                "Cousin"
+            ],
+            [
+                "Kristina",
+                "Cousine"
+            ],
+            [
+                "Stephan",
+                "Cousin"
+            ],
+            [
+                "Tristan",
+                "Cousin"
+            ],
+            [
+                "Eliza",
+                "Cousine"
+            ],
+            [
+                "Siegmund",
+                "heimliche Liebe"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Marjorie",
+        "surname": "",
+        "title": "Rachs\u00fcchtige Reporterin",
+        "race": "Halbelfen",
+        "sex": "w",
+        "birthday": "30.10.371",
+        "height": "1,69",
+        "functions": [
+            "Reporterin"
+        ],
+        "class": "B\u00fcger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Elpis"
+        ],
+        "alignment": "TN",
+        "status": "true",
+        "relationships": [
+            [
+                "Artie",
+                "Feind"
+            ],
+            [
+                "U-Ranos",
+                "Freund"
+            ],
+            [
+                "Nayru",
+                "Freundin"
+            ],
+            [
+                "Linet",
+                "Freundin"
+            ],
+            [
+                "Gretchen",
+                "Freundin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Meilira",
+        "surname": "",
+        "title": "Schicksalsklinge der Fortuna",
+        "race": "Menschen",
+        "sex": "w",
+        "birthday": "",
+        "height": "1,82",
+        "functions": [
+            "Reckin der Fortuna"
+        ],
+        "class": "Recke",
+        "subclasses": [
+            "Reinherz"
+        ],
+        "masterclass": "",
+        "homes": [
+            "See des Schicksals"
+        ],
+        "alignment": "LN",
+        "status": "true",
+        "relationships": [
+            [
+                "Fortuna",
+                "Mutter"
+            ],
+            [
+                "Inoro",
+                "Cousin"
+            ],
+            [
+                "Ar-Merer",
+                "Cousin"
+            ],
+            [
+                "En-Troad",
+                "Cousin"
+            ],
+            [
+                "Il-Vernia",
+                "Cousine"
+            ],
+            [
+                "O-Gall",
+                "Cousin"
+            ],
+            [
+                "U-Ranos",
+                "Cousin"
+            ],
+            [
+                "Justicia",
+                "Tante"
+            ],
+            [
+                "Unbenannter Gott",
+                "Onkel"
+            ],
+            [
+                "Eliza",
+                "Freundin"
+            ],
+            [
+                "Nayru",
+                "Freundin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Modaharius",
+        "surname": "",
+        "title": "Knochiger Zauberer in besten Jahren",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "1.1.201",
+        "height": "1,82",
+        "functions": [],
+        "class": "Zauberer",
+        "subclasses": [
+            "Beschw\u00f6rer"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Brodia"
+        ],
+        "alignment": "NG",
+        "status": "untot",
+        "relationships": [
+            [
+                "Linus",
+                "Freund"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Morgen",
+        "surname": "",
+        "title": "Aufgehende Sonne der Unterwelt",
+        "race": "Tieflinge",
+        "sex": "w",
+        "birthday": "12.12.230",
+        "height": "1,82",
+        "functions": [
+            "Herzogin von Markath"
+        ],
+        "class": "Hexer",
+        "subclasses": [
+            "Sternengei\u00dfel"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Llurthargothr"
+        ],
+        "alignment": "CG",
+        "status": "true",
+        "relationships": [
+            [
+                "Fl\u00fcstern",
+                "kleiner Bruder, Untergebener"
+            ],
+            [
+                "Spitze",
+                "gute Freundin, Untergebene"
+            ],
+            [
+                "Grund",
+                "Untergebener"
+            ],
+            [
+                "Grenze",
+                "Untergebene"
+            ]
+        ],
+        "lover": "Horizont"
+    },
+    {
+        "name": "Mudo",
+        "surname": "",
+        "title": "Klinge des Todes",
+        "race": "D\u00e4monen",
+        "sex": "m",
+        "birthday": "",
+        "height": "1,88",
+        "functions": [
+            "Hohef\u00fcrst der Sterblichkeit"
+        ],
+        "class": "Hohef\u00fcrst",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "{}"
+        ],
+        "alignment": "LN",
+        "status": "true",
+        "relationships": [
+            [
+                "Hama",
+                "'beste' Freundin"
+            ],
+            [
+                "Iddra",
+                "Freunde"
+            ],
+            [
+                "Valerius",
+                "Vasall"
+            ],
+            [
+                "Thanatos",
+                "Freund"
+            ],
+            [
+                "U-Ranos",
+                "Freund"
+            ],
+            [
+                "Kaze",
+                "Freundin"
+            ],
+            [
+                "Ouin",
+                "Freund"
+            ],
+            [
+                "Avila",
+                "Freundin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Narcian",
+        "surname": "von Aegir",
+        "title": "Prinz der Dunkelheit",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "17.11.375",
+        "height": "1,82",
+        "functions": [
+            "K\u00f6nig von Faergria"
+        ],
+        "class": "Paladin",
+        "subclasses": [
+            "Gefallener"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Aegir"
+        ],
+        "alignment": "LE",
+        "status": "true",
+        "relationships": [
+            [
+                "Gralnach",
+                "Vater"
+            ],
+            [
+                "Cathlen",
+                "Mutter"
+            ],
+            [
+                "Jervar",
+                "Cousin"
+            ],
+            [
+                "Cordelia",
+                "Cousine"
+            ],
+            [
+                "Kristian",
+                "Cousin"
+            ],
+            [
+                "Kristina",
+                "Cousine"
+            ],
+            [
+                "Stephan",
+                "Cousin"
+            ],
+            [
+                "Tristan",
+                "Cousin"
+            ],
+            [
+                "Eliza",
+                "Cousine"
+            ],
+            [
+                "Malusdur",
+                "Herr"
+            ],
+            [
+                "Cassius",
+                "Berater"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Nayru",
+        "surname": "",
+        "title": "H\u00fcterin von Orrins Erbe",
+        "race": "Menschen",
+        "sex": "w",
+        "birthday": "25.11.372",
+        "height": "1,66",
+        "functions": [],
+        "class": "Waldl\u00e4ufer",
+        "subclasses": [
+            "Recke",
+            "J\u00e4ger"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Orrin",
+            "D\u00fcnsberg"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Balthus",
+                "Meister"
+            ],
+            [
+                "U-Ranos",
+                "Bester Freund, Vorbild"
+            ],
+            [
+                "Siegmund",
+                "Kampfgef\u00e4hrte"
+            ],
+            [
+                "Odiak",
+                "Drache im Training"
+            ],
+            [
+                "Farone",
+                "G\u00f6ttin, Herrin"
+            ],
+            [
+                "Karl",
+                "Butler"
+            ],
+            [
+                "Fubuki",
+                "Pflegetochter"
+            ],
+            [
+                "Ezekiel",
+                "m\u00f6glicher Sch\u00fcler"
+            ],
+            [
+                "Eliza",
+                "Reckenschwester"
+            ],
+            [
+                "Gerard",
+                "Bekannter"
+            ],
+            [
+                "Hindrik",
+                "Bekannter"
+            ],
+            [
+                "Burdig",
+                "Bekannter"
+            ],
+            [
+                "Modaharius",
+                "Bekannter"
+            ],
+            [
+                "Valerius",
+                "Bekannter"
+            ]
+        ],
+        "lover": "Thanatos"
+    },
+    {
+        "name": "Nerissa",
+        "surname": "",
+        "title": "",
+        "race": "Menschen",
+        "sex": "w",
+        "birthday": "2.1.368",
+        "height": "1,68",
+        "functions": [
+            "Orakel von Tellius"
+        ],
+        "class": "Kleriker der Zora",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Tellius"
+        ],
+        "alignment": "CN",
+        "status": "true",
+        "relationships": [],
+        "lover": ""
+    },
+    {
+        "name": "O-Gall",
+        "surname": "",
+        "title": "Himmlische Bestrafung",
+        "race": "Engel",
+        "sex": "m",
+        "birthday": "",
+        "height": "1,89",
+        "functions": [
+            "Recke der Justicia"
+        ],
+        "class": "Recke",
+        "subclasses": [
+            "Paladin",
+            "Heroe"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Hof der Gerechtigkeit"
+        ],
+        "alignment": "LG",
+        "status": "false",
+        "relationships": [
+            [
+                "Justicia",
+                "Mutter"
+            ],
+            [
+                "Inoro",
+                "Vorg\u00e4nger"
+            ],
+            [
+                "Ar-Merer",
+                "Bruder"
+            ],
+            [
+                "Il-Vernia",
+                "Schwester"
+            ],
+            [
+                "O-Gall",
+                "Bruder"
+            ],
+            [
+                "U-Ranos",
+                "Bruder"
+            ],
+            [
+                "Fortuna",
+                "Tante"
+            ],
+            [
+                "Meilira",
+                "Cousine"
+            ],
+            [
+                "Unbenannter Gott",
+                "Onkel"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Odiak",
+        "surname": "",
+        "title": "Letzter Drache des Landes",
+        "race": "Drachen",
+        "sex": "m/w",
+        "birthday": "",
+        "height": "5",
+        "functions": [],
+        "class": "",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Orrin",
+            "D\u00fcnsberg"
+        ],
+        "alignment": "LN",
+        "status": "true",
+        "relationships": [
+            [
+                "Nayru",
+                "Meisterin"
+            ],
+            [
+                "Balthus",
+                "ehem. Meister"
+            ],
+            [
+                "U-Ranos",
+                "Freunde"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Olaf",
+        "surname": "",
+        "title": "Tatkr\u00e4ftiger Schmied",
+        "race": "Zwerge",
+        "sex": "m",
+        "birthday": "7.6.205",
+        "height": "1,25",
+        "functions": [
+            "Schmied"
+        ],
+        "class": "B\u00fcrger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Garadzar"
+        ],
+        "alignment": "CN",
+        "status": "true",
+        "relationships": [
+            [
+                "Igor",
+                "Chef"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Osswald",
+        "surname": "",
+        "title": "Charismatischer Weinkconnoisseur",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "18.4.354",
+        "height": "1,87",
+        "functions": [
+            "Besitzer der Taverne 'Rattenloch'"
+        ],
+        "class": "B\u00fcrger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Niddarvellir"
+        ],
+        "alignment": "NE",
+        "status": "true",
+        "relationships": [
+            [
+                "Iddra",
+                "Chefin,Stammkundin"
+            ],
+            [
+                "Cedrik",
+                "Stammkunde"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Ouin",
+        "surname": "",
+        "title": "Ewige Jugend",
+        "race": "Pikori",
+        "sex": "m",
+        "birthday": "",
+        "height": "1,63",
+        "functions": [
+            "Hohef\u00fcrst der Jugend"
+        ],
+        "class": "Hohef\u00fcrst",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "See der Jugend"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Hama",
+                "gro\u00dfe Schwester"
+            ],
+            [
+                "Mudo",
+                "Freund"
+            ],
+            [
+                "U-Ranos",
+                "guter Freund"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Perrotus",
+        "surname": "",
+        "title": "Selbstloser Klostervater",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "7.1.321",
+        "height": "1,76",
+        "functions": [
+            "Klostervater"
+        ],
+        "class": "Kleriker",
+        "subclasses": [
+            "Schicksalsbischof"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Kloster Schicksalsweg"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Felix",
+                "Ziehsohn"
+            ],
+            [
+                "Carmesine",
+                "Ziehtochter"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Philip",
+        "surname": "",
+        "title": "Verh\u00e4tschelter Exzentriker",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "4.1.371",
+        "height": "1,84",
+        "functions": [
+            "Erfinder im Jagdschloss D\u00fcnsberg"
+        ],
+        "class": "T\u00fcftler",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Nifl",
+            "D\u00fcnsberg"
+        ],
+        "alignment": "CN",
+        "status": "true",
+        "relationships": [
+            [
+                "Karl",
+                "Freund, Vorgesetzter"
+            ],
+            [
+                "Siegmund",
+                "Herr"
+            ],
+            [
+                "Nayru",
+                "Herrin"
+            ],
+            [
+                "U-Ranos",
+                "Herr"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Reichart",
+        "surname": "",
+        "title": "Bahner mit Leidenschaft",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "8.12.347",
+        "height": "1,79",
+        "functions": [
+            "Kondukteur bei der Adrestianischen Eisenbahn"
+        ],
+        "class": "B\u00fcrger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Aegir"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Cornellius",
+                "Kollege"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Reisen",
+        "surname": "",
+        "title": "Tragisches Opferlamm",
+        "race": "Tiefling",
+        "sex": "w",
+        "birthday": "29.9.297",
+        "height": "1,62",
+        "functions": [],
+        "class": "Hexer",
+        "subclasses": [
+            "Bote der Unsterblichkeit"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Llurthargothr"
+        ],
+        "alignment": "NG",
+        "status": "false",
+        "relationships": [
+            [
+                "Grund",
+                "Cousine"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Rosemarie",
+        "surname": "",
+        "title": "L\u00e4chelnder Beistand",
+        "race": "Menschen",
+        "sex": "w",
+        "birthday": "8.4.374",
+        "height": "1,68",
+        "functions": [
+            "Angestellte im Badehaus Nifl"
+        ],
+        "class": "B\u00fcrger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Nifl"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Vernik",
+                "Chef"
+            ],
+            [
+                "Konrad",
+                "Freund"
+            ],
+            [
+                "Linus",
+                "Bruder"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Scarlet",
+        "surname": "",
+        "title": "S\u00fcndhaft obsz\u00f6ne Erzmagierin",
+        "race": "D\u00e4monen",
+        "sex": "w",
+        "birthday": "",
+        "height": "1,85",
+        "functions": [
+            "Reckin des Thanatos"
+        ],
+        "class": "Recke",
+        "subclasses": [
+            "Schattenmagier"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Gebirge der S\u00fcnde"
+        ],
+        "alignment": "CG",
+        "status": "verschollen",
+        "relationships": [
+            [
+                "Thanatos",
+                "Vater"
+            ],
+            [
+                "Cinnabar",
+                "Kleine Schwester"
+            ],
+            [
+                "Eliza",
+                "Kleine Schwester"
+            ],
+            [
+                "Finnea",
+                "Cousine"
+            ],
+            [
+                "Adamar",
+                "Cousin"
+            ],
+            [
+                "Phaerille",
+                "Cousine"
+            ],
+            [
+                "Farone",
+                "Tante"
+            ],
+            [
+                "U-Ranos",
+                "Sehr guter Freund"
+            ],
+            [
+                "Nayru",
+                "Sehr gute Freundin"
+            ],
+            [
+                "Seloue",
+                "Gute Freundin"
+            ],
+            [
+                "Fortuna",
+                "Gute Freundin"
+            ],
+            [
+                "Avila",
+                "Gute Freundin"
+            ],
+            [
+                "Kaen",
+                "Freundin"
+            ],
+            [
+                "Rai",
+                "Freund"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Seloue",
+        "surname": "",
+        "title": "Wandelndes Lexikon",
+        "race": "Halbelfen",
+        "sex": "w",
+        "birthday": "",
+        "height": "1,67",
+        "functions": [
+            "Hohef\u00fcrstin des Wissens"
+        ],
+        "class": "Hohef\u00fcrst",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Frelia"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Lavande",
+                "Lehrling"
+            ],
+            [
+                "U-Ranos",
+                "Ziehsohn"
+            ],
+            [
+                "Justicia",
+                "beste Freundin"
+            ],
+            [
+                "Hama",
+                "'beste' Freundin"
+            ],
+            [
+                "Fortuna",
+                "Freundin"
+            ],
+            [
+                "Thanatos",
+                "Freundin"
+            ],
+            [
+                "Theodoric",
+                "Freund"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Selphie",
+        "surname": "",
+        "title": "Gl\u00fccklichste Waise",
+        "race": "Elfen",
+        "sex": "w",
+        "birthday": "9.1.282",
+        "height": "1,45",
+        "functions": [],
+        "class": "B\u00fcrger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Teryvnat"
+        ],
+        "alignment": "LG",
+        "status": "true",
+        "relationships": [
+            [
+                "Tannivh",
+                "Ziehvater, 'gro\u00dfer Bruder'"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Shuichi",
+        "surname": "",
+        "title": "Hauptcharakter aus einer anderen Welt",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "7.8.375",
+        "height": "1,69",
+        "functions": [],
+        "class": "Abenteurer",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [],
+        "alignment": "CG",
+        "status": "true",
+        "relationships": [],
+        "lover": ""
+    },
+    {
+        "name": "Siegmund",
+        "surname": "Der Rabe",
+        "title": "Schl\u00e4frigster Krieger der G\u00f6tter",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "30.08.351",
+        "height": "1,65",
+        "functions": [
+            "Vasall der Iddra",
+            "Ehem. Mitglied der Diebesgilde"
+        ],
+        "class": "Schurke",
+        "subclasses": [
+            "Dieb"
+        ],
+        "masterclass": "",
+        "homes": [
+            "D\u00fcnsberg",
+            "Tinorke",
+            "Grenbrock"
+        ],
+        "alignment": "CN",
+        "status": "true",
+        "relationships": [
+            [
+                "Iddra",
+                "Herrin"
+            ],
+            [
+                "Arvel",
+                "ehem. bester Freund"
+            ],
+            [
+                "Valerius",
+                "unfreiwilliger Bekannter"
+            ],
+            [
+                "Sonya",
+                "unfreiwillige Bekannte"
+            ],
+            [
+                "U-Ranos",
+                "'Opa'"
+            ],
+            [
+                "Nayru",
+                "beste Komplizin"
+            ],
+            [
+                "Baumw\u00e4chter",
+                "inniger Bekannter"
+            ],
+            [
+                "En-Troad",
+                "'innige' Bekanntschaft"
+            ],
+            [
+                "Reichart",
+                "gro\u00dfes Vorbild"
+            ],
+            [
+                "Fortuna",
+                "ehem. Objekt der Begierde"
+            ],
+            [
+                "Marisa",
+                "ehem. Objekt der Begierde"
+            ],
+            [
+                "Modaharius",
+                "Knochenkumpel"
+            ],
+            [
+                "Linet",
+                "Lieblingsopfer"
+            ],
+            [
+                "",
+                ""
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Sivert",
+        "surname": "",
+        "title": "Ruchloser Intrigant",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "8.11.355",
+        "height": "1,91",
+        "functions": [
+            "Anf\u00fchrer des ehem. Diebeslagers bei Schachendorf"
+        ],
+        "class": "Schurke",
+        "subclasses": [
+            "Inquisitiv"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Grenbrock"
+        ],
+        "alignment": "NE",
+        "status": "false",
+        "relationships": [
+            [
+                "Artie",
+                "Verhandlungspartner, sp\u00e4ter Opfer"
+            ],
+            [
+                "Rekitach",
+                "Anf\u00fchrer"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Solenne",
+        "surname": "von Frelia",
+        "title": "Garten der Sch\u00f6nheit",
+        "race": "Menschen",
+        "sex": "w",
+        "birthday": "15.10.351",
+        "height": "1,85",
+        "functions": [
+            "Kurf\u00fcrstin von Hal"
+        ],
+        "class": "Adliger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Frelia"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Sonya",
+                "Tochter"
+            ],
+            [
+                "Marine",
+                "Wache"
+            ],
+            [
+                "U-Ranos",
+                "guter Freund, fast Liebschaft "
+            ],
+            [
+                "Seloue",
+                "Freundin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Sonya",
+        "surname": "von Frelia",
+        "title": "Pr\u00e4zise M\u00f6rder-Prinzessin",
+        "race": "Menschen",
+        "sex": "w",
+        "birthday": "19.9.370",
+        "height": "1,71",
+        "functions": [
+            "Ehem. Mitglied der Diebesgilde"
+        ],
+        "class": "Schurke",
+        "subclasses": [
+            "Assassine"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Frelia",
+            "Grenbrock"
+        ],
+        "alignment": "TN",
+        "status": "true",
+        "relationships": [
+            [
+                "Solenne",
+                "Mutter"
+            ],
+            [
+                "U-Ranos",
+                "'Ziehvater', Vertrauter"
+            ],
+            [
+                "Marine",
+                "Wache, Freundin"
+            ]
+        ],
+        "lover": "Valerius"
+    },
+    {
+        "name": "Spitze",
+        "surname": "",
+        "title": "Schlemmende Richterin des Herzogs",
+        "race": "Tiefling",
+        "sex": "w",
+        "birthday": "23.7.278",
+        "height": "1,69",
+        "functions": [
+            "Dritte Richterin des Herzogs von Markath"
+        ],
+        "class": "Barbar",
+        "subclasses": [
+            "Berserker"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Llurthargothr"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Horizont",
+                "Herr"
+            ],
+            [
+                "Morgen",
+                "Herrin"
+            ],
+            [
+                "Grenze",
+                "Vorgesetzte"
+            ],
+            [
+                "Grund",
+                "Kollege, Freunde"
+            ]
+        ],
+        "lover": "Fl\u00fcstern"
+    },
+    {
+        "name": "Stephan",
+        "surname": "von Nordholm",
+        "title": "Totgeglaubter Liebling des Volkes",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "9.9.367",
+        "height": "1,86",
+        "functions": [
+            "Gro\u00dfherzog von Escrigria"
+        ],
+        "class": "Adliger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Nordholm"
+        ],
+        "alignment": "TN",
+        "status": "true",
+        "relationships": [
+            [
+                "Tristan",
+                "kleiner Bruder"
+            ],
+            [
+                "Eliza",
+                "kleine Schwester"
+            ],
+            [
+                "Jervar",
+                "Cousin"
+            ],
+            [
+                "Cordelia",
+                "lieblings Cousine"
+            ],
+            [
+                "Narcian",
+                "Cousin"
+            ],
+            [
+                "Kristian",
+                "Cousin"
+            ],
+            [
+                "Kristina",
+                "Cousin"
+            ],
+            [
+                "Marisa",
+                "Cousine"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Suskinox",
+        "surname": "",
+        "title": "Amnestischer Professor",
+        "race": "Drakonier",
+        "sex": "m",
+        "birthday": "",
+        "height": "?",
+        "functions": [
+            "Professor an der Magieakademie Darnax"
+        ],
+        "class": "Zauberer",
+        "subclasses": [
+            "Wandelzauberer"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Darnax"
+        ],
+        "alignment": "CN",
+        "status": "true",
+        "relationships": [
+            [
+                "Deh",
+                "ehem. Sch\u00fclerin"
+            ],
+            [
+                "U-Ranos",
+                "seniler Opa"
+            ],
+            [
+                "Siegmund",
+                "Gef\u00e4hrte"
+            ],
+            [
+                "Nayru",
+                "Gef\u00e4hrte"
+            ],
+            [
+                "Thithrazk",
+                "ehem. Lehrmeister"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Tannivh",
+        "surname": "",
+        "title": "Gutherziger W\u00e4chter",
+        "race": "Elfen",
+        "sex": "m",
+        "birthday": "19.5.147",
+        "height": "1,93",
+        "functions": [
+            "Ehem. Wache im Tempel der Manaflamme"
+        ],
+        "class": "Waldl\u00e4ufer",
+        "subclasses": [
+            "Nachtstreicher"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Teryvnat"
+        ],
+        "alignment": "LG",
+        "status": "true",
+        "relationships": [
+            [
+                "Selphie",
+                "Adoptivtochter, 'kleine Schwester'"
+            ],
+            [
+                "Aelua",
+                "Gro\u00dfmutter"
+            ],
+            [
+                "Finnea",
+                "ehem. Herrin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Thanatos",
+        "surname": "",
+        "title": "Ungenierter Bluthund",
+        "race": "G\u00f6tter",
+        "sex": "m",
+        "birthday": "",
+        "height": "1,87",
+        "functions": [
+            "Gott der S\u00fcnde und der Finsternis"
+        ],
+        "class": "Gott",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Gebirge der S\u00fcnde"
+        ],
+        "alignment": "CG",
+        "status": "false",
+        "relationships": [
+            [
+                "Farone",
+                "Kleine Schwester"
+            ],
+            [
+                "Scarlet",
+                "Tochter"
+            ],
+            [
+                "Cinnabar",
+                "Tochter"
+            ],
+            [
+                "Eliza",
+                "Ziehtochter"
+            ],
+            [
+                "Justicia",
+                "Freundin"
+            ],
+            [
+                "Fortuna",
+                "Gute Freundin"
+            ],
+            [
+                "U-Ranos",
+                "Sehr guter Freund"
+            ],
+            [
+                "Seloue",
+                "Gute Freundin"
+            ],
+            [
+                "Hama",
+                "Gute Freundin"
+            ],
+            [
+                "Avila",
+                "Gute Freundin"
+            ],
+            [
+                "Mudo",
+                "Guter Freund"
+            ],
+            [
+                "Amlin",
+                "Gute Freundin"
+            ],
+            [
+                "Ar-Merer",
+                "Feind"
+            ]
+        ],
+        "lover": "Nayru"
+    },
+    {
+        "name": "Theodoric",
+        "surname": "",
+        "title": "Verpeilter Inspektor",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "15.5.367",
+        "height": "1,78",
+        "functions": [
+            "Inspektor der Magiepolizei Frelia"
+        ],
+        "class": "Zauberer",
+        "subclasses": [
+            "Bannzauberer"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Frelia"
+        ],
+        "alignment": "LG",
+        "status": "true",
+        "relationships": [
+            [
+                "Seloue",
+                "gute Freundin"
+            ],
+            [
+                "Lavande",
+                "Freundin"
+            ],
+            [
+                "Turald",
+                "ehem. Professor"
+            ],
+            [
+                "Wigand",
+                "Vorgesetzter"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Thithrazk",
+        "surname": "",
+        "title": "Vorzeigelehrmeister",
+        "race": "Drakonier",
+        "sex": "m",
+        "birthday": "8.1.331",
+        "height": "2,09",
+        "functions": [
+            "Professor an der Magieakademie Darnax"
+        ],
+        "class": "Zauberer",
+        "subclasses": [
+            "Wandelzauberer"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Darnax"
+        ],
+        "alignment": "LN",
+        "status": "true",
+        "relationships": [
+            [
+                "Suskinox",
+                "ehem. Doktorand"
+            ],
+            [
+                "Deh",
+                "Sch\u00fclerin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Thorismund",
+        "surname": "",
+        "title": "Schmieriger Kultist",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "27.363",
+        "height": "1,80",
+        "functions": [
+            "Kultist"
+        ],
+        "class": "Hexer",
+        "subclasses": [
+            "Totenw\u00e4chter"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Grenbrock"
+        ],
+        "alignment": "NE",
+        "status": "false",
+        "relationships": [
+            [
+                "Malusdur",
+                "Gebieter"
+            ],
+            [
+                "Reisen",
+                "Mordopfer"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Tristan",
+        "surname": "von Nordholm",
+        "title": "Kindsk\u00f6pfiger Fr\u00fchherrscher",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "24.10.374",
+        "height": "1,77",
+        "functions": [
+            "Prinz von Escrigria"
+        ],
+        "class": "Zauberer",
+        "subclasses": [
+            "Phantasmant"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Nordholm"
+        ],
+        "alignment": "CN",
+        "status": "true",
+        "relationships": [
+            [
+                "Stephan",
+                "gro\u00dfer Bruder"
+            ],
+            [
+                "Eliza",
+                "gro\u00dfe Schwester"
+            ],
+            [
+                "Jervar",
+                "Cousin"
+            ],
+            [
+                "Cordelia",
+                "Cousine"
+            ],
+            [
+                "Narcian",
+                "Cousin"
+            ],
+            [
+                "Kristian",
+                "Cousin"
+            ],
+            [
+                "Kristina",
+                "Cousin"
+            ],
+            [
+                "Marisa",
+                "Cousine"
+            ],
+            [
+                "Nayru",
+                "Liebesinteresse"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Trost",
+        "surname": "",
+        "title": "Nimmerbrechender Rebell",
+        "race": "Tiefling",
+        "sex": "m",
+        "birthday": "26.4.279",
+        "height": "1,81",
+        "functions": [
+            "Widerstandsk\u00e4mpfer"
+        ],
+        "class": "Waldl\u00e4ufer",
+        "subclasses": [
+            "Schwarmlenker"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Llurthargothr"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Horizont",
+                "Feind"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Troy",
+        "surname": "von Eichenhain",
+        "title": "Gro\u00dfkotziger Erbe",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "28.11.375",
+        "height": "1,79",
+        "functions": [
+            "Erbe des Ziegeleiunternehmens 'Eichenhain Ziegel'"
+        ],
+        "class": "Adliger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Aegir"
+        ],
+        "alignment": "NE",
+        "status": "true",
+        "relationships": [],
+        "lover": ""
+    },
+    {
+        "name": "U-Ranos",
+        "surname": "",
+        "title": "Unbeugsame Gerechtigkeit",
+        "race": "Engel",
+        "sex": "m",
+        "birthday": "13.3.45",
+        "height": "1,82",
+        "functions": [
+            "Recke der Justicia"
+        ],
+        "class": "Recke",
+        "subclasses": [
+            "Kleriker",
+            "Kleriker der Hama",
+            "Fischer"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Hof der Gerechtigkeit",
+            "Frelia",
+            "D\u00fcnsberg"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Justicia",
+                "Mutter"
+            ],
+            [
+                "Inoro",
+                "Gro\u00dfer Bruder"
+            ],
+            [
+                "Ar-Merer",
+                "missverst. Bruder"
+            ],
+            [
+                "En-Troad",
+                "Bruder"
+            ],
+            [
+                "Il-Vernia",
+                "Schwester"
+            ],
+            [
+                "O-Gall",
+                "Bruder"
+            ],
+            [
+                "Fortuna",
+                "Tante"
+            ],
+            [
+                "Meilira",
+                "Cousine"
+            ],
+            [
+                "Unbenannter Gott",
+                "Onkel"
+            ],
+            [
+                "Seloue",
+                "Ziehmutter"
+            ],
+            [
+                "Fubuki",
+                "Adoptivtochter"
+            ],
+            [
+                "Nayru",
+                "Reisegef\u00e4hrtin, engste Vertraute"
+            ],
+            [
+                "Siegmund",
+                "Reisegef\u00e4hrte"
+            ],
+            [
+                "Avila",
+                "Freundin"
+            ],
+            [
+                "Hama",
+                "inoff. gr. Schwester"
+            ],
+            [
+                "Kaen",
+                "Freundin"
+            ],
+            [
+                "Mudo",
+                "Freund"
+            ],
+            [
+                "Rai",
+                "Bester Freund"
+            ],
+            [
+                "Amlin",
+                "Freundin"
+            ],
+            [
+                "Iddra",
+                "Freundin"
+            ],
+            [
+                "Zora",
+                "Freundin"
+            ],
+            [
+                "Ouin",
+                "guter Freund"
+            ],
+            [
+                "Solenne",
+                "Freundin"
+            ],
+            [
+                "Burdig",
+                "Guter Freund"
+            ],
+            [
+                "Igmusur",
+                "sehr guter Freund"
+            ],
+            [
+                "Valerius",
+                "Freund"
+            ],
+            [
+                "Narcian",
+                "Feind"
+            ],
+            [
+                "Felix",
+                "Sch\u00fcler in Spe"
+            ],
+            [
+                "Avarne",
+                "Freund"
+            ]
+        ],
+        "lover": "Eliza"
+    },
+    {
+        "name": "Valerius",
+        "surname": "",
+        "title": "Silberner Pfeil",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "16.10.370",
+        "height": "1,86",
+        "functions": [
+            "Ehem. Mitglied der Diebesgilde",
+            "Vasall des Mudo"
+        ],
+        "class": "Schurke",
+        "subclasses": [
+            "Assassine"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Grenbrock"
+        ],
+        "alignment": "TN",
+        "status": "true",
+        "relationships": [
+            [
+                "Mudo",
+                "Herr"
+            ],
+            [
+                "Arvel",
+                "Bruder"
+            ],
+            [
+                "Siegmund",
+                "ehem. Feind"
+            ],
+            [
+                "Rekitach",
+                "ehem. Anf\u00fchrer, Feind"
+            ],
+            [
+                "U-Ranos",
+                "Vertrauter"
+            ],
+            [
+                "Nayru",
+                "Freundin"
+            ]
+        ],
+        "lover": "Sonya"
+    },
+    {
+        "name": "Vernia",
+        "surname": "",
+        "title": "Durchsetzungsf\u00e4hige Schankwirtin",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "6.2.365",
+        "height": "1,68",
+        "functions": [
+            "Besitzerin der Taverne 'Blaues V\u00f6glein'"
+        ],
+        "class": "B\u00fcrger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Schachendorf"
+        ],
+        "alignment": "NG",
+        "status": "true",
+        "relationships": [
+            [
+                "Gretchen",
+                "kleine Schwester"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Vernik",
+        "surname": "",
+        "title": "G\u00f6nnender 'Badeopa'",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "10.4.323",
+        "height": "1,74",
+        "functions": [
+            "Besitzer des Badehauses Nifl"
+        ],
+        "class": "B\u00fcrger",
+        "subclasses": [],
+        "masterclass": "",
+        "homes": [
+            "Nifl"
+        ],
+        "alignment": "LG",
+        "status": "true",
+        "relationships": [
+            [
+                "Rosemarie",
+                "Angestellte"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Viktor",
+        "surname": "",
+        "title": "Vernarrter Klampfenheini",
+        "race": "Menschen",
+        "sex": "m",
+        "birthday": "21.9.372",
+        "height": "1,82",
+        "functions": [
+            "Umherreisender Barde"
+        ],
+        "class": "Barde",
+        "subclasses": [
+            "S\u00e4nger der Tapferkeit"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Brodia"
+        ],
+        "alignment": "TN",
+        "status": "true",
+        "relationships": [
+            [
+                "Nayru",
+                "Objekt der Begierde"
+            ],
+            [
+                "Thanatos",
+                "Rivale"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Wirkung",
+        "surname": "",
+        "title": "Verf\u00fchrerischer Abgrund",
+        "race": "Tiefling",
+        "sex": "w",
+        "birthday": "19.12.268",
+        "height": "1,70",
+        "functions": [
+            "Vasallin der Craindre"
+        ],
+        "class": "Hexer",
+        "subclasses": [
+            "Fluchklinge"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Undraridor"
+        ],
+        "alignment": "CE",
+        "status": "false",
+        "relationships": [
+            [
+                "Craindre",
+                "Herrin"
+            ]
+        ],
+        "lover": ""
+    },
+    {
+        "name": "Zetta",
+        "surname": "",
+        "title": "Verletzliches Pfl\u00e4nzchen",
+        "race": "Halbelfen",
+        "sex": "w",
+        "birthday": "11.11.376",
+        "height": "1,65",
+        "functions": [
+            "Ehem. Mitglied der Diebesgilde"
+        ],
+        "class": "Schurke",
+        "subclasses": [
+            "Joker"
+        ],
+        "masterclass": "",
+        "homes": [
+            "Grenbrock",
+            "Kloster Schicksalsweg"
+        ],
+        "alignment": "CG",
+        "status": "true",
+        "relationships": [
+            [
+                "Arvel",
+                "verstorbene gro\u00dfe Liebe"
+            ],
+            [
+                "Valerius",
+                "langj\u00e4hriger Freund, Vorbild"
+            ],
+            [
+                "Carmesine",
+                "Freundin"
+            ],
+            [
+                "Felix",
+                "Freund"
+            ],
+            [
+                "Perrotus",
+                "Klostervater"
+            ],
+            [
+                "Siegmund",
+                "ehem. Feind"
+            ],
+            [
+                "Naryu",
+                "Freund, Retterin"
+            ],
+            [
+                "U-Ranos",
+                "Freund, Retter"
+            ]
+        ],
+        "lover": ""
+    }
+]
