@@ -2,7 +2,8 @@ from api import get_all_data, get_character_df, get_races_df, get_places_df, get
 from utils import set_current_date
 from plots import create_gender_distribution, create_age_distribution_200y_focus, \
     create_age_distribution_normalized, create_birthday_data_presence_pie_chart, \
-    create_birthday_distribution_clock_diagram
+    create_birthday_distribution_clock_diagram, create_weakness_distribution_pie_chart, \
+    create_resistance_distribution_pie_chart
 
 
 def setup():
@@ -17,11 +18,13 @@ def main():
     df_places = get_places_df(places_data)
     df_actions = get_actions_df(actions_data)
     df_enemies = get_enemies_df(enemies_data)
-    create_gender_distribution(df_characters)
-    create_age_distribution_200y_focus(df_characters)
-    create_age_distribution_normalized(df_characters, df_races)
-    create_birthday_data_presence_pie_chart(df_characters)
-    create_birthday_distribution_clock_diagram(df_characters)
+    # create_gender_distribution(df_characters)
+    # create_age_distribution_200y_focus(df_characters)
+    # create_age_distribution_normalized(df_characters, df_races)
+    # create_birthday_data_presence_pie_chart(df_characters)
+    # create_birthday_distribution_clock_diagram(df_characters)
+    create_weakness_distribution_pie_chart(df_enemies)
+    create_resistance_distribution_pie_chart(df_enemies)
 
 if __name__ == '__main__':
     main()

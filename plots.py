@@ -108,3 +108,20 @@ def create_birthday_distribution_clock_diagram(df_characters: pd.DataFrame):
 
     plt.title("Birthday distribution by race")
     plt.show()
+
+def create_weakness_distribution_pie_chart(df_enemies: pd.DataFrame):
+    df_normalized = df_enemies.explode("weaknesses").reset_index(drop=True)
+    weakness_group = df_normalized.groupby("weaknesses").size().sort_values()
+    plt.figure(figsize=(6, 6))
+    plt.pie(weakness_group, labels=weakness_group.index, autopct='%1.1f%%', startangle=90)
+    plt.title('Distribution of Weaknesses')
+    plt.show()
+
+def create_resistance_distribution_pie_chart(df_enemies: pd.DataFrame):
+    df_normalized = df_enemies.explode("resistances").reset_index(drop=True)
+    resistances_group = df_normalized.groupby("resistances").size().sort_values()
+    plt.figure(figsize=(6, 6))
+    plt.pie(resistances_group, labels=resistances_group.index, autopct='%1.1f%%', startangle=90)
+    plt.title('Distribution of Resistances')
+    plt.tight_layout()
+    plt.show()
