@@ -109,6 +109,7 @@ def create_birthday_distribution_clock_diagram(df_characters: pd.DataFrame):
     plt.title("Birthday distribution by race")
     plt.show()
 
+
 def create_weakness_distribution_pie_chart(df_enemies: pd.DataFrame):
     df_normalized = df_enemies.explode("weaknesses").reset_index(drop=True)
     weakness_group = df_normalized.groupby("weaknesses").size().sort_values()
@@ -116,6 +117,7 @@ def create_weakness_distribution_pie_chart(df_enemies: pd.DataFrame):
     plt.pie(weakness_group, labels=weakness_group.index, autopct='%1.1f%%', startangle=90)
     plt.title('Distribution of Weaknesses')
     plt.show()
+
 
 def create_resistance_distribution_pie_chart(df_enemies: pd.DataFrame):
     df_normalized = df_enemies.explode("resistances").reset_index(drop=True)
@@ -126,6 +128,7 @@ def create_resistance_distribution_pie_chart(df_enemies: pd.DataFrame):
     plt.tight_layout()
     plt.show()
 
+
 def create_immunities_distribution_pie_chart(df_enemies: pd.DataFrame):
     df_normalized = df_enemies.explode("immunities").reset_index(drop=True)
     immunities_group = df_normalized.groupby("immunities").size().sort_values()
@@ -134,6 +137,7 @@ def create_immunities_distribution_pie_chart(df_enemies: pd.DataFrame):
     plt.title('Distribution of Immunities')
     plt.tight_layout()
     plt.show()
+
 
 def create_combined_pie_charts(df_enemies: pd.DataFrame):
     fig, axes = plt.subplots(1, 3, figsize=(18, 6))
@@ -160,18 +164,19 @@ def create_combined_pie_charts(df_enemies: pd.DataFrame):
     plt.tight_layout()
     plt.show()
 
-def create_stats_distribution_plot(df_enemies: pd.DataFrame):
-    stats_avg = df_enemies[["str", "dex", "con", "int", "wis", "cha"]].mean()
+
+def create_ability_score_distribution_plot(df_enemies: pd.DataFrame):
+    as_avg = df_enemies[["str", "dex", "con", "int", "wis", "cha"]].mean()
     df_enemies['sum_stats'] = df_enemies[['str', 'dex', 'con', 'int', 'wis', 'cha']].sum(axis=1)
     mean_sum_stats = df_enemies['sum_stats'].mean().round(2)
-    stats_avg = stats_avg.round(2)
-    overall_avg = stats_avg.mean().round(2)
-    stats_avg["overall_avg"] = overall_avg
-    stats_avg["sum_avg"] = mean_sum_stats
+    as_avg = as_avg.round(2)
+    overall_avg = as_avg.mean().round(2)
+    as_avg["overall_avg"] = overall_avg
+    as_avg["as_avg"] = mean_sum_stats
     plt.figure(figsize=(8, 6))
-    stats_avg.plot(kind='bar')
-    plt.title('Average Stats of Enemies', fontsize=16)
-    plt.xlabel('Stats', fontsize=14)
+    as_avg.plot(kind='bar')
+    plt.title('Average Ability Score of Enemies', fontsize=16)
+    plt.xlabel('Ability Score', fontsize=14)
     plt.ylabel('Average Value', fontsize=14)
     plt.grid(axis='y', linestyle='--', alpha=0.7)
     plt.xticks(rotation=45, ha='right', fontsize=12)
@@ -179,3 +184,31 @@ def create_stats_distribution_plot(df_enemies: pd.DataFrame):
     plt.tight_layout()
     plt.show()
 
+
+def create_stats_distribution_plot(df_enemies: pd.DataFrame):
+    # TODO: add movement range, but this can be complicated because enemies can have multiple ways of moving ag. flying, swimming
+    df_enemies["hp_ac_ratio"] = df_enemies["hp"] / df_enemies["ac"]
+    stats_avg = df_enemies[["hp", "ac", "hp_ac_ratio"]].mean()
+    stats_avg.round(2)
+    stats_avg.plot(kind='bar')
+    plt.title('Average Stats of Enemies', fontsize=16)
+    plt.xlabel('Stats', fontsize=14)
+    plt.ylabel('Average Value', fontsize=14)
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.xticks(rotation=45, ha='right', fontsize=12)
+    max_value = stats_avg.max()
+    ticks = np.around(np.linspace(0, max_value, num=12))
+    plt.yticks(ticks)
+    plt.axhline(0, color='black', linewidth=1)
+    plt.tight_layout()
+    plt.show()
+
+
+'''
+WIP Danger Level Calculation
+- armor/ac value
+- damage per turn capability
+- action variety 
+- status effects usable and weighting of their strength
+- movement range and type with weighting
+'''

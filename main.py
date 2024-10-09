@@ -3,8 +3,9 @@ from utils import set_current_date
 from plots import create_gender_distribution, create_age_distribution_200y_focus, \
     create_age_distribution_normalized, create_birthday_data_presence_pie_chart, \
     create_birthday_distribution_clock_diagram, create_weakness_distribution_pie_chart, \
-    create_resistance_distribution_pie_chart, create_stats_distribution_plot, create_immunities_distribution_pie_chart, \
-    create_combined_pie_charts
+    create_resistance_distribution_pie_chart, create_ability_score_distribution_plot, \
+    create_immunities_distribution_pie_chart, \
+    create_combined_pie_charts, create_stats_distribution_plot
 
 
 def setup():
@@ -25,6 +26,7 @@ def main():
     create_birthday_data_presence_pie_chart(df_characters)
     create_birthday_distribution_clock_diagram(df_characters)
     create_combined_pie_charts(df_enemies)
+    create_ability_score_distribution_plot(df_enemies)
     create_stats_distribution_plot(df_enemies)
 
 
