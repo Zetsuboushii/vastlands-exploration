@@ -1,5 +1,5 @@
 from api import get_all_data, get_character_df, get_races_df, get_places_df, get_actions_df, get_enemies_df
-from utils import set_current_date
+from utils import set_current_date, get_birthdays_grouped_by_month, get_next_birthday
 from plots import create_gender_distribution, create_age_distribution_200y_focus, \
     create_age_distribution_normalized, create_birthday_data_presence_pie_chart, \
     create_birthday_distribution_clock_diagram, create_weakness_distribution_pie_chart, \
@@ -29,6 +29,8 @@ def main():
     create_combined_pie_charts(df_enemies)
     create_ability_score_distribution_plot(df_enemies)
     create_stats_distribution_plot(df_enemies)
+    get_birthdays_grouped_by_month(df_characters)
+    get_next_birthday(df_characters)
     create_grouping_pie_chart(df_characters, "character_class", "Character class distribution", legend=False)
     create_character_class_bar_chart(df_characters)
 
