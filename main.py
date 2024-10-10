@@ -5,7 +5,8 @@ from plots import create_gender_distribution, create_age_distribution_200y_focus
     create_birthday_distribution_clock_diagram, create_weakness_distribution_pie_chart, \
     create_resistance_distribution_pie_chart, create_ability_score_distribution_plot, \
     create_immunities_distribution_pie_chart, \
-    create_combined_pie_charts, create_stats_distribution_plot
+    create_combined_pie_charts, create_stats_distribution_plot, create_grouping_pie_chart, \
+    create_character_class_bar_chart
 
 
 def setup():
@@ -28,6 +29,8 @@ def main():
     create_combined_pie_charts(df_enemies)
     create_ability_score_distribution_plot(df_enemies)
     create_stats_distribution_plot(df_enemies)
+    create_grouping_pie_chart(df_characters, "character_class", "Character class distribution", legend=False)
+    create_character_class_bar_chart(df_characters)
 
 
 if __name__ == '__main__':

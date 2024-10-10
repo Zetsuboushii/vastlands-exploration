@@ -1,3 +1,5 @@
+from typing import Optional
+
 import matplotlib.cm as cm
 import matplotlib.pyplot as plt
 import numpy as np
@@ -200,6 +202,74 @@ def create_stats_distribution_plot(df_enemies: pd.DataFrame):
     ticks = np.around(np.linspace(0, max_value, num=12))
     plt.yticks(ticks)
     plt.axhline(0, color='black', linewidth=1)
+    plt.tight_layout()
+    plt.show()
+
+def create_character_class_bar_chart(df_characters: pd.DataFrame):
+    character_classes = df_characters["character_class"].unique()
+    sexes = df_characters["sex"].unique()
+
+    plt.figure(figsize=(15, 8))
+
+    n_classes = len(character_classes)
+    n_sexes = len(sexes)
+    group_width = 0.8
+    bar_width = group_width / n_sexes
+
+    colors = plt.cm.get_cmap('Set1')(np.linspace(0, 1, n_sexes))
+
+    for i, sex in enumerate(sexes):
+        sex_data = df_characters[df_characters["sex"] == sex]
+        class_counts = sex_data["character_class"].value_counts()
+        x = np.arange(n_classes) + (i - (n_sexes - 1) / 2) * bar_width
+
+        plt.bar(x, [class_counts.get(c, 0) for c in character_classes],
+                width=bar_width, alpha=0.7, color=colors[i],
+                label=f'Sex: {sex}', edgecolor='black')
+
+    plt.xlabel('Character Class')
+    plt.ylabel('Count')
+    plt.title('Character Class Distribution by Sex')
+    plt.xticks(np.arange(n_classes), character_classes, rotation=45, ha='right')
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
+
+def create_grouping_pie_chart(df: pd.DataFrame, group_column: str, title: str, legend: bool = True, legend_title: Optional[str] = None, min_percentage = .01):
+    value_counts = df[group_column].value_counts()
+    value_counts_sorted = value_counts.sort_values(ascending=False)
+
+    total = value_counts_sorted.sum()
+    percentages = value_counts_sorted / total
+
+    main_slices = percentages[percentages >= min_percentage]
+    small_slices = percentages[percentages < min_percentage]
+
+    if not small_slices.empty:
+        main_slices['Other'] = small_slices.sum()
+
+    labels = main_slices.index.tolist()
+    values = main_slices.values.tolist()
+
+    base_colors = plt.cm.Set3.colors
+    colors = [base_colors[i % len(base_colors)] for i in range(len(labels))]
+
+    fig, ax = plt.subplots(figsize=(12, 8))
+    wedges, texts, autotexts = ax.pie(values, labels=labels, colors=colors, autopct='%1.1f%%',
+                                      pctdistance=0.85, startangle=90)
+
+    plt.setp(autotexts, size=8, weight="bold")
+    plt.setp(texts, size=10)
+    centre_circle = plt.Circle((0, 0), 0.70, fc='white')
+    fig.gca().add_artist(centre_circle)
+
+    ax.set_title(title)
+    if legend:
+        ax.legend(wedges, labels,
+                  title=legend_title,
+                  loc="center right"
+        )
+
     plt.tight_layout()
     plt.show()
 
