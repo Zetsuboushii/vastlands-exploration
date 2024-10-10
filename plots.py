@@ -236,6 +236,7 @@ def create_character_class_bar_chart(df_characters: pd.DataFrame):
     plt.show()
 
 def create_grouping_pie_chart(df: pd.DataFrame, group_column: str, title: str, legend: bool = True, legend_title: Optional[str] = None, min_percentage = .01):
+    df[group_column] = df[group_column].apply(lambda value: value if value != "" else "No " + group_column)
     value_counts = df[group_column].value_counts()
     value_counts_sorted = value_counts.sort_values(ascending=False)
 
@@ -273,6 +274,20 @@ def create_grouping_pie_chart(df: pd.DataFrame, group_column: str, title: str, l
     plt.tight_layout()
     plt.show()
 
+def create_subclasses_pie_chart(df_characters: pd.DataFrame):
+    all_subclasses = [subclass for subclasses in df_characters["subclasses"] for subclass in subclasses]
+    subclass_counts = pd.Series(all_subclasses).value_counts()
+
+    no_subclass_count = (df_characters['subclasses'].str.len() == 0).sum()
+    subclass_counts['No Subclass'] = no_subclass_count
+
+    plt.figure(figsize=(12, 8))
+    plt.bar(subclass_counts.index, subclass_counts.values)
+    plt.xticks(rotation=45, ha='right')
+
+    plt.title('Distribution of Character Subclasses')
+    plt.tight_layout()
+    plt.show()
 
 '''
 WIP Danger Level Calculation

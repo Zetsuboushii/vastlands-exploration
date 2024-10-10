@@ -6,7 +6,7 @@ from plots import create_gender_distribution, create_age_distribution_200y_focus
     create_resistance_distribution_pie_chart, create_ability_score_distribution_plot, \
     create_immunities_distribution_pie_chart, \
     create_combined_pie_charts, create_stats_distribution_plot, create_grouping_pie_chart, \
-    create_character_class_bar_chart
+    create_character_class_bar_chart, create_subclasses_pie_chart
 
 
 def setup():
@@ -32,7 +32,9 @@ def main():
     get_birthdays_grouped_by_month(df_characters)
     get_next_birthday(df_characters)
     create_grouping_pie_chart(df_characters, "character_class", "Character class distribution", legend=False)
+    create_grouping_pie_chart(df_characters, "masterclass", "Masterclass distribution", min_percentage=0)
     create_character_class_bar_chart(df_characters)
+    create_subclasses_pie_chart(df_characters)
 
 
 if __name__ == '__main__':
