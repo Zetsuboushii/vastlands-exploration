@@ -5,14 +5,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import networkx as nx
-import re
 import ast
 from adjustText import adjust_text
 from utils import calculate_age, get_day_of_year
 
 
-def create_gender_distribution(df_characters):
-    sex_counts = df_characters['sex'].value_counts()
+def create_gender_distribution(characters, **kwargs):
+    sex_counts = characters['sex'].value_counts()
     labels = sex_counts.index.tolist()
     sizes = sex_counts.values.tolist()
 
@@ -22,9 +21,9 @@ def create_gender_distribution(df_characters):
     plt.show()
 
 
-def create_age_distribution_200y_focus(df_characters):
-    df_characters['age'] = df_characters['birthday'].apply(calculate_age)
-    df_age = df_characters.dropna(subset=['age'])
+def create_age_distribution_200y_focus(characters, **kwargs):
+    characters['age'] = characters['birthday'].apply(calculate_age)
+    df_age = characters.dropna(subset=['age'])
     df_age_under_200 = df_age[df_age['age'] <= 200]
 
     male_characters = df_age_under_200[df_age_under_200['sex'] == 'm']
@@ -45,14 +44,14 @@ def create_age_distribution_200y_focus(df_characters):
     plt.show()
 
 
-def create_age_distribution_normalized(df_characters, df_races):
-    df_characters['age'] = df_characters['birthday'].apply(calculate_age)
-    df_characters = df_characters.dropna(subset=['age'])
-    df_races['ageavg'] = pd.to_numeric(df_races['ageavg'], errors='coerce')
-    df_races = df_races.dropna(subset=['ageavg'])
-    df_races.loc[:, "norm_metric"] = df_races['ageavg'] / 100
+def create_age_distribution_normalized(characters, races, **kwargs):
+    characters['age'] = characters['birthday'].apply(calculate_age)
+    characters = characters.dropna(subset=['age'])
+    races['ageavg'] = pd.to_numeric(races['ageavg'], errors='coerce')
+    races = races.dropna(subset=['ageavg'])
+    races.loc[:, "norm_metric"] = races['ageavg'] / 100
 
-    merge_df = pd.merge(df_characters, df_races, left_on="race", right_on="name", how="inner")
+    merge_df = pd.merge(characters, races, left_on="race", right_on="name", how="inner")
     merge_df["normed_age"] = merge_df["age"] / merge_df["norm_metric"]
 
     male_characters = merge_df[merge_df['sex'] == 'm']
@@ -73,8 +72,8 @@ def create_age_distribution_normalized(df_characters, df_races):
     plt.show()
 
 
-def create_birthday_data_presence_pie_chart(df_characters: pd.DataFrame):
-    birthday_counts = (df_characters["birthday"] != "").value_counts()
+def create_birthday_data_presence_pie_chart(characters: pd.DataFrame, **kwargs):
+    birthday_counts = (characters["birthday"] != "").value_counts()
     labels = ["Given", "Not given"]
     sizes = [birthday_counts[True], birthday_counts[False]]
 
@@ -84,11 +83,11 @@ def create_birthday_data_presence_pie_chart(df_characters: pd.DataFrame):
     plt.show()
 
 
-def create_birthday_distribution_clock_diagram(df_characters: pd.DataFrame):
+def create_birthday_distribution_clock_diagram(characters: pd.DataFrame, **kwargs):
     # Birthdays that are actually set
-    characters_with_birthdays = df_characters[df_characters["birthday"] != ""]
+    characters_with_birthdays = characters[characters["birthday"] != ""]
 
-    unique_races = df_characters["race"].unique()
+    unique_races = characters["race"].unique()
     color_map = cm.get_cmap("Set2", len(unique_races))
     colors = {race: color_map(i) for i, race in enumerate(unique_races)}
 
@@ -115,8 +114,8 @@ def create_birthday_distribution_clock_diagram(df_characters: pd.DataFrame):
     plt.show()
 
 
-def create_weakness_distribution_pie_chart(df_enemies: pd.DataFrame):
-    df_normalized = df_enemies.explode("weaknesses").reset_index(drop=True)
+def create_weakness_distribution_pie_chart(enemies: pd.DataFrame, **kwargs):
+    df_normalized = enemies.explode("weaknesses").reset_index(drop=True)
     weakness_group = df_normalized.groupby("weaknesses").size().sort_values()
     plt.figure(figsize=(6, 6))
     plt.pie(weakness_group, labels=weakness_group.index, autopct='%1.1f%%', startangle=90)
@@ -124,8 +123,8 @@ def create_weakness_distribution_pie_chart(df_enemies: pd.DataFrame):
     plt.show()
 
 
-def create_resistance_distribution_pie_chart(df_enemies: pd.DataFrame):
-    df_normalized = df_enemies.explode("resistances").reset_index(drop=True)
+def create_resistance_distribution_pie_chart(enemies: pd.DataFrame, **kwargs):
+    df_normalized = enemies.explode("resistances").reset_index(drop=True)
     resistances_group = df_normalized.groupby("resistances").size().sort_values()
     plt.figure(figsize=(6, 6))
     plt.pie(resistances_group, labels=resistances_group.index, autopct='%1.1f%%', startangle=90)
@@ -134,8 +133,8 @@ def create_resistance_distribution_pie_chart(df_enemies: pd.DataFrame):
     plt.show()
 
 
-def create_immunities_distribution_pie_chart(df_enemies: pd.DataFrame):
-    df_normalized = df_enemies.explode("immunities").reset_index(drop=True)
+def create_immunities_distribution_pie_chart(enemies: pd.DataFrame, **kwargs):
+    df_normalized = enemies.explode("immunities").reset_index(drop=True)
     immunities_group = df_normalized.groupby("immunities").size().sort_values()
     plt.figure(figsize=(6, 6))
     plt.pie(immunities_group, labels=immunities_group.index, autopct='%1.1f%%', startangle=90)
@@ -144,23 +143,23 @@ def create_immunities_distribution_pie_chart(df_enemies: pd.DataFrame):
     plt.show()
 
 
-def create_combined_pie_charts(df_enemies: pd.DataFrame):
+def create_combined_pie_charts(enemies: pd.DataFrame, **kwargs):
     fig, axes = plt.subplots(1, 3, figsize=(18, 6))
 
     # Weaknesses Pie Chart
-    df_normalized_weaknesses = df_enemies.explode("weaknesses").reset_index(drop=True)
+    df_normalized_weaknesses = enemies.explode("weaknesses").reset_index(drop=True)
     weakness_group = df_normalized_weaknesses.groupby("weaknesses").size().sort_values()
     axes[0].pie(weakness_group, labels=weakness_group.index, autopct='%1.1f%%', startangle=90)
     axes[0].set_title('Distribution of Weaknesses')
 
     # Resistances Pie Chart
-    df_normalized_resistances = df_enemies.explode("resistances").reset_index(drop=True)
+    df_normalized_resistances = enemies.explode("resistances").reset_index(drop=True)
     resistances_group = df_normalized_resistances.groupby("resistances").size().sort_values()
     axes[1].pie(resistances_group, labels=resistances_group.index, autopct='%1.1f%%', startangle=90)
     axes[1].set_title('Distribution of Resistances')
 
     # Immunities Pie Chart
-    df_normalized_immunities = df_enemies.explode("immunities").reset_index(drop=True)
+    df_normalized_immunities = enemies.explode("immunities").reset_index(drop=True)
     immunities_group = df_normalized_immunities.groupby("immunities").size().sort_values()
     axes[2].pie(immunities_group, labels=immunities_group.index, autopct='%1.1f%%', startangle=90)
     axes[2].set_title('Distribution of Immunities')
@@ -170,10 +169,10 @@ def create_combined_pie_charts(df_enemies: pd.DataFrame):
     plt.show()
 
 
-def create_ability_score_distribution_plot(df_enemies: pd.DataFrame):
-    as_avg = df_enemies[["str", "dex", "con", "int", "wis", "cha"]].mean()
-    df_enemies['sum_stats'] = df_enemies[['str', 'dex', 'con', 'int', 'wis', 'cha']].sum(axis=1)
-    mean_sum_stats = df_enemies['sum_stats'].mean().round(2)
+def create_ability_score_distribution_plot(enemies: pd.DataFrame, **kwargs):
+    as_avg = enemies[["str", "dex", "con", "int", "wis", "cha"]].mean()
+    enemies['sum_stats'] = enemies[['str', 'dex', 'con', 'int', 'wis', 'cha']].sum(axis=1)
+    mean_sum_stats = enemies['sum_stats'].mean().round(2)
     as_avg = as_avg.round(2)
     overall_avg = as_avg.mean().round(2)
     as_avg["overall_avg"] = overall_avg
@@ -190,10 +189,10 @@ def create_ability_score_distribution_plot(df_enemies: pd.DataFrame):
     plt.show()
 
 
-def create_stats_distribution_plot(df_enemies: pd.DataFrame):
+def create_stats_distribution_plot(enemies: pd.DataFrame, **kwargs):
     # TODO: add movement range, but this can be complicated because enemies can have multiple ways of moving ag. flying, swimming
-    df_enemies["hp_ac_ratio"] = df_enemies["hp"] / df_enemies["ac"]
-    stats_avg = df_enemies[["hp", "ac", "hp_ac_ratio"]].mean()
+    enemies["hp_ac_ratio"] = enemies["hp"] / enemies["ac"]
+    stats_avg = enemies[["hp", "ac", "hp_ac_ratio"]].mean()
     stats_avg.round(2)
     stats_avg.plot(kind='bar')
     plt.title('Average Stats of Enemies', fontsize=16)
@@ -209,9 +208,9 @@ def create_stats_distribution_plot(df_enemies: pd.DataFrame):
     plt.show()
 
 
-def create_character_class_bar_chart(df_characters: pd.DataFrame):
-    character_classes = df_characters["character_class"].unique()
-    sexes = df_characters["sex"].unique()
+def create_character_class_bar_chart(characters: pd.DataFrame, **kwargs):
+    character_classes = characters["character_class"].unique()
+    sexes = characters["sex"].unique()
 
     n_classes = len(character_classes)
     n_sexes = len(sexes)
@@ -221,7 +220,7 @@ def create_character_class_bar_chart(df_characters: pd.DataFrame):
     colors = plt.cm.get_cmap('Set1')(np.linspace(0, 1, n_sexes))
 
     for i, sex in enumerate(sexes):
-        sex_data = df_characters[df_characters["sex"] == sex]
+        sex_data = characters[characters["sex"] == sex]
         class_counts = sex_data["character_class"].value_counts()
         x = np.arange(n_classes) + (i - (n_sexes - 1) / 2) * bar_width
 
@@ -237,8 +236,8 @@ def create_character_class_bar_chart(df_characters: pd.DataFrame):
     plt.tight_layout()
 
 
-def create_grouping_pie_chart(df: pd.DataFrame, group_column: str, title: str, legend: bool = True,
-                              legend_title: Optional[str] = None, min_percentage=.01, obj=None):
+def _create_grouping_pie_chart(df: pd.DataFrame, group_column: str, title: str, legend: bool = True,
+                               legend_title: Optional[str] = None, min_percentage=.01, obj=None):
     using_default_plt = False
     if obj is None:
         obj = plt
@@ -287,16 +286,16 @@ def create_grouping_pie_chart(df: pd.DataFrame, group_column: str, title: str, l
         obj.show()
 
 
-def create_subclasses_bar_chart(df_characters: pd.DataFrame, obj = None):
+def create_subclasses_bar_chart(characters: pd.DataFrame, obj = None, **kwargs):
     using_default_plt = False
     if obj is None:
         obj = plt
         using_default_plt = True
-    all_subclasses = [subclass for subclasses in df_characters["subclasses"] for subclass in
+    all_subclasses = [subclass for subclasses in characters["subclasses"] for subclass in
                       subclasses]
     subclass_counts = pd.Series(all_subclasses).value_counts()
 
-    no_subclass_count = (df_characters['subclasses'].str.len() == 0).sum()
+    no_subclass_count = (characters['subclasses'].str.len() == 0).sum()
     no_subclass = "No Subclass"
     subclass_counts[no_subclass] = no_subclass_count
 
@@ -316,17 +315,18 @@ def create_subclasses_bar_chart(df_characters: pd.DataFrame, obj = None):
         obj.set_title(title)
 
 
-def create_character_classes_combined_pie_charts(df_characters: pd.DataFrame):
+def create_character_classes_combined_pie_charts(characters: pd.DataFrame, **kwargs):
     fig, axes = plt.subplots(1, 2, figsize=(12, 8))
-    create_grouping_pie_chart(df_characters, "character_class", "Character class distribution",
-                              legend=False, obj=axes[0])
-    create_grouping_pie_chart(df_characters, "masterclass", "Masterclass distribution",
-                              min_percentage=0, obj=axes[1])
+    _create_grouping_pie_chart(characters, "character_class", "Character class distribution",
+                               legend=False, obj=axes[0])
+    _create_grouping_pie_chart(characters, "masterclass", "Masterclass distribution",
+                               min_percentage=0, obj=axes[1])
     plt.show()
 
 
-def create_relationship_web(df_characters: pd.DataFrame):
+def create_relationship_web(characters: pd.DataFrame, **kwargs):
     # Initialize data structures
+    df_characters = characters
     characters = {}
     relationships = []
     output_filename = "data/character_relationships.svg"
