@@ -6,8 +6,10 @@ from plots import create_gender_distribution, create_age_distribution_200y_focus
     create_resistance_distribution_pie_chart, create_ability_score_distribution_plot, \
     create_immunities_distribution_pie_chart, \
     create_combined_pie_charts, create_stats_distribution_plot, create_grouping_pie_chart, \
-    create_character_class_bar_chart, create_subclasses_pie_chart, create_relationship_web
-    create_character_class_bar_chart, create_subclasses_bar_chart, \
+    create_character_class_bar_chart, create_relationship_web, create_subclasses_bar_chart, \
+    create_character_classes_combined_pie_charts
+
+create_character_class_bar_chart, create_subclasses_bar_chart, \
     create_character_classes_combined_pie_charts
 
 
