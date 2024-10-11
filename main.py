@@ -7,6 +7,8 @@ from plots import create_gender_distribution, create_age_distribution_200y_focus
     create_immunities_distribution_pie_chart, \
     create_combined_pie_charts, create_stats_distribution_plot, create_grouping_pie_chart, \
     create_character_class_bar_chart, create_subclasses_pie_chart, create_relationship_web
+    create_character_class_bar_chart, create_subclasses_bar_chart, \
+    create_character_classes_combined_pie_charts
 
 
 def setup():
@@ -21,20 +23,19 @@ def main():
     df_places = get_places_df(places_data)
     df_actions = get_actions_df(actions_data)
     df_enemies = get_enemies_df(enemies_data)
-    # create_gender_distribution(df_characters)
-    # create_age_distribution_200y_focus(df_characters)
-    # create_age_distribution_normalized(df_characters, df_races)
-    # create_birthday_data_presence_pie_chart(df_characters)
-    # create_birthday_distribution_clock_diagram(df_characters)
-    # create_combined_pie_charts(df_enemies)
-    # create_ability_score_distribution_plot(df_enemies)
-    # create_stats_distribution_plot(df_enemies)
-    # get_birthdays_grouped_by_month(df_characters)
-    # get_next_birthday(df_characters)
-    # create_grouping_pie_chart(df_characters, "character_class", "Character class distribution", legend=False)
-    # create_grouping_pie_chart(df_characters, "masterclass", "Masterclass distribution", min_percentage=0)
-    # create_character_class_bar_chart(df_characters)
-    # create_subclasses_pie_chart(df_characters)
+    create_gender_distribution(df_characters)
+    create_age_distribution_200y_focus(df_characters)
+    create_age_distribution_normalized(df_characters, df_races)
+    create_birthday_data_presence_pie_chart(df_characters)
+    create_birthday_distribution_clock_diagram(df_characters)
+    create_combined_pie_charts(df_enemies)
+    create_ability_score_distribution_plot(df_enemies)
+    create_stats_distribution_plot(df_enemies)
+    get_birthdays_grouped_by_month(df_characters)
+    get_next_birthday(df_characters)
+    create_character_class_bar_chart(df_characters)
+    create_subclasses_bar_chart(df_characters)
+    create_character_classes_combined_pie_charts(df_characters)
     create_relationship_web(df_characters)
 
 

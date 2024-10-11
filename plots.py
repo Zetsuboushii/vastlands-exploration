@@ -208,11 +208,10 @@ def create_stats_distribution_plot(df_enemies: pd.DataFrame):
     plt.tight_layout()
     plt.show()
 
+
 def create_character_class_bar_chart(df_characters: pd.DataFrame):
     character_classes = df_characters["character_class"].unique()
     sexes = df_characters["sex"].unique()
-
-    plt.figure(figsize=(15, 8))
 
     n_classes = len(character_classes)
     n_sexes = len(sexes)
@@ -236,10 +235,16 @@ def create_character_class_bar_chart(df_characters: pd.DataFrame):
     plt.xticks(np.arange(n_classes), character_classes, rotation=45, ha='right')
     plt.legend()
     plt.tight_layout()
-    plt.show()
 
-def create_grouping_pie_chart(df: pd.DataFrame, group_column: str, title: str, legend: bool = True, legend_title: Optional[str] = None, min_percentage = .01):
-    df[group_column] = df[group_column].apply(lambda value: value if value != "" else "No " + group_column)
+
+def create_grouping_pie_chart(df: pd.DataFrame, group_column: str, title: str, legend: bool = True,
+                              legend_title: Optional[str] = None, min_percentage=.01, obj=None):
+    using_default_plt = False
+    if obj is None:
+        obj = plt
+        using_default_plt = True
+    df[group_column] = df[group_column].apply(
+        lambda value: value if value != "" else "No " + group_column)
     value_counts = df[group_column].value_counts()
     value_counts_sorted = value_counts.sort_values(ascending=False)
 
@@ -258,39 +263,67 @@ def create_grouping_pie_chart(df: pd.DataFrame, group_column: str, title: str, l
     base_colors = plt.cm.Set3.colors
     colors = [base_colors[i % len(base_colors)] for i in range(len(labels))]
 
-    fig, ax = plt.subplots(figsize=(12, 8))
-    wedges, texts, autotexts = ax.pie(values, labels=labels, colors=colors, autopct='%1.1f%%',
-                                      pctdistance=0.85, startangle=90)
+    # fig, ax = plt.subplots(figsize=(12, 8))
+    wedges, texts, autotexts = obj.pie(values, labels=labels, colors=colors, autopct='%1.1f%%',
+                                       pctdistance=0.85, startangle=90)
 
-    plt.setp(autotexts, size=8, weight="bold")
-    plt.setp(texts, size=10)
-    centre_circle = plt.Circle((0, 0), 0.70, fc='white')
-    fig.gca().add_artist(centre_circle)
+    # obj.setp(autotexts, size=8, weight="bold")
+    # obj.setp(texts, size=10)
+    # centre_circle = plt.Circle((0, 0), 0.70, fc='white')
+    # obj.gca().add_artist(centre_circle)
 
-    ax.set_title(title)
+    if using_default_plt:
+        obj.title(title)
+    else:
+        obj.set_title(title)
     if legend:
-        ax.legend(wedges, labels,
-                  title=legend_title,
-                  loc="center right"
-        )
+        obj.legend(wedges, labels,
+                   title=legend_title,
+                   loc="center right"
+                   )
 
-    plt.tight_layout()
-    plt.show()
+    if using_default_plt:
+        obj.tight_layout()
+        obj.show()
 
-def create_subclasses_pie_chart(df_characters: pd.DataFrame):
-    all_subclasses = [subclass for subclasses in df_characters["subclasses"] for subclass in subclasses]
+
+def create_subclasses_bar_chart(df_characters: pd.DataFrame, obj = None):
+    using_default_plt = False
+    if obj is None:
+        obj = plt
+        using_default_plt = True
+    all_subclasses = [subclass for subclasses in df_characters["subclasses"] for subclass in
+                      subclasses]
     subclass_counts = pd.Series(all_subclasses).value_counts()
 
     no_subclass_count = (df_characters['subclasses'].str.len() == 0).sum()
-    subclass_counts['No Subclass'] = no_subclass_count
+    no_subclass = "No Subclass"
+    subclass_counts[no_subclass] = no_subclass_count
 
-    plt.figure(figsize=(12, 8))
-    plt.bar(subclass_counts.index, subclass_counts.values)
-    plt.xticks(rotation=45, ha='right')
+    tick_settings = {"rotation": 45, "ha": "right"}
+    if using_default_plt:
+        obj.figure(figsize=(12, 8))
+        obj.xticks(**tick_settings)
 
-    plt.title('Distribution of Character Subclasses')
-    plt.tight_layout()
+    obj.bar(subclass_counts.index, subclass_counts.values)
+
+    title = 'Distribution of Character Subclasses'
+    if using_default_plt:
+        obj.title(title)
+        obj.tight_layout()
+        obj.show()
+    else:
+        obj.set_title(title)
+
+
+def create_character_classes_combined_pie_charts(df_characters: pd.DataFrame):
+    fig, axes = plt.subplots(1, 2, figsize=(12, 8))
+    create_grouping_pie_chart(df_characters, "character_class", "Character class distribution",
+                              legend=False, obj=axes[0])
+    create_grouping_pie_chart(df_characters, "masterclass", "Masterclass distribution",
+                              min_percentage=0, obj=axes[1])
     plt.show()
+
 
 def create_relationship_web(df_characters: pd.DataFrame):
     # Initialize data structures
