@@ -329,6 +329,7 @@ def create_character_classes_combined_pie_charts(characters: pd.DataFrame, **kwa
 def create_relationship_web(characters: pd.DataFrame, **kwargs):
     # Initialize data structures
     df_characters = characters
+    # df_characters = characters.loc[~characters['name'].isin(['U-Ranos', 'Nayru'])]
     characters = {}
     relationships = []
     output_filename = "data/character_relationships.svg"
