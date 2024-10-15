@@ -41,6 +41,5 @@ def main():
         method = getattr(plots, method_name)
         method(**data)
 
-
 if __name__ == '__main__':
     main()

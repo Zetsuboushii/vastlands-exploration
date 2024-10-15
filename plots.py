@@ -9,6 +9,8 @@ import pandas as pd
 from adjustText import adjust_text
 
 from utils import calculate_age, get_day_of_year
+import matplotlib.lines as mlines
+import os
 
 
 def create_gender_distribution(characters, **kwargs):
@@ -328,6 +330,7 @@ def create_character_classes_combined_pie_charts(characters: pd.DataFrame, **kwa
 def create_relationship_web(characters: pd.DataFrame, **kwargs):
     # Initialize data structures
     df_characters = characters
+    # df_characters = characters.loc[~characters['name'].isin(['U-Ranos', 'Nayru'])]
     characters = {}
     relationships = []
     output_filename = "data/character_relationships.svg"
@@ -338,7 +341,6 @@ def create_relationship_web(characters: pd.DataFrame, **kwargs):
         name = str(row['name']).strip()
         surname = str(row['surname']).strip()
         full_name = f"{name} {surname}".strip()
-
         title = str(row['title']).strip()
         race = str(row['race']).strip()
         sex = str(row['sex']).strip()
@@ -355,8 +357,8 @@ def create_relationship_web(characters: pd.DataFrame, **kwargs):
         lover = str(row['lover']).strip()
 
         # Store character information
-        characters[full_name] = {
-            'name': full_name,
+        characters[name] = {
+            'name': name,
             'title': title,
             'race': race,
             'sex': sex,
@@ -380,7 +382,7 @@ def create_relationship_web(characters: pd.DataFrame, **kwargs):
                         relationships_data = relationships_data.replace("'", '"')
                         relationships_list = ast.literal_eval(relationships_data)
                     except (ValueError, SyntaxError):
-                        print(f"Error parsing relationships for {full_name}: {relationships_data}")
+                        print(f"Error parsing relationships for {name}: {relationships_data}")
             else:
                 # relationships_list remains empty
                 pass
@@ -390,14 +392,14 @@ def create_relationship_web(characters: pd.DataFrame, **kwargs):
             if isinstance(rel, (list, tuple)) and len(rel) == 2:
                 rel_name = rel[0].strip()
                 rel_desc = rel[1].strip()
-                relationships.append((full_name, rel_name, rel_desc))
+                relationships.append((name, rel_name, rel_desc))
             else:
                 continue  # Skip invalid entries
 
         # Parse lover
         if lover not in ['', '[]', 'nan']:
             lover_name = lover.strip()
-            relationships.append((full_name, lover_name, 'Partner'))
+            relationships.append((name, lover_name, 'Partner'))
 
     # Build the graph
     G = nx.Graph()
@@ -476,9 +478,6 @@ def create_relationship_web(characters: pd.DataFrame, **kwargs):
         texts.append(plt.text(x, y, node, fontsize=6))
     adjust_text(texts, arrowprops=dict(arrowstyle='-', color='gray', lw=0.5))
 
-    # Create a legend for edge colors
-    import matplotlib.lines as mlines
-
     # Get unique relationship types and their colors
     unique_relations = set([rel_type.split(',')[0].strip() for rel_type in edge_colors.keys()])
     legend_handles = []
@@ -493,6 +492,9 @@ def create_relationship_web(characters: pd.DataFrame, **kwargs):
     plt.title('Character Relationships Clustered by Type', fontsize=15)
 
     # Save the plot as an SVG file
+    output_directory = os.path.dirname(output_filename)
+    if not os.path.exists(output_directory):
+        os.makedirs(output_directory)
     plt.savefig(output_filename, format='svg', bbox_inches='tight')
     plt.show()
     plt.close()
