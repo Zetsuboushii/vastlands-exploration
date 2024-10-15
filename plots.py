@@ -1,12 +1,13 @@
+import ast
 from typing import Optional
 
 import matplotlib.cm as cm
 import matplotlib.pyplot as plt
+import networkx as nx
 import numpy as np
 import pandas as pd
-import networkx as nx
-import ast
 from adjustText import adjust_text
+
 from utils import calculate_age, get_day_of_year
 
 
@@ -286,7 +287,7 @@ def _create_grouping_pie_chart(df: pd.DataFrame, group_column: str, title: str, 
         obj.show()
 
 
-def create_subclasses_bar_chart(characters: pd.DataFrame, obj = None, **kwargs):
+def create_subclasses_bar_chart(characters: pd.DataFrame, obj=None, **kwargs):
     using_default_plt = False
     if obj is None:
         obj = plt
@@ -497,6 +498,7 @@ def create_relationship_web(characters: pd.DataFrame, **kwargs):
     plt.close()
 
     print(f"The plot has been saved as {output_filename}")
+
 
 '''
 WIP Danger Level Calculation

@@ -1,3 +1,4 @@
+import decorators
 import plots
 from api import get_all_data, get_df_from_endpoint_data
 from entities.action import Action
@@ -28,9 +29,14 @@ def setup():
     return dataframes
 
 
+def _method_is_included(name: str):
+    return (name.startswith("create_") and (
+            decorators.included_method_names is None or name in decorators.included_method_names))
+
+
 def main():
     data = setup()
-    plot_gen_methods = filter(lambda method: method.startswith("create_"), dir(plots))
+    plot_gen_methods = filter(_method_is_included, dir(plots))
     for method_name in plot_gen_methods:
         method = getattr(plots, method_name)
         method(**data)
