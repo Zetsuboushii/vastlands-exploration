@@ -515,12 +515,13 @@ def create_population_distribution_map(places: pd.DataFrame, markers: pd.DataFra
     ax.imshow(img, extent=(0, width, 0, height))
 
     for name, count, lat, long in population_counts:
-        x, y = long * 3, lat * 3
-        circle = plt.Circle((x, y), count/500, fill=False, edgecolor='red')
+        coeff = 2.9
+        x, y = long * coeff, lat * coeff
+        circle = plt.Circle((x, y), max(count/500, 5), fill=False, edgecolor='red')
         ax.add_artist(circle)
 
         ax.annotate(f"{name}: {count}", (x, y), xytext=(5, 5),
-                    textcoords="offset points", fontsize=8,
+                    textcoords="offset points", fontsize=5,
                     bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="gray", alpha=0.7))
 
     ax.set_xlim(0, width)
@@ -532,7 +533,7 @@ def create_population_distribution_map(places: pd.DataFrame, markers: pd.DataFra
 
     # Add a title
     plt.title("Population Distribution Map")
-    plt.savefig(os.path.join("data", "population-distribution-map.png"), dpi=300, bbox_inches="tight")
+    plt.savefig(os.path.join("data", "population-distribution-map.png"), dpi=600, bbox_inches="tight")
     plt.show()
 
 
