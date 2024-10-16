@@ -501,6 +501,40 @@ def create_relationship_web(characters: pd.DataFrame, **kwargs):
 
     print(f"The plot has been saved as {output_filename}")
 
+def create_population_distribution_map(places: pd.DataFrame, markers: pd.DataFrame, **kwargs):
+    population_counts = []
+    for index, place in places.iterrows():
+        marker = markers[markers["name"] == place["name"]]
+        if not marker.empty:
+            mark = marker.iloc[0]
+            population_counts.append((place["name"], place["demography"], mark["lat"], mark["long"]))
+
+    img = plt.imread(os.path.join("data", "faergria-map.png"))
+    height, width, _ = img.shape
+    fig, ax = plt.subplots(figsize=(12, 8))
+    ax.imshow(img, extent=(0, width, 0, height))
+
+    for name, count, lat, long in population_counts:
+        x, y = long * 3, lat * 3
+        circle = plt.Circle((x, y), count/500, fill=False, edgecolor='red')
+        ax.add_artist(circle)
+
+        ax.annotate(f"{name}: {count}", (x, y), xytext=(5, 5),
+                    textcoords="offset points", fontsize=8,
+                    bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="gray", alpha=0.7))
+
+    ax.set_xlim(0, width)
+    ax.set_ylim(0, height)
+
+    # Remove axis ticks
+    ax.set_xticks([])
+    ax.set_yticks([])
+
+    # Add a title
+    plt.title("Population Distribution Map")
+    plt.savefig(os.path.join("data", "population-distribution-map.png"), dpi=300, bbox_inches="tight")
+    plt.show()
+
 
 '''
 WIP Danger Level Calculation

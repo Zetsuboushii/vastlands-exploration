@@ -1,23 +1,27 @@
+import click
+
 import decorators
 import plots
-from api import get_all_data, get_df_from_endpoint_data
+from api import get_all_data, get_df_from_endpoint_data, fetch_faergria_map
 from entities.action import Action
 from entities.character import Character
 from entities.enemy import Enemy
+from entities.marker import Marker
 from entities.place import Place
 from entities.race import Race
 from utils import set_current_date
 
 
-def setup():
-    data = get_all_data()
+def setup(faergria_map_url: str):
+    data = get_all_data(faergria_map_url)
     set_current_date(data["general_data"])
     classes = {
         "actions_data": Action,
         "characters_data": Character,
         "enemies_data": Enemy,
         "places_data": Place,
-        "races_data": Race
+        "races_data": Race,
+        "markers_data": Marker
     }
     # "Calculate" dataframes for the respective object data from the endpoints,
     # but assign keys without "_data"
@@ -34,8 +38,10 @@ def _method_is_included(name: str):
             decorators.included_method_names is None or name in decorators.included_method_names))
 
 
-def main():
-    data = setup()
+@click.command
+@click.option("--faergria-map-url", "-u", default="http://localhost:1338")
+def main(faergria_map_url: str):
+    data = setup(faergria_map_url)
     plot_gen_methods = filter(_method_is_included, dir(plots))
     for method_name in plot_gen_methods:
         method = getattr(plots, method_name)
