@@ -7,7 +7,9 @@ import networkx as nx
 import numpy as np
 import pandas as pd
 from adjustText import adjust_text
-
+from PIL import Image
+from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+from decorators import include_plot
 from utils import calculate_age, get_day_of_year
 import matplotlib.lines as mlines
 import os
@@ -534,6 +536,58 @@ def create_population_distribution_map(places: pd.DataFrame, markers: pd.DataFra
     # Add a title
     plt.title("Population Distribution Map")
     plt.savefig(os.path.join("data", "population-distribution-map.png"), dpi=600, bbox_inches="tight")
+    plt.show()
+
+
+def offset_image(y, character_name, ax):
+    img_path = os.path.join('data', 'images', f"{character_name.lower()}.png")
+
+    if not os.path.exists(img_path):
+        print(f"Image for {character_name} not found at {img_path}")
+        return
+
+    img = Image.open(img_path)
+
+    zoom_factor = 0.1
+
+    im = OffsetImage(img, zoom=zoom_factor)
+    im.image.axes = ax
+
+    x_offset = -50
+
+    ab = AnnotationBbox(im, (0, y), xybox=(x_offset, 0), frameon=False,
+                        xycoords='data', boxcoords="offset points", pad=0)
+    ax.add_artist(ab)
+
+
+@include_plot
+def create_height_distribution_chart(characters: pd.DataFrame, **kwargs):
+    characters["height"] = characters["height"].str.replace(',', '.', regex=False)
+    characters["height"] = pd.to_numeric(characters["height"], errors="coerce")
+    characters = characters.dropna(subset=["height"])
+    characters = characters.sort_values(by=["height"])
+
+    fig, ax = plt.subplots(figsize=(10, len(characters) * 0.4))  # Adjust height dynamically
+
+    bar_height = 0.9
+    bars = ax.barh(range(len(characters)), characters["height"], height=bar_height, color='skyblue', align='center',
+                   alpha=0.8)
+
+    for i, character_name in enumerate(characters["name"]):
+        offset_image(i, character_name, ax=ax)
+
+    ax.set_yticks([])  # Hide y-ticks since images are used
+
+    ax.grid(True, which='both', axis='x', linestyle='--', alpha=0.6)
+    ax.set_xlabel('Height')
+    ax.set_title('Character Height Distribution')
+
+    plt.margins(y=0)  # Eliminate top and bottom margins
+
+    plt.tight_layout()
+
+    plt.subplots_adjust(left=0.25, right=0.95, top=0.95, bottom=0.01)  # Further reduce top/bottom white space
+
     plt.show()
 
 

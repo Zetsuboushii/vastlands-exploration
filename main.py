@@ -1,8 +1,7 @@
 import click
-
 import decorators
 import plots
-from api import get_all_data, get_df_from_endpoint_data, fetch_faergria_map
+from api import get_all_data, get_df_from_endpoint_data, fetch_faergria_map, save_character_images
 from entities.action import Action
 from entities.character import Character
 from entities.enemy import Enemy
@@ -12,8 +11,8 @@ from entities.race import Race
 from utils import set_current_date
 
 
-def setup(faergria_map_url: str):
-    data = get_all_data(faergria_map_url)
+def setup(faergria_map_url: str, faergria_map_data_skip):
+    data = get_all_data(faergria_map_url, faergria_map_data_skip)
     set_current_date(data["general_data"])
     classes = {
         "actions_data": Action,
@@ -30,6 +29,7 @@ def setup(faergria_map_url: str):
         in data.items()
         if key != "general_data"
     }
+    save_character_images(dataframes["characters"])
     return dataframes
 
 
@@ -38,10 +38,13 @@ def _method_is_included(name: str):
             decorators.included_method_names is None or name in decorators.included_method_names))
 
 
+
 @click.command
 @click.option("--faergria-map-url", "-u", default="http://localhost:1338")
-def main(faergria_map_url: str):
-    data = setup(faergria_map_url)
+@click.option("--faergria-map-data-skip", "-s", default=False, is_flag=True)
+
+def main(faergria_map_url: str, faergria_map_data_skip: bool):
+    data = setup(faergria_map_url,faergria_map_data_skip)
     plot_gen_methods = filter(_method_is_included, dir(plots))
     for method_name in plot_gen_methods:
         method = getattr(plots, method_name)
