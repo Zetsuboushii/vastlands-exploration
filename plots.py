@@ -1,6 +1,7 @@
 import ast
+import time
+from pathlib import Path
 from typing import Optional
-
 import matplotlib.cm as cm
 import matplotlib.pyplot as plt
 import networkx as nx
@@ -539,7 +540,7 @@ def create_population_distribution_map(places: pd.DataFrame, markers: pd.DataFra
     plt.show()
 
 
-def offset_image(y, character_name, ax):
+def offset_image(y, character_name, ax, target_height):
     img_path = os.path.join('data', 'images', f"{character_name.lower()}.png")
 
     if not os.path.exists(img_path):
@@ -547,13 +548,15 @@ def offset_image(y, character_name, ax):
         return
 
     img = Image.open(img_path)
+    img_width, img_height = img.size
 
-    zoom_factor = 0.1
+    zoom_factor = target_height / img_height
 
     im = OffsetImage(img, zoom=zoom_factor)
     im.image.axes = ax
 
-    x_offset = -50
+    scaled_width = img_width * zoom_factor
+    x_offset = -scaled_width
 
     ab = AnnotationBbox(im, (0, y), xybox=(x_offset, 0), frameon=False,
                         xycoords='data', boxcoords="offset points", pad=0)
@@ -561,39 +564,68 @@ def offset_image(y, character_name, ax):
 
 
 @include_plot
-def create_height_distribution_chart(characters: pd.DataFrame, **kwargs):
+def create_height_distribution_chart(characters: pd.DataFrame, target_image_height=300, bar_spacing=10,
+                                     aspect_ratio=0.1, **kwargs):
     characters["height"] = characters["height"].str.replace(',', '.', regex=False)
     characters["height"] = pd.to_numeric(characters["height"], errors="coerce")
     characters = characters.dropna(subset=["height"])
     characters = characters.sort_values(by=["height"])
+    characters['age'] = characters['birthday'].apply(calculate_age)
+    characters = characters[(characters["age"] >= 18) & (characters["age"] <= 30)]
+    output_dir = "./data/plot_age_18_to_30.svg"
 
-    fig, ax = plt.subplots(figsize=(10, len(characters) * 0.4))  # Adjust height dynamically
+    total_bar_height = target_image_height + bar_spacing
+    plot_height = len(characters) * (total_bar_height / 70)
+    plot_width = plot_height * aspect_ratio
 
-    bar_height = 0.9
-    bars = ax.barh(range(len(characters)), characters["height"], height=bar_height, color='skyblue', align='center',
-                   alpha=0.8)
+    fig, ax = plt.subplots(figsize=(plot_width, plot_height))
+    bars = ax.barh(range(len(characters)), characters["height"], height=0.9,
+                   color='skyblue', align='center', alpha=0.8)
 
-    for i, character_name in enumerate(characters["name"]):
-        offset_image(i, character_name, ax=ax)
+    # Define the reference plot size and corresponding font sizes
+    # dividing by 100 because width= 1 -> 100pixel
+    ref_plot_height, ref_plot_width = 52700/100, 5270/100
+    ref_x_tick_labelsize = 80
+    ref_x_label_fontsize = 100
+    ref_text_fontsize = 100
+    ref_title_fontsize = 120
 
-    ax.set_yticks([])  # Hide y-ticks since images are used
+    # Calculate scaling factors based on plot size
+    width_scale_factor = plot_width / ref_plot_width
+    height_scale_factor = plot_height / ref_plot_height
+    overall_scale_factor = (width_scale_factor + height_scale_factor) / 2
 
+    # Adjust font sizes dynamically
+    x_tick_labelsize = ref_x_tick_labelsize * overall_scale_factor
+    x_label_fontsize = ref_x_label_fontsize * overall_scale_factor
+    text_fontsize = ref_text_fontsize * overall_scale_factor
+    title_fontsize = ref_title_fontsize * overall_scale_factor
+
+    for i, (character_name, height_value) in enumerate(zip(characters["name"], characters["height"])):
+        offset_image(i, character_name, ax=ax, target_height=target_image_height)
+
+        # Add the height of the character at the end of each bar
+        ax.text(height_value + 0.5, i, f'{height_value:.2f}', va='center', fontsize=text_fontsize, color='black')
+
+    ax.set_yticks([])
     ax.grid(True, which='both', axis='x', linestyle='--', alpha=0.6)
-    ax.set_xlabel('Height')
-    ax.set_title('Character Height Distribution')
 
-    plt.margins(y=0)  # Eliminate top and bottom margins
+    ax.set_xlabel('Height', fontsize=x_label_fontsize)
+    ax.set_title('Character Height Distribution', fontsize=title_fontsize)
+    ax.tick_params(axis='x', labelsize=x_tick_labelsize)
 
+    plt.margins(y=0)
     plt.tight_layout()
 
-    plt.subplots_adjust(left=0.25, right=0.95, top=0.95, bottom=0.01)  # Further reduce top/bottom white space
+    output_dir = Path(output_dir)
+
+    plt.savefig(output_dir/ "", format='svg')
 
     plt.show()
 
-
 '''
 WIP Danger Level Calculation
-- armor/ac value
+- armor*ac value
 - damage per turn capability
 - action variety 
 - status effects usable and weighting of their strength
