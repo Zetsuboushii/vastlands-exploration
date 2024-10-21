@@ -1,6 +1,6 @@
-from typing import List, Callable
+from typing import List
 
-included_method_names: List[Callable] | None = None
+included_method_names: List[str] | None = None
 
 
 def include_plot(func):

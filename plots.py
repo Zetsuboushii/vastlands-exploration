@@ -336,7 +336,7 @@ def create_relationship_web(characters: pd.DataFrame, **kwargs):
     # df_characters = characters.loc[~characters['name'].isin(['U-Ranos', 'Nayru'])]
     characters = {}
     relationships = []
-    output_filename = "data/character_relationships.svg"
+    output_filename = "data/plots/character_relationships.svg"
 
     # Iterate over each row in the DataFrame
     for index, row in df_characters.iterrows():
@@ -504,6 +504,7 @@ def create_relationship_web(characters: pd.DataFrame, **kwargs):
 
     print(f"The plot has been saved as {output_filename}")
 
+
 def create_population_distribution_map(places: pd.DataFrame, markers: pd.DataFrame, **kwargs):
     population_counts = []
     for index, place in places.iterrows():
@@ -520,7 +521,7 @@ def create_population_distribution_map(places: pd.DataFrame, markers: pd.DataFra
     for name, count, lat, long in population_counts:
         coeff = 2.9
         x, y = long * coeff, lat * coeff
-        circle = plt.Circle((x, y), max(count/500, 5), fill=False, edgecolor='red')
+        circle = plt.Circle((x, y), max(count / 500, 5), fill=False, edgecolor='red')
         ax.add_artist(circle)
 
         ax.annotate(f"{name}: {count}", (x, y), xytext=(5, 5),
@@ -563,16 +564,15 @@ def offset_image(y, character_name, ax, target_height):
     ax.add_artist(ab)
 
 
-@include_plot
 def create_height_distribution_chart(characters: pd.DataFrame, target_image_height=300, bar_spacing=10,
                                      aspect_ratio=0.1, **kwargs):
     characters["height"] = characters["height"].str.replace(',', '.', regex=False)
     characters["height"] = pd.to_numeric(characters["height"], errors="coerce")
     characters = characters.dropna(subset=["height"])
     characters = characters.sort_values(by=["height"])
-    characters['age'] = characters['birthday'].apply(calculate_age)
-    characters = characters[(characters["age"] >= 18) & (characters["age"] <= 30)]
-    output_dir = "./data/plot_age_18_to_30.svg"
+    # characters['age'] = characters['birthday'].apply(calculate_age)
+    # characters = characters[(characters["age"] >= 18) & (characters["age"] <= 30)]
+    output_dir = "data/plots/height_distribution.svg"
 
     total_bar_height = target_image_height + bar_spacing
     plot_height = len(characters) * (total_bar_height / 70)
@@ -584,7 +584,7 @@ def create_height_distribution_chart(characters: pd.DataFrame, target_image_heig
 
     # Define the reference plot size and corresponding font sizes
     # dividing by 100 because width= 1 -> 100pixel
-    ref_plot_height, ref_plot_width = 52700/100, 5270/100
+    ref_plot_height, ref_plot_width = 52700 / 100, 5270 / 100
     ref_x_tick_labelsize = 80
     ref_x_label_fontsize = 100
     ref_text_fontsize = 100
@@ -619,9 +619,96 @@ def create_height_distribution_chart(characters: pd.DataFrame, target_image_heig
 
     output_dir = Path(output_dir)
 
-    plt.savefig(output_dir/ "", format='svg')
+    plt.savefig(output_dir / "", format='svg')
 
     plt.show()
+
+
+@include_plot
+def create_character_ranking_barchart(characters: pd.DataFrame, tierlists: pd.DataFrame, **kwargs):
+    list_of_characters = pd.DataFrame(columns=['value', 'appearance'])
+    list_of_characters.index.name = 'name'
+    rank_of_characters = []
+    tiers_mapping = {'D': 0, 'C': 1, 'B': 2, 'A': 3, 'S': 4, 'SS': 5}
+    value_to_tier = {v: k for k, v in tiers_mapping.items()}
+
+    def update_character(name, value_increment):
+        if name not in list_of_characters.index:
+            list_of_characters.loc[name] = {'value': value_increment, 'appearance': 1}
+        else:
+            list_of_characters.loc[name, 'value'] += value_increment
+            list_of_characters.loc[name, 'appearance'] += 1
+
+    for index, row in tierlists.iterrows():
+        for tier in tiers_mapping:
+            current_tier_name_list = row.get(tier, [])
+            if isinstance(current_tier_name_list, list):
+                for name in current_tier_name_list:
+                    update_character(name, tiers_mapping[tier])
+
+    for index, row in list_of_characters.iterrows():
+        average_value = row['value'] / row['appearance']
+        rank_of_characters.append((index, average_value))
+
+    rank_df = pd.DataFrame(rank_of_characters, columns=['name', 'average_value'])
+    rank_df['rounded_value'] = rank_df['average_value'].round().astype(int)
+    rank_df['tier'] = rank_df['rounded_value'].map(value_to_tier)
+    rank_df = rank_df[rank_df['rounded_value'].between(0, 5)]
+    rank_df = rank_df.sort_values(by='average_value', ascending=True)
+
+    character_names = rank_df['name'].tolist()
+    average_values = rank_df['average_value'].tolist()
+
+    target_image_height = kwargs.get('target_image_height', 300)
+    bar_spacing = kwargs.get('bar_spacing', 10)
+    aspect_ratio = kwargs.get('aspect_ratio', 0.1)
+
+    total_bar_height = target_image_height + bar_spacing
+    plot_height = len(character_names) * (total_bar_height / 70)
+    plot_width = plot_height * aspect_ratio
+
+    fig, ax = plt.subplots(figsize=(plot_width, plot_height))
+    y_positions = range(len(character_names))
+    bars = ax.barh(y_positions, average_values, height=0.9, color='skyblue', align='center', alpha=0.8)
+
+    ref_plot_height, ref_plot_width = 52700 / 100, 5270 / 100
+    ref_x_tick_labelsize = 80
+    ref_x_label_fontsize = 100
+    ref_text_fontsize = 100
+    ref_title_fontsize = 120
+
+    width_scale_factor = plot_width / ref_plot_width
+    height_scale_factor = plot_height / ref_plot_height
+    overall_scale_factor = (width_scale_factor + height_scale_factor) / 2
+
+    x_tick_labelsize = ref_x_tick_labelsize * overall_scale_factor
+    x_label_fontsize = ref_x_label_fontsize * overall_scale_factor
+    text_fontsize = ref_text_fontsize * overall_scale_factor
+    title_fontsize = ref_title_fontsize * overall_scale_factor
+
+    for i, (character_name, avg_value) in enumerate(zip(character_names, average_values)):
+        offset_image(i, character_name, ax=ax, target_height=target_image_height)
+        ax.text(avg_value + 0.05, i, f'{avg_value:.2f}', va='center', fontsize=text_fontsize, color='black')
+
+    ax.set_yticks([])
+    ax.grid(True, which='both', axis='x', linestyle='--', alpha=0.6)
+    ax.set_xlabel('Tier', fontsize=x_label_fontsize)
+    ax.set_title('Character Ranking Distribution', fontsize=title_fontsize)
+    ax.tick_params(axis='x', labelsize=x_tick_labelsize)
+    ax.set_xlim(0, 5)
+    ax.set_xticks(range(6))
+    tiers_ordered = ['D', 'C', 'B', 'A', 'S', 'SS']
+    ax.set_xticklabels(tiers_ordered)
+
+    plt.margins(y=0)
+    plt.tight_layout()
+
+    output_dir = Path('data/plots/character_ranking_distribution.svg')
+    output_dir.parent.mkdir(parents=True, exist_ok=True)
+    plt.savefig(output_dir, format='svg')
+
+    plt.show()
+
 
 '''
 WIP Danger Level Calculation

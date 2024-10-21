@@ -8,7 +8,7 @@ from entities.enemy import Enemy
 from entities.marker import Marker
 from entities.place import Place
 from entities.race import Race
-from utils import set_current_date
+from utils import set_current_date, get_tierlist_df
 
 
 def setup(faergria_map_url: str, faergria_map_data_skip):
@@ -30,6 +30,8 @@ def setup(faergria_map_url: str, faergria_map_data_skip):
         if key != "general_data"
     }
     save_character_images(dataframes["characters"])
+    tierlist_df = get_tierlist_df()
+    dataframes['tierlists'] = tierlist_df
     return dataframes
 
 
