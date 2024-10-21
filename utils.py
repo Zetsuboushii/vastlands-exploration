@@ -114,6 +114,10 @@ def get_next_birthday(df_characters):
 
 
 def get_tierlist_df():
+    import pandas as pd
+    import json
+    import os
+
     data_list = []
     root_path = os.path.dirname(os.path.abspath(__file__))
     directory = os.path.join(root_path, 'data', 'tierlists')
@@ -128,7 +132,7 @@ def get_tierlist_df():
                 print(f"Filename {filename} does not match expected format 'tierlist_author_sessionNr.json'")
                 continue
 
-            with open(filepath, 'r') as f:
+            with open(filepath, 'r', encoding='utf-8') as f:
                 data = json.load(f)
 
             entry = {
@@ -144,6 +148,5 @@ def get_tierlist_df():
 
             data_list.append(entry)
 
-    # Create DataFrame
     df = pd.DataFrame(data_list)
     return df

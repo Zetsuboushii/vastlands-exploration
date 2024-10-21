@@ -570,7 +570,7 @@ def offset_image(y, character_name, ax, target_height):
     ax.add_artist(ab)
 
 
-def create_height_distribution_chart(characters: pd.DataFrame, target_image_height=300, bar_spacing=10,
+def create_height_distribution_chart(characters: pd.DataFrame, target_image_height=200, bar_spacing=10,
                                      aspect_ratio=0.1, **kwargs):
     characters["height"] = characters["height"].str.replace(',', '.', regex=False)
     characters["height"] = pd.to_numeric(characters["height"], errors="coerce")
@@ -630,6 +630,7 @@ def create_height_distribution_chart(characters: pd.DataFrame, target_image_heig
     plt.show()
 
 
+# TODO add the difference value to the average to see how much the community rating varies
 @include_plot
 def create_character_ranking_barchart(characters: pd.DataFrame, tierlists: pd.DataFrame, **kwargs):
     list_of_characters = pd.DataFrame(columns=['value', 'appearance'])
@@ -665,7 +666,8 @@ def create_character_ranking_barchart(characters: pd.DataFrame, tierlists: pd.Da
     character_names = rank_df['name'].tolist()
     average_values = rank_df['average_value'].tolist()
 
-    target_image_height = kwargs.get('target_image_height', 300)
+    # TODO add target_image_height, bar_spacing and aspect_ratio to kwargs to re use it for multiple plots
+    target_image_height = kwargs.get('target_image_height', 200)
     bar_spacing = kwargs.get('bar_spacing', 10)
     aspect_ratio = kwargs.get('aspect_ratio', 0.1)
 
