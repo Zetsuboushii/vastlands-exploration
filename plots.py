@@ -292,7 +292,7 @@ def _create_grouping_pie_chart(df: pd.DataFrame, group_column: str, title: str, 
         obj.show()
 
 
-def create_subclasses_bar_chart(characters: pd.DataFrame, obj=None, **kwargs):
+def _create_subclasses_bar_chart(characters: pd.DataFrame, obj=None, show_no_subclass=True):
     using_default_plt = False
     if obj is None:
         obj = plt
@@ -301,9 +301,10 @@ def create_subclasses_bar_chart(characters: pd.DataFrame, obj=None, **kwargs):
                       subclasses]
     subclass_counts = pd.Series(all_subclasses).value_counts()
 
-    no_subclass_count = (characters['subclasses'].str.len() == 0).sum()
-    no_subclass = "No Subclass"
-    subclass_counts[no_subclass] = no_subclass_count
+    if show_no_subclass:
+        no_subclass_count = (characters['subclasses'].str.len() == 0).sum()
+        no_subclass = "No Subclass"
+        subclass_counts[no_subclass] = no_subclass_count
 
     tick_settings = {"rotation": 45, "ha": "right"}
     if using_default_plt:
@@ -320,6 +321,11 @@ def create_subclasses_bar_chart(characters: pd.DataFrame, obj=None, **kwargs):
     else:
         obj.set_title(title)
 
+def create_subclasses_bar_chart_with_no_subclass(characters: pd.DataFrame, **kwargs):
+    _create_subclasses_bar_chart(characters, obj=None, show_no_subclass=True)
+
+def create_subclasses_bar_chart_without_no_subclass(characters: pd.DataFrame, **kwargs):
+    _create_subclasses_bar_chart(characters, obj=None, show_no_subclass=False)
 
 def create_character_classes_combined_pie_charts(characters: pd.DataFrame, **kwargs):
     fig, axes = plt.subplots(1, 2, figsize=(12, 8))
@@ -563,7 +569,6 @@ def offset_image(y, character_name, ax, target_height):
     ax.add_artist(ab)
 
 
-@include_plot
 def create_height_distribution_chart(characters: pd.DataFrame, target_image_height=300, bar_spacing=10,
                                      aspect_ratio=0.1, **kwargs):
     characters["height"] = characters["height"].str.replace(',', '.', regex=False)
