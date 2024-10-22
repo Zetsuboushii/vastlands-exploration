@@ -570,10 +570,8 @@ def offset_image(y, character_name, ax, target_height):
     ax.add_artist(ab)
 
 
-def create_height_distribution_chart(characters: pd.DataFrame, target_image_height=200, bar_spacing=10,
-                                     aspect_ratio=0.1, **kwargs):
-    characters["height"] = characters["height"].str.replace(',', '.', regex=False)
-    characters["height"] = pd.to_numeric(characters["height"], errors="coerce")
+def create_height_distribution_chart(characters: pd.DataFrame, target_image_height=100, bar_spacing=1,
+                                     aspect_ratio=0.05, **kwargs):
     characters = characters.dropna(subset=["height"])
     characters = characters.sort_values(by=["height"])
     # characters['age'] = characters['birthday'].apply(calculate_age)
@@ -630,12 +628,12 @@ def create_height_distribution_chart(characters: pd.DataFrame, target_image_heig
     plt.show()
 
 
-# TODO add the difference value to the average to see how much the community rating varies
 @include_plot
-def create_character_ranking_barchart(characters: pd.DataFrame, tierlists: pd.DataFrame, target_image_height=108,
+def create_character_ranking_barchart(tierlists: pd.DataFrame, target_image_height=108,
                                       bar_spacing=0.1,
                                       aspect_ratio=0.05, **kwargs):
-    list_of_characters = pd.DataFrame(columns=['value', 'appearance'])
+    filtered_tierlists = tierlists.loc[tierlists.groupby('author')['sessionNr'].idxmax()]
+    list_of_characters = pd.DataFrame(columns=['sum_value', 'appearance', 'all_values'])
     list_of_characters.index.name = 'name'
     rank_of_characters = []
     tiers_mapping = {'D': 0, 'C': 1, 'B': 2, 'A': 3, 'S': 4, 'SS': 5}
@@ -643,12 +641,14 @@ def create_character_ranking_barchart(characters: pd.DataFrame, tierlists: pd.Da
 
     def update_character(name, value_increment):
         if name not in list_of_characters.index:
-            list_of_characters.loc[name] = {'value': value_increment, 'appearance': 1}
+            list_of_characters.loc[name] = {'sum_value': value_increment, 'appearance': 1,
+                                            'all_values': [value_increment]}
         else:
-            list_of_characters.loc[name, 'value'] += value_increment
+            list_of_characters.loc[name, 'sum_value'] += value_increment
             list_of_characters.loc[name, 'appearance'] += 1
+            list_of_characters.at[name, 'all_values'].append(value_increment)
 
-    for index, row in tierlists.iterrows():
+    for index, row in filtered_tierlists.iterrows():
         for tier in tiers_mapping:
             current_tier_name_list = row.get(tier, [])
             if isinstance(current_tier_name_list, list):
@@ -656,10 +656,11 @@ def create_character_ranking_barchart(characters: pd.DataFrame, tierlists: pd.Da
                     update_character(name, tiers_mapping[tier])
 
     for index, row in list_of_characters.iterrows():
-        average_value = row['value'] / row['appearance']
-        rank_of_characters.append((index, average_value))
+        average_value = row['sum_value'] / row['appearance']
+        std_dev = pd.Series(row['all_values']).std()
+        rank_of_characters.append((index, average_value, std_dev))
 
-    rank_df = pd.DataFrame(rank_of_characters, columns=['name', 'average_value'])
+    rank_df = pd.DataFrame(rank_of_characters, columns=['name', 'average_value', 'std_dev'])
     rank_df['rounded_value'] = rank_df['average_value'].round().astype(int)
     rank_df['tier'] = rank_df['rounded_value'].map(value_to_tier)
     rank_df = rank_df[rank_df['rounded_value'].between(0, 5)]
@@ -667,6 +668,7 @@ def create_character_ranking_barchart(characters: pd.DataFrame, tierlists: pd.Da
 
     character_names = rank_df['name'].tolist()
     average_values = rank_df['average_value'].tolist()
+    std_devs = rank_df['std_dev'].tolist()
 
     total_bar_height = target_image_height + bar_spacing
     plot_height = len(character_names) * (total_bar_height / 70)
@@ -691,9 +693,10 @@ def create_character_ranking_barchart(characters: pd.DataFrame, tierlists: pd.Da
     text_fontsize = ref_text_fontsize * overall_scale_factor
     title_fontsize = ref_title_fontsize * overall_scale_factor
 
-    for i, (character_name, avg_value) in enumerate(zip(character_names, average_values)):
+    for i, (character_name, avg_value, std_dev) in enumerate(zip(character_names, average_values, std_devs)):
         offset_image(i, character_name, ax=ax, target_height=target_image_height)
-        ax.text(avg_value + 0.05, i, f'{avg_value:.2f}', va='center', fontsize=text_fontsize, color='black')
+        ax.text(avg_value + 0.05, i, f'{avg_value:.2f} (SD: {std_dev:.2f})', va='center', fontsize=text_fontsize,
+                color='black')
 
     ax.set_yticks([])
     ax.grid(True, which='both', axis='x', linestyle='--', alpha=0.6)
@@ -715,9 +718,9 @@ def create_character_ranking_barchart(characters: pd.DataFrame, tierlists: pd.Da
     plt.show()
 
 
-@include_plot
 def create_character_ranking_barchart_no_image(characters: pd.DataFrame, tierlists: pd.DataFrame, **kwargs):
-    list_of_characters = pd.DataFrame(columns=['value', 'appearance'])
+    filtered_tierlists = tierlists.loc[tierlists.groupby('author')['sessionNr'].idxmax()]
+    list_of_characters = pd.DataFrame(columns=['sum_value', 'appearance', 'all_values'])
     list_of_characters.index.name = 'name'
     rank_of_characters = []
     tiers_mapping = {'D': 0, 'C': 1, 'B': 2, 'A': 3, 'S': 4, 'SS': 5}
@@ -725,12 +728,14 @@ def create_character_ranking_barchart_no_image(characters: pd.DataFrame, tierlis
 
     def update_character(name, value_increment):
         if name not in list_of_characters.index:
-            list_of_characters.loc[name] = {'value': value_increment, 'appearance': 1}
+            list_of_characters.loc[name] = {'sum_value': value_increment, 'appearance': 1,
+                                            'all_values': [value_increment]}
         else:
-            list_of_characters.loc[name, 'value'] += value_increment
+            list_of_characters.loc[name, 'sum_value'] += value_increment
             list_of_characters.loc[name, 'appearance'] += 1
+            list_of_characters.at[name, 'all_values'].append(value_increment)
 
-    for index, row in tierlists.iterrows():
+    for index, row in filtered_tierlists.iterrows():
         for tier in tiers_mapping:
             current_tier_name_list = row.get(tier, [])
             if isinstance(current_tier_name_list, list):
@@ -738,10 +743,11 @@ def create_character_ranking_barchart_no_image(characters: pd.DataFrame, tierlis
                     update_character(name, tiers_mapping[tier])
 
     for index, row in list_of_characters.iterrows():
-        average_value = row['value'] / row['appearance']
-        rank_of_characters.append((index, average_value))
+        average_value = row['sum_value'] / row['appearance']
+        std_dev = pd.Series(row['all_values']).std()
+        rank_of_characters.append((index, average_value, std_dev))
 
-    rank_df = pd.DataFrame(rank_of_characters, columns=['name', 'average_value'])
+    rank_df = pd.DataFrame(rank_of_characters, columns=['name', 'average_value', 'std_dev'])
     rank_df['rounded_value'] = rank_df['average_value'].round().astype(int)
     rank_df['tier'] = rank_df['rounded_value'].map(value_to_tier)
     rank_df = rank_df[rank_df['rounded_value'].between(0, 5)]
@@ -749,6 +755,7 @@ def create_character_ranking_barchart_no_image(characters: pd.DataFrame, tierlis
 
     character_names = rank_df['name'].tolist()
     average_values = rank_df['average_value'].tolist()
+    std_devs = rank_df['std_dev'].tolist()
 
     fig_height = len(character_names) * 0.1
     fig_width = 5
@@ -761,13 +768,13 @@ def create_character_ranking_barchart_no_image(characters: pd.DataFrame, tierlis
     x_tick_labelsize = 8
     x_label_fontsize = 10
     y_tick_labelsize = 8
-    text_fontsize = 8
+    text_fontsize = 6
     title_fontsize = 9
 
     # Add value labels next to the bars
-    for i, avg_value in enumerate(average_values):
-        ax.text(avg_value + 0.05, i, f'{avg_value:.2f}', va='center', fontsize=text_fontsize, color='black')
-
+    for i, (character_name, avg_value, std_dev) in enumerate(zip(character_names, average_values, std_devs)):
+        ax.text(avg_value + 0.05, i, f'{avg_value:.2f} (SD: {std_dev:.2f})', va='center', fontsize=text_fontsize,
+                color='black')
     # Set the y-axis to display character names
     ax.set_yticks(y_positions)
     ax.set_yticklabels(character_names, fontsize=y_tick_labelsize)

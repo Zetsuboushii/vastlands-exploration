@@ -3,7 +3,8 @@ from entities import Entity
 
 class Character(Entity):
     def __init__(self, name: str, surname: str, title: str, race: str, sex: str, birthday: str,
-                 height: str,
+                 height: float, weight: int, bust: int, underbust: int, waist: int, hip: int, shoulder_width: int,
+                 muscle_mass: int,
                  functions: list[str], character_class: str, subclasses: list[str],
                  masterclass: str, homes: list[str],
                  alignment: str, status: str, relationships: list[tuple[str, str]], lover: str):
@@ -14,6 +15,13 @@ class Character(Entity):
         self.sex = sex
         self.birthday = birthday
         self.height = height
+        self.weight = weight
+        self.bust = bust
+        self.underbust = underbust
+        self.waist = waist
+        self.hip = hip
+        self.shoulder_width = shoulder_width
+        self.muscle_mass = muscle_mass
         self.function = functions
         self.character_class = character_class
         self.subclasses = subclasses
@@ -33,7 +41,14 @@ class Character(Entity):
             race=data.get('race', ''),
             sex=data.get('sex', ''),
             birthday=data.get('birthday', ''),
-            height=data.get('height', ''),
+            height=data.get('height', 0),
+            weight=data.get('weight', 0),
+            bust=data.get('bust', 0),
+            underbust=data.get('underbust', 0),
+            waist=data.get('waist', 0),
+            hip=data.get('hip', 0),
+            shoulder_width=data.get('shoulder_width', 0),
+            muscle_mass=data.get('muscle_mass', 0),
             functions=data.get('functions', []),
             character_class=data.get('class', ''),
             subclasses=data.get('subclasses', []),
