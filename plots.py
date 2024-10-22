@@ -632,7 +632,9 @@ def create_height_distribution_chart(characters: pd.DataFrame, target_image_heig
 
 # TODO add the difference value to the average to see how much the community rating varies
 @include_plot
-def create_character_ranking_barchart(characters: pd.DataFrame, tierlists: pd.DataFrame, **kwargs):
+def create_character_ranking_barchart(characters: pd.DataFrame, tierlists: pd.DataFrame, target_image_height=108,
+                                      bar_spacing=0.1,
+                                      aspect_ratio=0.05, **kwargs):
     list_of_characters = pd.DataFrame(columns=['value', 'appearance'])
     list_of_characters.index.name = 'name'
     rank_of_characters = []
@@ -665,11 +667,6 @@ def create_character_ranking_barchart(characters: pd.DataFrame, tierlists: pd.Da
 
     character_names = rank_df['name'].tolist()
     average_values = rank_df['average_value'].tolist()
-
-    # TODO add target_image_height, bar_spacing and aspect_ratio to kwargs to re use it for multiple plots
-    target_image_height = kwargs.get('target_image_height', 200)
-    bar_spacing = kwargs.get('bar_spacing', 10)
-    aspect_ratio = kwargs.get('aspect_ratio', 0.1)
 
     total_bar_height = target_image_height + bar_spacing
     plot_height = len(character_names) * (total_bar_height / 70)
@@ -717,6 +714,77 @@ def create_character_ranking_barchart(characters: pd.DataFrame, tierlists: pd.Da
 
     plt.show()
 
+
+@include_plot
+def create_character_ranking_barchart_no_image(characters: pd.DataFrame, tierlists: pd.DataFrame, **kwargs):
+    list_of_characters = pd.DataFrame(columns=['value', 'appearance'])
+    list_of_characters.index.name = 'name'
+    rank_of_characters = []
+    tiers_mapping = {'D': 0, 'C': 1, 'B': 2, 'A': 3, 'S': 4, 'SS': 5}
+    value_to_tier = {v: k for k, v in tiers_mapping.items()}
+
+    def update_character(name, value_increment):
+        if name not in list_of_characters.index:
+            list_of_characters.loc[name] = {'value': value_increment, 'appearance': 1}
+        else:
+            list_of_characters.loc[name, 'value'] += value_increment
+            list_of_characters.loc[name, 'appearance'] += 1
+
+    for index, row in tierlists.iterrows():
+        for tier in tiers_mapping:
+            current_tier_name_list = row.get(tier, [])
+            if isinstance(current_tier_name_list, list):
+                for name in current_tier_name_list:
+                    update_character(name, tiers_mapping[tier])
+
+    for index, row in list_of_characters.iterrows():
+        average_value = row['value'] / row['appearance']
+        rank_of_characters.append((index, average_value))
+
+    rank_df = pd.DataFrame(rank_of_characters, columns=['name', 'average_value'])
+    rank_df['rounded_value'] = rank_df['average_value'].round().astype(int)
+    rank_df['tier'] = rank_df['rounded_value'].map(value_to_tier)
+    rank_df = rank_df[rank_df['rounded_value'].between(0, 5)]
+    rank_df = rank_df.sort_values(by='average_value', ascending=True)
+
+    character_names = rank_df['name'].tolist()
+    average_values = rank_df['average_value'].tolist()
+
+    fig_height = len(character_names) * 0.1
+    fig_width = 5
+    fig, ax = plt.subplots(figsize=(fig_width, fig_height))
+
+    y_positions = range(len(character_names))
+    bars = ax.barh(y_positions, average_values, height=0.8, color='skyblue', align='center', alpha=0.8)
+
+    # Set font sizes
+    x_tick_labelsize = 8
+    x_label_fontsize = 10
+    y_tick_labelsize = 8
+    text_fontsize = 8
+    title_fontsize = 9
+
+    # Add value labels next to the bars
+    for i, avg_value in enumerate(average_values):
+        ax.text(avg_value + 0.05, i, f'{avg_value:.2f}', va='center', fontsize=text_fontsize, color='black')
+
+    # Set the y-axis to display character names
+    ax.set_yticks(y_positions)
+    ax.set_yticklabels(character_names, fontsize=y_tick_labelsize)
+
+    # Configure the rest of the plot
+    ax.grid(True, which='both', axis='x', linestyle='--', alpha=0.6)
+    ax.set_xlabel('Tier', fontsize=x_label_fontsize)
+    ax.set_title('Character Ranking Distribution', fontsize=title_fontsize)
+    ax.tick_params(axis='x', labelsize=x_tick_labelsize)
+    ax.set_xlim(0, 5)
+    ax.set_xticks(range(6))
+    tiers_ordered = ['D', 'C', 'B', 'A', 'S', 'SS']
+    ax.set_xticklabels(tiers_ordered)
+
+    plt.margins(y=0)
+    plt.tight_layout()
+    plt.show()
 
 '''
 WIP Danger Level Calculation
