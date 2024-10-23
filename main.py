@@ -48,7 +48,10 @@ def _method_is_included(name: str):
 def main(faergria_map_url: str, faergria_map_data_skip: bool):
     data = setup(faergria_map_url,faergria_map_data_skip)
     plot_gen_methods = filter(_method_is_included, dir(plots))
+    faergria_map_dependend_methods = ["create_population_distribution_map"]
     for method_name in plot_gen_methods:
+        if faergria_map_data_skip and method_name in faergria_map_dependend_methods:
+            continue
         method = getattr(plots, method_name)
         method(**data)
 

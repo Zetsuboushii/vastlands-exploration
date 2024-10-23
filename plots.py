@@ -14,6 +14,7 @@ from decorators import include_plot
 from utils import calculate_age, get_day_of_year
 import matplotlib.lines as mlines
 import os
+from scipy import stats
 
 
 def create_gender_distribution(characters, **kwargs):
@@ -628,7 +629,6 @@ def create_height_distribution_chart(characters: pd.DataFrame, target_image_heig
     plt.show()
 
 
-@include_plot
 def create_character_ranking_barchart(tierlists: pd.DataFrame, target_image_height=108,
                                       bar_spacing=0.1,
                                       aspect_ratio=0.05, **kwargs):
@@ -792,6 +792,68 @@ def create_character_ranking_barchart_no_image(characters: pd.DataFrame, tierlis
     plt.margins(y=0)
     plt.tight_layout()
     plt.show()
+
+def _create_grouped_boxplots(characters: pd.DataFrame, x_grouping: str, y_values: str, ylabel: str, title: str):
+    data = [characters[characters[x_grouping] == group_name][y_values] for group_name in characters[x_grouping].unique()]
+    labels = characters[x_grouping].unique()
+    plt.figure(figsize=(10, 6))
+    plt.boxplot(data, labels=labels)
+    plt.xticks(rotation=45)
+    plt.ylabel(ylabel)
+    plt.title(title)
+    plt.show()
+
+@include_plot
+def create_muscle_mass_boxplots_by_race(characters: pd.DataFrame, **kwargs):
+    _create_grouped_boxplots(characters, "race", "muscle_mass", "Muscle mass", "Muscle mass distribution by race")
+
+@include_plot
+def create_weight_boxplots_by_race(characters: pd.DataFrame, **kwargs):
+    _create_grouped_boxplots(characters, "race", "weight", "Weight", "Weight distribution by race")
+
+def _create_correlation_plot(characters: pd.DataFrame, x_key: str, y_key: str, title: str, filter_zeros = False):
+    plt.figure()
+    if filter_zeros:
+        df = characters[characters[y_key] != 0]
+    else:
+        df = characters
+    x_values = df[x_key]
+    y_values = df[y_key]
+    plt.scatter(x_values, y_values)
+
+    slope, intercept, r, p, stdErr = stats.linregress(x_values, y_values)
+    line = slope * x_values + intercept
+    plt.plot(x_values, line, color="red", label=f"f(x) = {slope:.3f}x + {intercept:.3f}")
+
+    correlation_text = (f'R = {r:.4f}\n'
+                        f'R² = {r**2:.4f}\n'
+                        f'p = {p:.4e}')
+    plt.text(0.05, 0.95, correlation_text,
+         transform=plt.gca().transAxes,
+         bbox=dict(facecolor='white', alpha=0.8),
+         verticalalignment='top')
+
+    plt.xlabel(x_key)
+    plt.ylabel(y_key)
+    plt.title(title)
+    plt.legend()
+    plt.show()
+
+@include_plot
+def create_weight_height_correlation_plot_with_zero_weights(characters: pd.DataFrame, **kwargs):
+    _create_correlation_plot(characters, "height", "weight", "Weight by height (w/ 0s)", filter_zeros=False)
+
+@include_plot
+def create_weight_height_correlation_plot_without_zero_weights(characters: pd.DataFrame, **kwargs):
+    _create_correlation_plot(characters, "height", "weight", "Weight by height (w/o 0s)", filter_zeros=True)
+
+@include_plot
+def create_weight_muscle_mass_correlaton_plot(characters: pd.DataFrame, **kwargs):
+    _create_correlation_plot(characters, "muscle_mass", "weight", "Weight by muscle mass")
+
+@include_plot
+def create_muscle_mass_height_correlation_plot(characters: pd.DataFrame, **kwargs):
+    _create_correlation_plot(characters, "muscle_mass", "height", "Height by muscle mass", filter_zeros=True)
 
 '''
 WIP Danger Level Calculation
