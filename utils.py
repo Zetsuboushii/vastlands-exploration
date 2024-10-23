@@ -150,3 +150,43 @@ def get_tierlist_df():
 
     df = pd.DataFrame(data_list)
     return df
+
+def get_evaluated_tierlist_df(tierlists):
+    filtered_tierlists = tierlists.loc[tierlists.groupby('author')['sessionNr'].idxmax()]
+    list_of_characters = pd.DataFrame(columns=['sum_value', 'appearance', 'all_values'])
+    list_of_characters.index.name = 'name'
+    rank_of_characters = []
+    tiers_mapping = {'D': 0, 'C': 1, 'B': 2, 'A': 3, 'S': 4, 'SS': 5}
+    value_to_tier = {v: k for k, v in tiers_mapping.items()}
+
+    def update_character(name, value_increment):
+        if name not in list_of_characters.index:
+            list_of_characters.loc[name] = {'sum_value': value_increment, 'appearance': 1,
+                                            'all_values': [value_increment]}
+        else:
+            list_of_characters.loc[name, 'sum_value'] += value_increment
+            list_of_characters.loc[name, 'appearance'] += 1
+            list_of_characters.at[name, 'all_values'].append(value_increment)
+
+    for index, row in filtered_tierlists.iterrows():
+        for tier in tiers_mapping:
+            current_tier_name_list = row.get(tier, [])
+            if isinstance(current_tier_name_list, list):
+                for name in current_tier_name_list:
+                    update_character(name, tiers_mapping[tier])
+    for index, row in list_of_characters.iterrows():
+        average_rating = row['sum_value'] / row['appearance']
+        std_dev = pd.Series(row['all_values']).std()
+        rank_of_characters.append((index, average_rating, std_dev))
+    rank_df = pd.DataFrame(rank_of_characters, columns=['name', 'average_rating', 'std_dev'])
+    rank_df['rounded_rating'] = rank_df['average_rating'].round().astype(int)
+    rank_df['tier'] = rank_df['rounded_rating'].map(value_to_tier)
+    rank_df = rank_df[rank_df['rounded_rating'].between(0, 5)]
+    rank_df = rank_df.sort_values(by='average_rating', ascending=True)
+    return rank_df
+
+def get_joined_tierlists_characters_df(characters: pd.DataFrame, tierlists: pd.DataFrame):
+    characters['name'] = characters['name'].str.lower()
+    rating_df = get_evaluated_tierlist_df(tierlists)
+    combined_df = pd.merge(rating_df, characters, on='name', how='inner')
+    return combined_df

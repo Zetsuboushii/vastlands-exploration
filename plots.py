@@ -10,8 +10,10 @@ import pandas as pd
 from adjustText import adjust_text
 from PIL import Image
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+from pygments.lexer import combined
+
 from decorators import include_plot
-from utils import calculate_age, get_day_of_year
+from utils import calculate_age, get_day_of_year, get_evaluated_tierlist_df, get_joined_tierlists_characters_df
 import matplotlib.lines as mlines
 import os
 from scipy import stats
@@ -632,42 +634,10 @@ def create_height_distribution_chart(characters: pd.DataFrame, target_image_heig
 def create_character_ranking_barchart(tierlists: pd.DataFrame, target_image_height=108,
                                       bar_spacing=0.1,
                                       aspect_ratio=0.05, **kwargs):
-    filtered_tierlists = tierlists.loc[tierlists.groupby('author')['sessionNr'].idxmax()]
-    list_of_characters = pd.DataFrame(columns=['sum_value', 'appearance', 'all_values'])
-    list_of_characters.index.name = 'name'
-    rank_of_characters = []
-    tiers_mapping = {'D': 0, 'C': 1, 'B': 2, 'A': 3, 'S': 4, 'SS': 5}
-    value_to_tier = {v: k for k, v in tiers_mapping.items()}
-
-    def update_character(name, value_increment):
-        if name not in list_of_characters.index:
-            list_of_characters.loc[name] = {'sum_value': value_increment, 'appearance': 1,
-                                            'all_values': [value_increment]}
-        else:
-            list_of_characters.loc[name, 'sum_value'] += value_increment
-            list_of_characters.loc[name, 'appearance'] += 1
-            list_of_characters.at[name, 'all_values'].append(value_increment)
-
-    for index, row in filtered_tierlists.iterrows():
-        for tier in tiers_mapping:
-            current_tier_name_list = row.get(tier, [])
-            if isinstance(current_tier_name_list, list):
-                for name in current_tier_name_list:
-                    update_character(name, tiers_mapping[tier])
-
-    for index, row in list_of_characters.iterrows():
-        average_value = row['sum_value'] / row['appearance']
-        std_dev = pd.Series(row['all_values']).std()
-        rank_of_characters.append((index, average_value, std_dev))
-
-    rank_df = pd.DataFrame(rank_of_characters, columns=['name', 'average_value', 'std_dev'])
-    rank_df['rounded_value'] = rank_df['average_value'].round().astype(int)
-    rank_df['tier'] = rank_df['rounded_value'].map(value_to_tier)
-    rank_df = rank_df[rank_df['rounded_value'].between(0, 5)]
-    rank_df = rank_df.sort_values(by='average_value', ascending=True)
+    rank_df = get_evaluated_tierlist_df(tierlists)
 
     character_names = rank_df['name'].tolist()
-    average_values = rank_df['average_value'].tolist()
+    average_rating = rank_df['average_rating'].tolist()
     std_devs = rank_df['std_dev'].tolist()
 
     total_bar_height = target_image_height + bar_spacing
@@ -676,7 +646,7 @@ def create_character_ranking_barchart(tierlists: pd.DataFrame, target_image_heig
 
     fig, ax = plt.subplots(figsize=(plot_width, plot_height))
     y_positions = range(len(character_names))
-    bars = ax.barh(y_positions, average_values, height=0.9, color='skyblue', align='center', alpha=0.8)
+    bars = ax.barh(y_positions, average_rating, height=0.9, color='skyblue', align='center', alpha=0.8)
 
     ref_plot_height, ref_plot_width = 52700 / 100, 5270 / 100
     ref_x_tick_labelsize = 80
@@ -693,7 +663,7 @@ def create_character_ranking_barchart(tierlists: pd.DataFrame, target_image_heig
     text_fontsize = ref_text_fontsize * overall_scale_factor
     title_fontsize = ref_title_fontsize * overall_scale_factor
 
-    for i, (character_name, avg_value, std_dev) in enumerate(zip(character_names, average_values, std_devs)):
+    for i, (character_name, avg_value, std_dev) in enumerate(zip(character_names, average_rating, std_devs)):
         offset_image(i, character_name, ax=ax, target_height=target_image_height)
         ax.text(avg_value + 0.05, i, f'{avg_value:.2f} (SD: {std_dev:.2f})', va='center', fontsize=text_fontsize,
                 color='black')
@@ -717,44 +687,11 @@ def create_character_ranking_barchart(tierlists: pd.DataFrame, target_image_heig
 
     plt.show()
 
-
-def create_character_ranking_barchart_no_image(characters: pd.DataFrame, tierlists: pd.DataFrame, **kwargs):
-    filtered_tierlists = tierlists.loc[tierlists.groupby('author')['sessionNr'].idxmax()]
-    list_of_characters = pd.DataFrame(columns=['sum_value', 'appearance', 'all_values'])
-    list_of_characters.index.name = 'name'
-    rank_of_characters = []
-    tiers_mapping = {'D': 0, 'C': 1, 'B': 2, 'A': 3, 'S': 4, 'SS': 5}
-    value_to_tier = {v: k for k, v in tiers_mapping.items()}
-
-    def update_character(name, value_increment):
-        if name not in list_of_characters.index:
-            list_of_characters.loc[name] = {'sum_value': value_increment, 'appearance': 1,
-                                            'all_values': [value_increment]}
-        else:
-            list_of_characters.loc[name, 'sum_value'] += value_increment
-            list_of_characters.loc[name, 'appearance'] += 1
-            list_of_characters.at[name, 'all_values'].append(value_increment)
-
-    for index, row in filtered_tierlists.iterrows():
-        for tier in tiers_mapping:
-            current_tier_name_list = row.get(tier, [])
-            if isinstance(current_tier_name_list, list):
-                for name in current_tier_name_list:
-                    update_character(name, tiers_mapping[tier])
-
-    for index, row in list_of_characters.iterrows():
-        average_value = row['sum_value'] / row['appearance']
-        std_dev = pd.Series(row['all_values']).std()
-        rank_of_characters.append((index, average_value, std_dev))
-
-    rank_df = pd.DataFrame(rank_of_characters, columns=['name', 'average_value', 'std_dev'])
-    rank_df['rounded_value'] = rank_df['average_value'].round().astype(int)
-    rank_df['tier'] = rank_df['rounded_value'].map(value_to_tier)
-    rank_df = rank_df[rank_df['rounded_value'].between(0, 5)]
-    rank_df = rank_df.sort_values(by='average_value', ascending=True)
+def create_character_ranking_barchart_no_image(tierlists: pd.DataFrame, **kwargs):
+    rank_df = get_evaluated_tierlist_df(tierlists)
 
     character_names = rank_df['name'].tolist()
-    average_values = rank_df['average_value'].tolist()
+    average_rating = rank_df['average_rating'].tolist()
     std_devs = rank_df['std_dev'].tolist()
 
     fig_height = len(character_names) * 0.1
@@ -762,7 +699,7 @@ def create_character_ranking_barchart_no_image(characters: pd.DataFrame, tierlis
     fig, ax = plt.subplots(figsize=(fig_width, fig_height))
 
     y_positions = range(len(character_names))
-    bars = ax.barh(y_positions, average_values, height=0.8, color='skyblue', align='center', alpha=0.8)
+    bars = ax.barh(y_positions, average_rating, height=0.8, color='skyblue', align='center', alpha=0.8)
 
     # Set font sizes
     x_tick_labelsize = 8
@@ -772,7 +709,7 @@ def create_character_ranking_barchart_no_image(characters: pd.DataFrame, tierlis
     title_fontsize = 9
 
     # Add value labels next to the bars
-    for i, (character_name, avg_value, std_dev) in enumerate(zip(character_names, average_values, std_devs)):
+    for i, (character_name, avg_value, std_dev) in enumerate(zip(character_names, average_rating, std_devs)):
         ax.text(avg_value + 0.05, i, f'{avg_value:.2f} (SD: {std_dev:.2f})', va='center', fontsize=text_fontsize,
                 color='black')
     # Set the y-axis to display character names
@@ -793,6 +730,7 @@ def create_character_ranking_barchart_no_image(characters: pd.DataFrame, tierlis
     plt.tight_layout()
     plt.show()
 
+
 def _create_grouped_boxplots(characters: pd.DataFrame, x_grouping: str, y_values: str, ylabel: str, title: str):
     data = [characters[characters[x_grouping] == group_name][y_values] for group_name in characters[x_grouping].unique()]
     labels = characters[x_grouping].unique()
@@ -803,11 +741,9 @@ def _create_grouped_boxplots(characters: pd.DataFrame, x_grouping: str, y_values
     plt.title(title)
     plt.show()
 
-@include_plot
 def create_muscle_mass_boxplots_by_race(characters: pd.DataFrame, **kwargs):
     _create_grouped_boxplots(characters, "race", "muscle_mass", "Muscle mass", "Muscle mass distribution by race")
 
-@include_plot
 def create_weight_boxplots_by_race(characters: pd.DataFrame, **kwargs):
     _create_grouped_boxplots(characters, "race", "weight", "Weight", "Weight distribution by race")
 
@@ -827,7 +763,9 @@ def _create_correlation_plot(characters: pd.DataFrame, x_key: str, y_key: str, t
 
     correlation_text = (f'R = {r:.4f}\n'
                         f'R² = {r**2:.4f}\n'
-                        f'p = {p:.4e}')
+                        f'p = {p:.4e}\n'
+                        f'p% = {p*100:.2f}')
+
     plt.text(0.05, 0.95, correlation_text,
          transform=plt.gca().transAxes,
          bbox=dict(facecolor='white', alpha=0.8),
@@ -839,21 +777,32 @@ def _create_correlation_plot(characters: pd.DataFrame, x_key: str, y_key: str, t
     plt.legend()
     plt.show()
 
-@include_plot
 def create_weight_height_correlation_plot_with_zero_weights(characters: pd.DataFrame, **kwargs):
     _create_correlation_plot(characters, "height", "weight", "Weight by height (w/ 0s)", filter_zeros=False)
 
-@include_plot
 def create_weight_height_correlation_plot_without_zero_weights(characters: pd.DataFrame, **kwargs):
     _create_correlation_plot(characters, "height", "weight", "Weight by height (w/o 0s)", filter_zeros=True)
 
-@include_plot
-def create_weight_muscle_mass_correlaton_plot(characters: pd.DataFrame, **kwargs):
+def create_weight_muscle_mass_correlation_plot(characters: pd.DataFrame, **kwargs):
     _create_correlation_plot(characters, "muscle_mass", "weight", "Weight by muscle mass")
 
-@include_plot
 def create_muscle_mass_height_correlation_plot(characters: pd.DataFrame, **kwargs):
     _create_correlation_plot(characters, "muscle_mass", "height", "Height by muscle mass", filter_zeros=True)
+
+@include_plot
+def create_cup_rating_plot(characters: pd.DataFrame, tierlists: pd.DataFrame, **kwargs):
+    combined_df = get_joined_tierlists_characters_df(characters, tierlists)
+    combined_df = combined_df[combined_df["sex"] == "w"]
+    combined_df = combined_df[combined_df["underbust"] != 0]
+    combined_df["cup"] = combined_df["bust"] - combined_df["underbust"]
+    _create_correlation_plot(combined_df, "cup", "average_rating", "Rating by cup size", filter_zeros=True)
+
+@include_plot
+def create_muscle_mass_rating_correlation_plot(characters: pd.DataFrame, tierlists:pd.DataFrame, **kwargs):
+    combined_df = get_joined_tierlists_characters_df(characters, tierlists)
+    _create_correlation_plot(combined_df, "muscle_mass", "average_rating", "Rating by muscle mass", filter_zeros=True)
+
+
 
 '''
 WIP Danger Level Calculation
