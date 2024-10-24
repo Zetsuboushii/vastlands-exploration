@@ -5,6 +5,14 @@ from pathlib import Path
 
 import pandas as pd
 
+from api import get_all_data, get_df_from_endpoint_data, save_character_images
+from entities.action import Action
+from entities.character import Character
+from entities.enemy import Enemy
+from entities.marker import Marker
+from entities.place import Place
+from entities.race import Race
+
 CURRENT_DATE = None
 
 fantasy_months = {
@@ -190,3 +198,27 @@ def get_joined_tierlists_characters_df(characters: pd.DataFrame, tierlists: pd.D
     rating_df = get_evaluated_tierlist_df(tierlists)
     combined_df = pd.merge(rating_df, characters, on='name', how='inner')
     return combined_df
+
+
+def get_dataframes(faergria_map_url: str, faergria_map_data_skip):
+    data = get_all_data(faergria_map_url, faergria_map_data_skip)
+    set_current_date(data["general_data"])
+    classes = {
+        "actions_data": Action,
+        "characters_data": Character,
+        "enemies_data": Enemy,
+        "places_data": Place,
+        "races_data": Race,
+        "markers_data": Marker
+    }
+    # "Calculate" dataframes for the respective object data from the endpoints,
+    # but assign keys without "_data"
+    dataframes = {
+        key[:-5]: get_df_from_endpoint_data(endpoint_data, classes[key]) for key, endpoint_data
+        in data.items()
+        if key != "general_data"
+    }
+    save_character_images(dataframes["characters"])
+    tierlist_df = get_tierlist_df()
+    dataframes['tierlists'] = tierlist_df
+    return dataframes

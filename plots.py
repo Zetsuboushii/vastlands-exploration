@@ -1,5 +1,4 @@
 import ast
-import time
 from pathlib import Path
 from typing import Optional
 import matplotlib.cm as cm
@@ -10,7 +9,7 @@ import pandas as pd
 from adjustText import adjust_text
 from PIL import Image
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
-from pygments.lexer import combined
+from matplotlib.figure import Figure
 
 from decorators import include_plot
 from utils import calculate_age, get_day_of_year, get_evaluated_tierlist_df, get_joined_tierlists_characters_df
@@ -40,9 +39,13 @@ def create_age_distribution_200y_focus(characters, **kwargs):
 
     plt.figure(figsize=(8, 6))
 
-    plt.hist(male_characters['age'], bins=20, edgecolor='black', alpha=0.5, label='Male',
+    min_age = df_age_under_200["age"].min()
+    max_age = df_age_under_200["age"].max()
+    bin_edges = np.linspace(min_age, max_age, 20)
+
+    plt.hist(male_characters['age'], bins=bin_edges, edgecolor='black', alpha=0.5, label='Male',
              color='blue')
-    plt.hist(female_characters['age'], bins=20, edgecolor='black', alpha=0.5, label='Female',
+    plt.hist(female_characters['age'], bins=bin_edges, edgecolor='black', alpha=0.5, label='Female',
              color='pink')
 
     plt.xticks(range(0, 201, 10))
@@ -53,12 +56,13 @@ def create_age_distribution_200y_focus(characters, **kwargs):
     plt.show()
 
 
+@include_plot
 def create_age_distribution_normalized(characters, races, **kwargs):
     characters['age'] = characters['birthday'].apply(calculate_age)
     characters = characters.dropna(subset=['age'])
     races['ageavg'] = pd.to_numeric(races['ageavg'], errors='coerce')
     races = races.dropna(subset=['ageavg'])
-    races.loc[:, "norm_metric"] = races['ageavg'] / 100
+    races["norm_metric"] = races["ageavg"] / 100
 
     merge_df = pd.merge(characters, races, left_on="race", right_on="name", how="inner")
     merge_df["normed_age"] = merge_df["age"] / merge_df["norm_metric"]
@@ -68,9 +72,13 @@ def create_age_distribution_normalized(characters, races, **kwargs):
 
     plt.figure(figsize=(8, 6))
 
-    plt.hist(male_characters["normed_age"], bins=20, edgecolor='black', alpha=0.5, label='Male',
+    min_age = merge_df["normed_age"].min()
+    max_age = merge_df["normed_age"].max()
+    bin_edges = np.linspace(min_age, max_age, 20)
+
+    plt.hist(male_characters["normed_age"], bins=bin_edges, edgecolor='black', alpha=0.5, label='Male',
              color='blue')
-    plt.hist(female_characters["normed_age"], bins=20, edgecolor='black', alpha=0.5, label='Female',
+    plt.hist(female_characters["normed_age"], bins=bin_edges, edgecolor='black', alpha=0.5, label='Female',
              color='pink')
 
     plt.xticks(range(0, 201, 10))
@@ -748,7 +756,7 @@ def create_weight_boxplots_by_race(characters: pd.DataFrame, **kwargs):
     _create_grouped_boxplots(characters, "race", "weight", "Weight", "Weight distribution by race")
 
 def _create_correlation_plot(characters: pd.DataFrame, x_key: str, y_key: str, title: str, filter_zeros = False):
-    plt.figure()
+    fig = plt.figure()
     if filter_zeros:
         df = characters[characters[y_key] != 0]
     else:
@@ -775,7 +783,8 @@ def _create_correlation_plot(characters: pd.DataFrame, x_key: str, y_key: str, t
     plt.ylabel(y_key)
     plt.title(title)
     plt.legend()
-    plt.show()
+    # plt.show()
+    return fig
 
 def create_weight_height_correlation_plot_with_zero_weights(characters: pd.DataFrame, **kwargs):
     _create_correlation_plot(characters, "height", "weight", "Weight by height (w/ 0s)", filter_zeros=False)
@@ -789,7 +798,6 @@ def create_weight_muscle_mass_correlation_plot(characters: pd.DataFrame, **kwarg
 def create_muscle_mass_height_correlation_plot(characters: pd.DataFrame, **kwargs):
     _create_correlation_plot(characters, "muscle_mass", "height", "Height by muscle mass", filter_zeros=True)
 
-@include_plot
 def create_cup_rating_plot(characters: pd.DataFrame, tierlists: pd.DataFrame, **kwargs):
     combined_df = get_joined_tierlists_characters_df(characters, tierlists)
     combined_df = combined_df[combined_df["sex"] == "w"]
@@ -797,12 +805,9 @@ def create_cup_rating_plot(characters: pd.DataFrame, tierlists: pd.DataFrame, **
     combined_df["cup"] = combined_df["bust"] - combined_df["underbust"]
     _create_correlation_plot(combined_df, "cup", "average_rating", "Rating by cup size", filter_zeros=True)
 
-@include_plot
 def create_muscle_mass_rating_correlation_plot(characters: pd.DataFrame, tierlists:pd.DataFrame, **kwargs):
     combined_df = get_joined_tierlists_characters_df(characters, tierlists)
     _create_correlation_plot(combined_df, "muscle_mass", "average_rating", "Rating by muscle mass", filter_zeros=True)
-
-
 
 '''
 WIP Danger Level Calculation
