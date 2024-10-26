@@ -7,9 +7,10 @@ import holoview_plots
 pn.extension()
 
 age_widget = pn.widgets.IntSlider(name="age", value=200, start=10, end=1000)
+sex_filter = pn.widgets.Select(name="sex", options=['Male', 'Female', 'Combined'])
 
 data = get_dataframes("", True)
-cup_rating = pn.bind(holoview_plots.create_age_distribution_focus, age=age_widget, **data)
+cup_rating = pn.bind(holoview_plots.create_age_distribution_focus, age=age_widget, sex = sex_filter, **data)
 
 app = pn.template.MaterialTemplate(
     site="Panel",
@@ -17,15 +18,15 @@ app = pn.template.MaterialTemplate(
 )
 
 demo_card = pn.Card(
-    cup_rating,
+    pn.Column(
+        pn.Row(sex_filter, age_widget),
+        cup_rating
+    ),
     title="Demo card"
 )
 
 app.main.append(
-    pn.Column(
-        age_widget,
-        cup_rating
-    )
+    demo_card
 )
 
 app.servable()
