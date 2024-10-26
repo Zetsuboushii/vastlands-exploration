@@ -630,7 +630,6 @@ def create_height_distribution_chart(characters: pd.DataFrame, target_image_heig
 
     plt.show()
 
-
 def create_character_ranking_barchart(tierlists: pd.DataFrame, target_image_height=108,
                                       bar_spacing=0.1,
                                       aspect_ratio=0.05, **kwargs):
@@ -789,7 +788,6 @@ def create_weight_muscle_mass_correlation_plot(characters: pd.DataFrame, **kwarg
 def create_muscle_mass_height_correlation_plot(characters: pd.DataFrame, **kwargs):
     _create_correlation_plot(characters, "muscle_mass", "height", "Height by muscle mass", filter_zeros=True)
 
-@include_plot
 def create_cup_rating_plot(characters: pd.DataFrame, tierlists: pd.DataFrame, **kwargs):
     combined_df = get_joined_tierlists_characters_df(characters, tierlists)
     combined_df = combined_df[combined_df["sex"] == "w"]
@@ -797,12 +795,17 @@ def create_cup_rating_plot(characters: pd.DataFrame, tierlists: pd.DataFrame, **
     combined_df["cup"] = combined_df["bust"] - combined_df["underbust"]
     _create_correlation_plot(combined_df, "cup", "average_rating", "Rating by cup size", filter_zeros=True)
 
-@include_plot
 def create_muscle_mass_rating_correlation_plot(characters: pd.DataFrame, tierlists:pd.DataFrame, **kwargs):
     combined_df = get_joined_tierlists_characters_df(characters, tierlists)
     _create_correlation_plot(combined_df, "muscle_mass", "average_rating", "Rating by muscle mass", filter_zeros=True)
 
+def create_height_rating_correlation_plot(characters: pd.DataFrame, tierlists:pd.DataFrame, **kwargs):
+    combined_df = get_joined_tierlists_characters_df(characters, tierlists)
+    _create_correlation_plot(combined_df, "height", "average_rating", "Rating by height", filter_zeros=True)
 
+def create_weight_rating_correlation_plot(characters: pd.DataFrame, tierlists:pd.DataFrame, **kwargs):
+    combined_df = get_joined_tierlists_characters_df(characters, tierlists)
+    _create_correlation_plot(combined_df, "weight", "average_rating", "Rating by weight", filter_zeros=True)
 
 '''
 WIP Danger Level Calculation
