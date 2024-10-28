@@ -20,6 +20,7 @@ def get_all_data(faergria_map_url: str, skip_faergria_map: bool = False) -> pd.D
         "places_data": "places.json",
         "actions_data": "actions.json",
         "enemies_data": "enemies.json",
+        "effect_data" : "effects.json",
     }
     endpoints = {key: API_URL + endpoint for key, endpoint in endpoints.items()}
     data = {key: requests.get(endpoint).json() for key, endpoint in endpoints.items()}
