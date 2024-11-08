@@ -190,7 +190,7 @@ def get_dataframes(faergria_map_url: str, faergria_map_data_skip):
     dataframes = {
         key[:-5]: get_df_from_endpoint_data(endpoint_data, classes[key]) for key, endpoint_data
         in data.items()
-        if key != "general_data"
+        if key not in ["general_data", "effect_data"]
     }
     save_character_images(dataframes["characters"])
     tierlist_df = get_tierlist_df()
