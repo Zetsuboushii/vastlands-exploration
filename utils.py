@@ -1,9 +1,8 @@
 from datetime import datetime
-import json
-import os
-from pathlib import Path
 
 import pandas as pd
+
+import mongo_connector
 
 CURRENT_DATE = None
 
@@ -34,10 +33,12 @@ def extract_month_and_apply_fantasy_name(birthday):
     except Exception as e:
         return None, None
 
+
 def set_current_date(general_data):
     global CURRENT_DATE
     current_ingame_date = general_data.get('currentIngameDate', '')
     CURRENT_DATE = current_ingame_date
+
 
 def calculate_age(birthday):
     current_year = int(CURRENT_DATE.split('-')[2])
@@ -47,6 +48,7 @@ def calculate_age(birthday):
         return current_year - birth_year
     except (ValueError, IndexError, AttributeError):
         return None
+
 
 def get_day_of_year(birthday: str):
     birthday_only_day_and_month = ".".join(birthday.split(".")[0:2])
@@ -64,14 +66,18 @@ def get_birthdays_grouped_by_month(df_characters):
         lambda row: f"{row['name']} ({row['birthday']})", axis=1)
 
     # Group by 'fantasy_month', keeping track of those with no birthday set
-    no_birthday_set = df_characters[df_characters['birthday'].isna() | (df_characters['birthday'] == '')][
+    no_birthday_set = \
+    df_characters[df_characters['birthday'].isna() | (df_characters['birthday'] == '')][
         'name'].tolist()
     grouped = \
-        df_characters[df_characters['birthday'].notna() & (df_characters['birthday'] != '')].groupby('fantasy_month')[
+        df_characters[
+            df_characters['birthday'].notna() & (df_characters['birthday'] != '')].groupby(
+            'fantasy_month')[
             'character_info'].apply(list).reset_index()
 
     # Sort the grouped data based on the numerical month extracted
-    grouped['month_number'] = grouped['fantasy_month'].map({v: k for k, v in fantasy_months.items()})
+    grouped['month_number'] = grouped['fantasy_month'].map(
+        {v: k for k, v in fantasy_months.items()})
     grouped = grouped.sort_values(by='month_number')
 
     # Output the results in the correct order
@@ -114,42 +120,9 @@ def get_next_birthday(df_characters):
 
 
 def get_tierlist_df():
-    import pandas as pd
-    import json
-    import os
+    tierlists = mongo_connector.fetch_tierlists()
+    return pd.DataFrame(tierlists)
 
-    data_list = []
-    root_path = os.path.dirname(os.path.abspath(__file__))
-    directory = os.path.join(root_path, 'data', 'tierlists')
-
-    for filename in os.listdir(directory):
-        if filename.endswith('.json'):
-            filepath = os.path.join(directory, filename)
-            basename = filename[len('tierlist_'):-len('.json')]
-            try:
-                author, sessionNr = basename.rsplit('_', 1)
-            except ValueError:
-                print(f"Filename {filename} does not match expected format 'tierlist_author_sessionNr.json'")
-                continue
-
-            with open(filepath, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-
-            entry = {
-                'author': str(author),
-                'sessionNr': int(sessionNr),
-                'SS': data.get('SS', []),
-                'S': data.get('S', []),
-                'A': data.get('A', []),
-                'B': data.get('B', []),
-                'C': data.get('C', []),
-                'D': data.get('D', [])
-            }
-
-            data_list.append(entry)
-
-    df = pd.DataFrame(data_list)
-    return df
 
 def get_evaluated_tierlist_df(tierlists):
     filtered_tierlists = tierlists.loc[tierlists.groupby('author')['sessionNr'].idxmax()]
@@ -184,6 +157,7 @@ def get_evaluated_tierlist_df(tierlists):
     rank_df = rank_df[rank_df['rounded_rating'].between(0, 5)]
     rank_df = rank_df.sort_values(by='average_rating', ascending=True)
     return rank_df
+
 
 def get_joined_tierlists_characters_df(characters: pd.DataFrame, tierlists: pd.DataFrame):
     characters['name'] = characters['name'].str.lower()
