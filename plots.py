@@ -324,11 +324,14 @@ def _create_subclasses_bar_chart(characters: pd.DataFrame, obj=None, show_no_sub
     else:
         obj.set_title(title)
 
+
 def create_subclasses_bar_chart_with_no_subclass(characters: pd.DataFrame, **kwargs):
     _create_subclasses_bar_chart(characters, obj=None, show_no_subclass=True)
 
+
 def create_subclasses_bar_chart_without_no_subclass(characters: pd.DataFrame, **kwargs):
     _create_subclasses_bar_chart(characters, obj=None, show_no_subclass=False)
+
 
 def create_character_classes_combined_pie_charts(characters: pd.DataFrame, **kwargs):
     fig, axes = plt.subplots(1, 2, figsize=(12, 8))
@@ -339,6 +342,7 @@ def create_character_classes_combined_pie_charts(characters: pd.DataFrame, **kwa
     plt.show()
 
 
+# Todo fix: this does not work if its not directly called by using @include_plot
 def create_relationship_web(characters: pd.DataFrame, **kwargs):
     # Initialize data structures
     df_characters = characters
@@ -630,6 +634,7 @@ def create_height_distribution_chart(characters: pd.DataFrame, target_image_heig
 
     plt.show()
 
+
 def create_character_ranking_barchart(tierlists: pd.DataFrame, target_image_height=108,
                                       bar_spacing=0.1,
                                       aspect_ratio=0.05, **kwargs):
@@ -686,6 +691,7 @@ def create_character_ranking_barchart(tierlists: pd.DataFrame, target_image_heig
 
     plt.show()
 
+
 def create_character_ranking_barchart_no_image(tierlists: pd.DataFrame, **kwargs):
     rank_df = get_evaluated_tierlist_df(tierlists)
 
@@ -731,7 +737,8 @@ def create_character_ranking_barchart_no_image(tierlists: pd.DataFrame, **kwargs
 
 
 def _create_grouped_boxplots(characters: pd.DataFrame, x_grouping: str, y_values: str, ylabel: str, title: str):
-    data = [characters[characters[x_grouping] == group_name][y_values] for group_name in characters[x_grouping].unique()]
+    data = [characters[characters[x_grouping] == group_name][y_values] for group_name in
+            characters[x_grouping].unique()]
     labels = characters[x_grouping].unique()
     plt.figure(figsize=(10, 6))
     plt.boxplot(data, labels=labels)
@@ -740,13 +747,16 @@ def _create_grouped_boxplots(characters: pd.DataFrame, x_grouping: str, y_values
     plt.title(title)
     plt.show()
 
+
 def create_muscle_mass_boxplots_by_race(characters: pd.DataFrame, **kwargs):
     _create_grouped_boxplots(characters, "race", "muscle_mass", "Muscle mass", "Muscle mass distribution by race")
+
 
 def create_weight_boxplots_by_race(characters: pd.DataFrame, **kwargs):
     _create_grouped_boxplots(characters, "race", "weight", "Weight", "Weight distribution by race")
 
-def _create_correlation_plot(characters: pd.DataFrame, x_key: str, y_key: str, title: str, filter_zeros = False):
+
+def _create_correlation_plot(characters: pd.DataFrame, x_key: str, y_key: str, title: str, filter_zeros=False):
     plt.figure()
     if filter_zeros:
         df = characters[characters[y_key] != 0]
@@ -761,14 +771,14 @@ def _create_correlation_plot(characters: pd.DataFrame, x_key: str, y_key: str, t
     plt.plot(x_values, line, color="red", label=f"f(x) = {slope:.3f}x + {intercept:.3f}")
 
     correlation_text = (f'R = {r:.4f}\n'
-                        f'R² = {r**2:.4f}\n'
+                        f'R² = {r ** 2:.4f}\n'
                         f'p = {p:.4e}\n'
-                        f'p% = {p*100:.2f}')
+                        f'p% = {p * 100:.2f}')
 
     plt.text(0.05, 0.95, correlation_text,
-         transform=plt.gca().transAxes,
-         bbox=dict(facecolor='white', alpha=0.8),
-         verticalalignment='top')
+             transform=plt.gca().transAxes,
+             bbox=dict(facecolor='white', alpha=0.8),
+             verticalalignment='top')
 
     plt.xlabel(x_key)
     plt.ylabel(y_key)
@@ -776,17 +786,22 @@ def _create_correlation_plot(characters: pd.DataFrame, x_key: str, y_key: str, t
     plt.legend()
     plt.show()
 
+
 def create_weight_height_correlation_plot_with_zero_weights(characters: pd.DataFrame, **kwargs):
     _create_correlation_plot(characters, "height", "weight", "Weight by height (w/ 0s)", filter_zeros=False)
+
 
 def create_weight_height_correlation_plot_without_zero_weights(characters: pd.DataFrame, **kwargs):
     _create_correlation_plot(characters, "height", "weight", "Weight by height (w/o 0s)", filter_zeros=True)
 
+
 def create_weight_muscle_mass_correlation_plot(characters: pd.DataFrame, **kwargs):
     _create_correlation_plot(characters, "muscle_mass", "weight", "Weight by muscle mass")
 
+
 def create_muscle_mass_height_correlation_plot(characters: pd.DataFrame, **kwargs):
     _create_correlation_plot(characters, "muscle_mass", "height", "Height by muscle mass", filter_zeros=True)
+
 
 def create_cup_rating_plot(characters: pd.DataFrame, tierlists: pd.DataFrame, **kwargs):
     combined_df = get_joined_tierlists_characters_df(characters, tierlists)
@@ -795,17 +810,21 @@ def create_cup_rating_plot(characters: pd.DataFrame, tierlists: pd.DataFrame, **
     combined_df["cup"] = combined_df["bust"] - combined_df["underbust"]
     _create_correlation_plot(combined_df, "cup", "average_rating", "Rating by cup size", filter_zeros=True)
 
-def create_muscle_mass_rating_correlation_plot(characters: pd.DataFrame, tierlists:pd.DataFrame, **kwargs):
+
+def create_muscle_mass_rating_correlation_plot(characters: pd.DataFrame, tierlists: pd.DataFrame, **kwargs):
     combined_df = get_joined_tierlists_characters_df(characters, tierlists)
     _create_correlation_plot(combined_df, "muscle_mass", "average_rating", "Rating by muscle mass", filter_zeros=True)
 
-def create_height_rating_correlation_plot(characters: pd.DataFrame, tierlists:pd.DataFrame, **kwargs):
+
+def create_height_rating_correlation_plot(characters: pd.DataFrame, tierlists: pd.DataFrame, **kwargs):
     combined_df = get_joined_tierlists_characters_df(characters, tierlists)
     _create_correlation_plot(combined_df, "height", "average_rating", "Rating by height", filter_zeros=True)
 
-def create_weight_rating_correlation_plot(characters: pd.DataFrame, tierlists:pd.DataFrame, **kwargs):
+
+def create_weight_rating_correlation_plot(characters: pd.DataFrame, tierlists: pd.DataFrame, **kwargs):
     combined_df = get_joined_tierlists_characters_df(characters, tierlists)
     _create_correlation_plot(combined_df, "weight", "average_rating", "Rating by weight", filter_zeros=True)
+
 
 '''
 WIP Danger Level Calculation
