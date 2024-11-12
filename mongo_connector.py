@@ -1,10 +1,10 @@
 import json
+import os
 import re
 
 from pymongo import MongoClient
+from pymongo.collection import Collection
 from pymongo.database import Database
-from pymongo.collection import  Collection
-import os
 
 host = os.environ["MONGODB_HOST"]
 port = int(os.environ["MONGODB_PORT"])
@@ -35,6 +35,3 @@ def load_tierlists_into_db():
 
 def fetch_tierlists():
     return tierlists.find()
-
-if __name__ == "__main__":
-    load_tierlists_into_db()

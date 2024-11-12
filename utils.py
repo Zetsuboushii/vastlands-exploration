@@ -174,8 +174,8 @@ def get_joined_tierlists_characters_df(characters: pd.DataFrame, tierlists: pd.D
     return combined_df
 
 
-def get_dataframes(faergria_map_url: str, faergria_map_data_skip):
-    data = get_all_data(faergria_map_url, faergria_map_data_skip)
+def get_dataframes(faergria_map_url: str, faergria_map_data_skip: bool, force: bool):
+    data = get_all_data(faergria_map_url, faergria_map_data_skip, force)
     set_current_date(data["general_data"])
     classes = {
         "actions_data": Action,

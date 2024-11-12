@@ -2,6 +2,7 @@ import click
 from matplotlib import pyplot as plt
 
 import decorators
+import mongo_connector
 import plots
 import ui
 from utils import get_dataframes
@@ -12,7 +13,7 @@ def _method_is_included(name: str):
             decorators.included_method_names is None or name in decorators.included_method_names))
 
 
-@click.command("plot")
+@click.command("plot", help="Render the plots locally")
 @click.pass_context
 def render_plots(ctx):
     faergria_map_data_skip = ctx.obj['faergria_map_data_skip']  # Get the shared option
@@ -27,7 +28,8 @@ def render_plots(ctx):
         if isinstance(return_value, plt.Figure):
             return_value.show()
 
-@click.command
+
+@click.command("serve", help="Start the server that hosts the interactive UI")
 @click.pass_context
 def serve(ctx):
     faergria_map_data_skip = ctx.obj['faergria_map_data_skip']
@@ -35,20 +37,31 @@ def serve(ctx):
     ui.run(data, faergria_map_data_skip)
 
 
-@click.group()
-@click.option("--faergria-map-url", "-u", default="http://localhost:1338")
-@click.option("--faergria-map-data-skip", "-s", default=False, is_flag=True)
+@click.command("load", help="Load tierlists from local data/tierlists folder into mongodb")
 @click.pass_context
-def main(ctx, faergria_map_url: str, faergria_map_data_skip: bool):
+def load_tierlists(ctx):
+    mongo_connector.load_tierlists_into_db()
+
+
+@click.group()
+@click.option("--faergria-map-url", "-u", default="http://localhost:1338",
+              help="URL to fetch the faergria map data from (default http://localhost:1338)")
+@click.option("--faergria-map-data-skip", "-s", default=False, is_flag=True,
+              help="Skip fetching data for the faergria map. Plots will be ignored (not rendered).")
+@click.option("--force", "-f", default=False, is_flag=True,
+              help="Force refresh data (bypass cache)")
+@click.pass_context
+def main(ctx, faergria_map_url: str, faergria_map_data_skip: bool, force: bool):
     ctx.ensure_object(dict)
     ctx.obj["faergria_map_url"] = faergria_map_url
     ctx.obj["faergria_map_data_skip"] = faergria_map_data_skip
-    data = get_dataframes(faergria_map_url, faergria_map_data_skip)
+    data = get_dataframes(faergria_map_url, faergria_map_data_skip, force)
     ctx.obj["data"] = data
 
 
 main.add_command(render_plots)
 main.add_command(serve)
+main.add_command(load_tierlists)
 
 if __name__ == '__main__':
     main()
