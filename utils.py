@@ -3,7 +3,6 @@ from datetime import datetime
 import pandas as pd
 
 import mongo_connector
-
 from api import get_all_data, get_df_from_endpoint_data, save_character_images
 from entities.action import Action
 from entities.character import Character
@@ -168,6 +167,7 @@ def get_evaluated_tierlist_df(tierlists):
 
 
 def get_joined_tierlists_characters_df(characters: pd.DataFrame, tierlists: pd.DataFrame):
+    characters = characters.copy()
     characters['name'] = characters['name'].str.lower()
     rating_df = get_evaluated_tierlist_df(tierlists)
     combined_df = pd.merge(rating_df, characters, on='name', how='inner')
