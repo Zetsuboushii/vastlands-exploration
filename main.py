@@ -7,6 +7,7 @@ import decorators
 import mongo_connector
 import plots
 import ui
+from alive_progress import alive_bar
 from utils import get_dataframes
 
 
@@ -23,21 +24,24 @@ def _method_is_included(name: str):
 def render_plots(ctx, export_all: bool, export_format: str, hide: bool):
     faergria_map_data_skip = ctx.obj['faergria_map_data_skip']  # Get the shared option
     data = ctx.obj["data"]
-    plot_gen_methods = filter(_method_is_included, dir(plots))
+    plot_gen_methods = list(filter(_method_is_included, dir(plots)))
     faergria_map_dependend_methods = ["create_population_distribution_map"]
-    for method_name in plot_gen_methods:
-        if faergria_map_data_skip and method_name in faergria_map_dependend_methods:
-            continue
-        method = getattr(plots, method_name)
-        return_value = method(**data)
-        if isinstance(return_value, plt.Figure):
-            if (decorators.methods_to_export is None and export_all) or (decorators.methods_to_export is not None and method_name in decorators.methods_to_export):
-                filename = method_name.replace("create_", "") + "." + export_format
-                return_value.savefig(os.path.join("data", "plots", filename))
-            if hide:
-                plt.close()
-            else:
-                plt.show()
+    with alive_bar(len(plot_gen_methods)) as bar:
+        for method_name in plot_gen_methods:
+            if faergria_map_data_skip and method_name in faergria_map_dependend_methods:
+                continue
+            bar.text(method_name)
+            method = getattr(plots, method_name)
+            return_value = method(**data)
+            if isinstance(return_value, plt.Figure):
+                if (decorators.methods_to_export is None and export_all) or (decorators.methods_to_export is not None and method_name in decorators.methods_to_export):
+                    filename = method_name.replace("create_", "") + "." + export_format
+                    return_value.savefig(os.path.join("data", "plots", filename))
+                if hide:
+                    plt.close()
+                else:
+                    plt.show()
+            bar()
 
 
 @click.command("serve", help="Start the server that hosts the interactive UI")
