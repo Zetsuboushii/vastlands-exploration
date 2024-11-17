@@ -9,13 +9,11 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import numpy as np
 import pandas as pd
-from adjustText import adjust_text
 from PIL import Image
 from adjustText import adjust_text
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 from scipy import stats
 
-from decorators import include_plot
 from utils import calculate_age, get_day_of_year, get_evaluated_tierlist_df, \
     get_joined_tierlists_characters_df
 
@@ -25,10 +23,10 @@ def create_gender_distribution(characters, **kwargs):
     labels = sex_counts.index.tolist()
     sizes = sex_counts.values.tolist()
 
-    plt.figure(figsize=(6, 6))
-    plt.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
-    plt.title('Distribution of Male and Female Characters')
-    plt.show()
+    fig, ax = plt.subplots(figsize=(6, 6))
+    ax.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
+    ax.set_title('Distribution of Male and Female Characters')
+    return fig
 
 
 def create_age_distribution_200y_focus(characters, **kwargs):
@@ -39,23 +37,23 @@ def create_age_distribution_200y_focus(characters, **kwargs):
     male_characters = df_age_under_200[df_age_under_200['sex'] == 'm']
     female_characters = df_age_under_200[df_age_under_200['sex'] == 'w']
 
-    plt.figure(figsize=(8, 6))
+    fig, ax = plt.subplots(figsize=(8, 6))
 
     min_age = df_age_under_200["age"].min()
     max_age = df_age_under_200["age"].max()
     bin_edges = np.linspace(min_age, max_age, 20)
 
-    plt.hist(male_characters['age'], bins=bin_edges, edgecolor='black', alpha=0.5, label='Male',
-             color='blue')
-    plt.hist(female_characters['age'], bins=bin_edges, edgecolor='black', alpha=0.5, label='Female',
-             color='pink')
+    ax.hist(male_characters['age'], bins=bin_edges, edgecolor='black', alpha=0.5, label='Male',
+            color='blue')
+    ax.hist(female_characters['age'], bins=bin_edges, edgecolor='black', alpha=0.5, label='Female',
+            color='pink')
 
     plt.xticks(range(0, 201, 10))
-    plt.title('Distribution of Ages (Up to 200) by Gender')
+    ax.set_title('Distribution of Ages (Up to 200) by Gender')
     plt.xlabel('Age')
     plt.ylabel('Number of Characters')
-    plt.legend(loc='upper right')
-    plt.show()
+    ax.legend(loc='upper right')
+    return fig
 
 
 def create_age_distribution_normalized(characters, races, **kwargs):
@@ -71,25 +69,25 @@ def create_age_distribution_normalized(characters, races, **kwargs):
     male_characters = merge_df[merge_df['sex'] == 'm']
     female_characters = merge_df[merge_df['sex'] == 'w']
 
-    plt.figure(figsize=(8, 6))
+    fig, ax = plt.subplots(figsize=(8, 6))
 
     min_age = merge_df["normed_age"].min()
     max_age = merge_df["normed_age"].max()
     bin_edges = np.linspace(min_age, max_age, 20)
 
-    plt.hist(male_characters["normed_age"], bins=bin_edges, edgecolor='black', alpha=0.5,
-             label='Male',
-             color='blue')
-    plt.hist(female_characters["normed_age"], bins=bin_edges, edgecolor='black', alpha=0.5,
-             label='Female',
-             color='pink')
+    ax.hist(male_characters["normed_age"], bins=bin_edges, edgecolor='black', alpha=0.5,
+            label='Male',
+            color='blue')
+    ax.hist(female_characters["normed_age"], bins=bin_edges, edgecolor='black', alpha=0.5,
+            label='Female',
+            color='pink')
 
     plt.xticks(range(0, 201, 10))
-    plt.title('Distribution of Ages normalized on human age by gender')
+    ax.set_title('Distribution of Ages normalized on human age by gender')
     plt.xlabel('Age')
     plt.ylabel('Number of Characters')
-    plt.legend(loc='upper right')
-    plt.show()
+    ax.legend(loc='upper right')
+    return fig
 
 
 def create_birthday_data_presence_pie_chart(characters: pd.DataFrame, **kwargs):
@@ -97,10 +95,10 @@ def create_birthday_data_presence_pie_chart(characters: pd.DataFrame, **kwargs):
     labels = ["Given", "Not given"]
     sizes = [birthday_counts[True], birthday_counts[False]]
 
-    plt.figure(figsize=(6, 6))
+    fig, ax = plt.subplots(figsize=(6, 6))
     plt.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
-    plt.title("Characters with birthdays assigned or not")
-    plt.show()
+    ax.set_title("Characters with birthdays assigned or not")
+    return fig
 
 
 def create_birthday_distribution_clock_diagram(characters: pd.DataFrame, **kwargs):
@@ -136,30 +134,30 @@ def create_birthday_distribution_clock_diagram(characters: pd.DataFrame, **kwarg
 def create_weakness_distribution_pie_chart(enemies: pd.DataFrame, **kwargs):
     df_normalized = enemies.explode("weaknesses").reset_index(drop=True)
     weakness_group = df_normalized.groupby("weaknesses").size().sort_values()
-    plt.figure(figsize=(6, 6))
+    fig, ax = plt.subplots(figsize=(6, 6))
     plt.pie(weakness_group, labels=weakness_group.index, autopct='%1.1f%%', startangle=90)
-    plt.title('Distribution of Weaknesses')
-    plt.show()
+    ax.set_title('Distribution of Weaknesses')
+    return fig
 
 
 def create_resistance_distribution_pie_chart(enemies: pd.DataFrame, **kwargs):
     df_normalized = enemies.explode("resistances").reset_index(drop=True)
     resistances_group = df_normalized.groupby("resistances").size().sort_values()
-    plt.figure(figsize=(6, 6))
+    fig, ax = plt.subplots(figsize=(6, 6))
     plt.pie(resistances_group, labels=resistances_group.index, autopct='%1.1f%%', startangle=90)
-    plt.title('Distribution of Resistances')
+    ax.set_title('Distribution of Resistances')
     plt.tight_layout()
-    plt.show()
+    return fig
 
 
 def create_immunities_distribution_pie_chart(enemies: pd.DataFrame, **kwargs):
     df_normalized = enemies.explode("immunities").reset_index(drop=True)
     immunities_group = df_normalized.groupby("immunities").size().sort_values()
-    plt.figure(figsize=(6, 6))
+    fig, ax = plt.subplots(figsize=(6, 6))
     plt.pie(immunities_group, labels=immunities_group.index, autopct='%1.1f%%', startangle=90)
-    plt.title('Distribution of Immunities')
+    ax.set_title('Distribution of Immunities')
     plt.tight_layout()
-    plt.show()
+    return fig
 
 
 def create_combined_pie_charts(enemies: pd.DataFrame, **kwargs):
@@ -185,7 +183,7 @@ def create_combined_pie_charts(enemies: pd.DataFrame, **kwargs):
 
     # Adjust layout
     plt.tight_layout()
-    plt.show()
+    return fig
 
 
 def create_ability_score_distribution_plot(enemies: pd.DataFrame, **kwargs):
@@ -196,25 +194,26 @@ def create_ability_score_distribution_plot(enemies: pd.DataFrame, **kwargs):
     overall_avg = as_avg.mean().round(2)
     as_avg["overall_avg"] = overall_avg
     as_avg["as_avg"] = mean_sum_stats
-    plt.figure(figsize=(8, 6))
+    fig, ax = plt.subplots(figsize=(8, 6))
     as_avg.plot(kind='bar')
-    plt.title('Average Ability Score of Enemies', fontsize=16)
+    ax.set_title('Average Ability Score of Enemies', fontsize=16)
     plt.xlabel('Ability Score', fontsize=14)
     plt.ylabel('Average Value', fontsize=14)
     plt.grid(axis='y', linestyle='--', alpha=0.7)
     plt.xticks(rotation=45, ha='right', fontsize=12)
     plt.axhline(0, color='black', linewidth=1)
     plt.tight_layout()
-    plt.show()
+    return fig
 
 
 def create_stats_distribution_plot(enemies: pd.DataFrame, **kwargs):
     # TODO: add movement range, but this can be complicated because enemies can have multiple ways of moving ag. flying, swimming
     enemies["hp_ac_ratio"] = enemies["hp"] / enemies["ac"]
-    stats_avg = enemies[["hp", "ac", "hp_ac_ratio"]].mean()
+    stats_avg: pd.Series = enemies[["hp", "ac", "hp_ac_ratio"]].mean()
     stats_avg.round(2)
-    stats_avg.plot(kind='bar')
-    plt.title('Average Stats of Enemies', fontsize=16)
+    fig, ax = plt.subplots()
+    ax.bar(stats_avg.index, stats_avg.values)
+    ax.set_title('Average Stats of Enemies', fontsize=16)
     plt.xlabel('Stats', fontsize=14)
     plt.ylabel('Average Value', fontsize=14)
     plt.grid(axis='y', linestyle='--', alpha=0.7)
@@ -224,7 +223,7 @@ def create_stats_distribution_plot(enemies: pd.DataFrame, **kwargs):
     plt.yticks(ticks)
     plt.axhline(0, color='black', linewidth=1)
     plt.tight_layout()
-    plt.show()
+    return fig
 
 
 def create_character_class_bar_chart(characters: pd.DataFrame, **kwargs):
@@ -236,6 +235,8 @@ def create_character_class_bar_chart(characters: pd.DataFrame, **kwargs):
     group_width = 0.8
     bar_width = group_width / n_sexes
 
+    fig, ax = plt.subplots()
+
     colors = plt.cm.get_cmap('Set1')(np.linspace(0, 1, n_sexes))
 
     for i, sex in enumerate(sexes):
@@ -243,15 +244,15 @@ def create_character_class_bar_chart(characters: pd.DataFrame, **kwargs):
         class_counts = sex_data["character_class"].value_counts()
         x = np.arange(n_classes) + (i - (n_sexes - 1) / 2) * bar_width
 
-        plt.bar(x, [class_counts.get(c, 0) for c in character_classes],
-                width=bar_width, alpha=0.7, color=colors[i],
-                label=f'Sex: {sex}', edgecolor='black')
+        ax.bar(x, [class_counts.get(c, 0) for c in character_classes],
+               width=bar_width, alpha=0.7, color=colors[i],
+               label=f'Sex: {sex}', edgecolor='black')
 
     plt.xlabel('Character Class')
     plt.ylabel('Count')
-    plt.title('Character Class Distribution by Sex')
+    ax.set_title('Character Class Distribution by Sex')
     plt.xticks(np.arange(n_classes), character_classes, rotation=45, ha='right')
-    plt.legend()
+    ax.legend()
     plt.tight_layout()
 
 
@@ -302,7 +303,7 @@ def _create_grouping_pie_chart(df: pd.DataFrame, group_column: str, title: str, 
 
     if using_default_plt:
         obj.tight_layout()
-        obj.show()
+    return obj
 
 
 def _create_subclasses_bar_chart(characters: pd.DataFrame, obj=None, show_no_subclass=True):
@@ -330,15 +331,18 @@ def _create_subclasses_bar_chart(characters: pd.DataFrame, obj=None, show_no_sub
     if using_default_plt:
         obj.title(title)
         obj.tight_layout()
-        obj.show()
     else:
         obj.set_title(title)
+    return obj
+
 
 def create_subclasses_bar_chart_with_no_subclass(characters: pd.DataFrame, **kwargs):
-    _create_subclasses_bar_chart(characters, obj=None, show_no_subclass=True)
+    return _create_subclasses_bar_chart(characters, obj=None, show_no_subclass=True)
+
 
 def create_subclasses_bar_chart_without_no_subclass(characters: pd.DataFrame, **kwargs):
-    _create_subclasses_bar_chart(characters, obj=None, show_no_subclass=False)
+    return _create_subclasses_bar_chart(characters, obj=None, show_no_subclass=False)
+
 
 def create_character_classes_combined_pie_charts(characters: pd.DataFrame, **kwargs):
     fig, axes = plt.subplots(1, 2, figsize=(12, 8))
@@ -346,7 +350,7 @@ def create_character_classes_combined_pie_charts(characters: pd.DataFrame, **kwa
                                legend=False, obj=axes[0])
     _create_grouping_pie_chart(characters, "masterclass", "Masterclass distribution",
                                min_percentage=0, obj=axes[1])
-    plt.show()
+    return fig
 
 
 def create_relationship_web(characters: pd.DataFrame, **kwargs):
@@ -482,7 +486,7 @@ def create_relationship_web(characters: pd.DataFrame, **kwargs):
     pos = nx.spring_layout(G, k=2, iterations=200)
 
     # Increase figure size and resolution
-    plt.figure(figsize=(40, 40), dpi=300)
+    fig, ax = plt.subplots(figsize=(40, 40), dpi=300)
 
     # Scale node sizes based on degree (number of connections)
     node_sizes = [max(G.degree(n) * 50, 200) for n in G.nodes()]
@@ -508,20 +512,18 @@ def create_relationship_web(characters: pd.DataFrame, **kwargs):
         legend_handles.append(mlines.Line2D([], [], color=color, label=rel_type))
 
     # Add the legend to the plot
-    plt.legend(handles=legend_handles, title='Relationship Types', fontsize=12, title_fontsize=12)
+    ax.legend(handles=legend_handles, title='Relationship Types', fontsize=12, title_fontsize=12)
 
     plt.axis('off')
-    plt.title('Character Relationships Clustered by Type', fontsize=15)
+    ax.set_title('Character Relationships Clustered by Type', fontsize=15)
 
     # Save the plot as an SVG file
     output_directory = os.path.dirname(output_filename)
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)
     plt.savefig(output_filename, format='svg', bbox_inches='tight')
-    plt.show()
-    plt.close()
-
     print(f"The plot has been saved as {output_filename}")
+    return fig
 
 
 def create_population_distribution_map(places: pd.DataFrame, markers: pd.DataFrame, **kwargs):
@@ -530,7 +532,8 @@ def create_population_distribution_map(places: pd.DataFrame, markers: pd.DataFra
         marker = markers[markers["name"] == place["name"]]
         if not marker.empty:
             mark = marker.iloc[0]
-            population_counts.append((place["name"], place["demography"], mark["lat"], mark["long"]))
+            population_counts.append(
+                (place["name"], place["demography"], mark["lat"], mark["long"]))
 
     img = plt.imread(os.path.join("data", "faergria-map.png"))
     height, width, _ = img.shape
@@ -584,7 +587,8 @@ def offset_image(y, character_name, ax, target_height):
     ax.add_artist(ab)
 
 
-def create_height_distribution_chart(characters: pd.DataFrame, target_image_height=100, bar_spacing=1,
+def create_height_distribution_chart(characters: pd.DataFrame, target_image_height=100,
+                                     bar_spacing=1,
                                      aspect_ratio=0.05, **kwargs):
     characters = characters.dropna(subset=["height"])
     characters = characters.sort_values(by=["height"])
@@ -619,11 +623,13 @@ def create_height_distribution_chart(characters: pd.DataFrame, target_image_heig
     text_fontsize = ref_text_fontsize * overall_scale_factor
     title_fontsize = ref_title_fontsize * overall_scale_factor
 
-    for i, (character_name, height_value) in enumerate(zip(characters["name"], characters["height"])):
+    for i, (character_name, height_value) in enumerate(
+            zip(characters["name"], characters["height"])):
         offset_image(i, character_name, ax=ax, target_height=target_image_height)
 
         # Add the height of the character at the end of each bar
-        ax.text(height_value + 0.5, i, f'{height_value:.2f}', va='center', fontsize=text_fontsize, color='black')
+        ax.text(height_value + 0.5, i, f'{height_value:.2f}', va='center', fontsize=text_fontsize,
+                color='black')
 
     ax.set_yticks([])
     ax.grid(True, which='both', axis='x', linestyle='--', alpha=0.6)
@@ -639,7 +645,8 @@ def create_height_distribution_chart(characters: pd.DataFrame, target_image_heig
 
     plt.savefig(output_dir / "", format='svg')
 
-    plt.show()
+    return fig
+
 
 def create_character_ranking_barchart(tierlists: pd.DataFrame, target_image_height=108,
                                       bar_spacing=0.1,
@@ -656,7 +663,8 @@ def create_character_ranking_barchart(tierlists: pd.DataFrame, target_image_heig
 
     fig, ax = plt.subplots(figsize=(plot_width, plot_height))
     y_positions = range(len(character_names))
-    bars = ax.barh(y_positions, average_rating, height=0.9, color='skyblue', align='center', alpha=0.8)
+    bars = ax.barh(y_positions, average_rating, height=0.9, color='skyblue', align='center',
+                   alpha=0.8)
 
     ref_plot_height, ref_plot_width = 52700 / 100, 5270 / 100
     ref_x_tick_labelsize = 80
@@ -673,9 +681,11 @@ def create_character_ranking_barchart(tierlists: pd.DataFrame, target_image_heig
     text_fontsize = ref_text_fontsize * overall_scale_factor
     title_fontsize = ref_title_fontsize * overall_scale_factor
 
-    for i, (character_name, avg_value, std_dev) in enumerate(zip(character_names, average_rating, std_devs)):
+    for i, (character_name, avg_value, std_dev) in enumerate(
+            zip(character_names, average_rating, std_devs)):
         offset_image(i, character_name, ax=ax, target_height=target_image_height)
-        ax.text(avg_value + 0.05, i, f'{avg_value:.2f} (SD: {std_dev:.2f})', va='center', fontsize=text_fontsize,
+        ax.text(avg_value + 0.05, i, f'{avg_value:.2f} (SD: {std_dev:.2f})', va='center',
+                fontsize=text_fontsize,
                 color='black')
 
     ax.set_yticks([])
@@ -695,7 +705,8 @@ def create_character_ranking_barchart(tierlists: pd.DataFrame, target_image_heig
     output_dir.parent.mkdir(parents=True, exist_ok=True)
     plt.savefig(output_dir, format='svg')
 
-    plt.show()
+    return fig
+
 
 def create_character_ranking_barchart_no_image(tierlists: pd.DataFrame, **kwargs):
     rank_df = get_evaluated_tierlist_df(tierlists)
@@ -709,7 +720,8 @@ def create_character_ranking_barchart_no_image(tierlists: pd.DataFrame, **kwargs
     fig, ax = plt.subplots(figsize=(fig_width, fig_height))
 
     y_positions = range(len(character_names))
-    bars = ax.barh(y_positions, average_rating, height=0.8, color='skyblue', align='center', alpha=0.8)
+    bars = ax.barh(y_positions, average_rating, height=0.8, color='skyblue', align='center',
+                   alpha=0.8)
 
     # Set font sizes
     x_tick_labelsize = 8
@@ -719,8 +731,10 @@ def create_character_ranking_barchart_no_image(tierlists: pd.DataFrame, **kwargs
     title_fontsize = 9
 
     # Add value labels next to the bars
-    for i, (character_name, avg_value, std_dev) in enumerate(zip(character_names, average_rating, std_devs)):
-        ax.text(avg_value + 0.05, i, f'{avg_value:.2f} (SD: {std_dev:.2f})', va='center', fontsize=text_fontsize,
+    for i, (character_name, avg_value, std_dev) in enumerate(
+            zip(character_names, average_rating, std_devs)):
+        ax.text(avg_value + 0.05, i, f'{avg_value:.2f} (SD: {std_dev:.2f})', va='center',
+                fontsize=text_fontsize,
                 color='black')
     # Set the y-axis to display character names
     ax.set_yticks(y_positions)
@@ -738,88 +752,111 @@ def create_character_ranking_barchart_no_image(tierlists: pd.DataFrame, **kwargs
 
     plt.margins(y=0)
     plt.tight_layout()
-    plt.show()
+    return fig
 
 
-def _create_grouped_boxplots(characters: pd.DataFrame, x_grouping: str, y_values: str, ylabel: str, title: str):
-    data = [characters[characters[x_grouping] == group_name][y_values] for group_name in characters[x_grouping].unique()]
+def _create_grouped_boxplots(characters: pd.DataFrame, x_grouping: str, y_values: str, ylabel: str,
+                             title: str):
+    data = [characters[characters[x_grouping] == group_name][y_values] for group_name in
+            characters[x_grouping].unique()]
     labels = characters[x_grouping].unique()
-    plt.figure(figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(10, 6))
     plt.boxplot(data, labels=labels)
     plt.xticks(rotation=45)
     plt.ylabel(ylabel)
-    plt.title(title)
-    plt.show()
+    ax.set_title(title)
+    return fig
 
 
 def create_muscle_mass_boxplots_by_race(characters: pd.DataFrame, **kwargs):
-    _create_grouped_boxplots(characters, "race", "muscle_mass", "Muscle mass", "Muscle mass distribution by race")
+    _create_grouped_boxplots(characters, "race", "muscle_mass", "Muscle mass",
+                             "Muscle mass distribution by race")
 
 
 def create_weight_boxplots_by_race(characters: pd.DataFrame, **kwargs):
     _create_grouped_boxplots(characters, "race", "weight", "Weight", "Weight distribution by race")
 
-def _create_correlation_plot(characters: pd.DataFrame, x_key: str, y_key: str, title: str, filter_zeros = False):
-    plt.figure()
+
+def _create_correlation_plot(characters: pd.DataFrame, x_key: str, y_key: str, title: str,
+                             filter_zeros=False):
+    fig, ax = plt.subplots()
     if filter_zeros:
         df = characters[characters[y_key] != 0]
     else:
         df = characters
     x_values = df[x_key]
     y_values = df[y_key]
-    plt.scatter(x_values, y_values)
+    ax.scatter(x_values, y_values)
 
     slope, intercept, r, p, stdErr = stats.linregress(x_values, y_values)
     line = slope * x_values + intercept
-    plt.plot(x_values, line, color="red", label=f"f(x) = {slope:.3f}x + {intercept:.3f}")
+    ax.plot(x_values, line, color="red", label=f"f(x) = {slope:.3f}x + {intercept:.3f}")
 
     correlation_text = (f'R = {r:.4f}\n'
                         f'R² = {r ** 2:.4f}\n'
                         f'p = {p:.4e}\n'
                         f'p% = {p * 100:.2f}')
 
-    plt.text(0.05, 0.95, correlation_text,
-             transform=plt.gca().transAxes,
-             bbox=dict(facecolor='white', alpha=0.8),
-             verticalalignment='top')
+    ax.text(0.05, 0.95, correlation_text,
+            transform=plt.gca().transAxes,
+            bbox=dict(facecolor='white', alpha=0.8),
+            verticalalignment='top')
 
     plt.xlabel(x_key)
     plt.ylabel(y_key)
-    plt.title(title)
-    plt.legend()
+    ax.set_title(title)
+    ax.legend()
     return fig
 
 
 def create_weight_height_correlation_plot_with_zero_weights(characters: pd.DataFrame, **kwargs):
-    _create_correlation_plot(characters, "height", "weight", "Weight by height (w/ 0s)", filter_zeros=False)
+    _create_correlation_plot(characters, "height", "weight", "Weight by height (w/ 0s)",
+                             filter_zeros=False)
+
 
 def create_weight_height_correlation_plot_without_zero_weights(characters: pd.DataFrame, **kwargs):
-    _create_correlation_plot(characters, "height", "weight", "Weight by height (w/o 0s)", filter_zeros=True)
+    _create_correlation_plot(characters, "height", "weight", "Weight by height (w/o 0s)",
+                             filter_zeros=True)
+
 
 def create_weight_muscle_mass_correlation_plot(characters: pd.DataFrame, **kwargs):
     _create_correlation_plot(characters, "muscle_mass", "weight", "Weight by muscle mass")
 
+
 def create_muscle_mass_height_correlation_plot(characters: pd.DataFrame, **kwargs):
-    _create_correlation_plot(characters, "muscle_mass", "height", "Height by muscle mass", filter_zeros=True)
+    _create_correlation_plot(characters, "muscle_mass", "height", "Height by muscle mass",
+                             filter_zeros=True)
+
 
 def create_cup_rating_plot(characters: pd.DataFrame, tierlists: pd.DataFrame, **kwargs):
     combined_df = get_joined_tierlists_characters_df(characters, tierlists)
     combined_df = combined_df[combined_df["sex"] == "w"]
     combined_df = combined_df[combined_df["underbust"] != 0]
     combined_df["cup"] = combined_df["bust"] - combined_df["underbust"]
-    _create_correlation_plot(combined_df, "cup", "average_rating", "Rating by cup size", filter_zeros=True)
+    _create_correlation_plot(combined_df, "cup", "average_rating", "Rating by cup size",
+                             filter_zeros=True)
 
-def create_muscle_mass_rating_correlation_plot(characters: pd.DataFrame, tierlists:pd.DataFrame, **kwargs):
-    combined_df = get_joined_tierlists_characters_df(characters, tierlists)
-    _create_correlation_plot(combined_df, "muscle_mass", "average_rating", "Rating by muscle mass", filter_zeros=True)
 
-def create_height_rating_correlation_plot(characters: pd.DataFrame, tierlists:pd.DataFrame, **kwargs):
+def create_muscle_mass_rating_correlation_plot(characters: pd.DataFrame, tierlists: pd.DataFrame,
+                                               **kwargs):
     combined_df = get_joined_tierlists_characters_df(characters, tierlists)
-    _create_correlation_plot(combined_df, "height", "average_rating", "Rating by height", filter_zeros=True)
+    _create_correlation_plot(combined_df, "muscle_mass", "average_rating", "Rating by muscle mass",
+                             filter_zeros=True)
 
-def create_weight_rating_correlation_plot(characters: pd.DataFrame, tierlists:pd.DataFrame, **kwargs):
+
+def create_height_rating_correlation_plot(characters: pd.DataFrame, tierlists: pd.DataFrame,
+                                          **kwargs):
     combined_df = get_joined_tierlists_characters_df(characters, tierlists)
-    _create_correlation_plot(combined_df, "weight", "average_rating", "Rating by weight", filter_zeros=True)
+    _create_correlation_plot(combined_df, "height", "average_rating", "Rating by height",
+                             filter_zeros=True)
+
+
+def create_weight_rating_correlation_plot(characters: pd.DataFrame, tierlists: pd.DataFrame,
+                                          **kwargs):
+    combined_df = get_joined_tierlists_characters_df(characters, tierlists)
+    _create_correlation_plot(combined_df, "weight", "average_rating", "Rating by weight",
+                             filter_zeros=True)
+
 
 '''
 WIP Danger Level Calculation

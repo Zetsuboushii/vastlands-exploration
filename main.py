@@ -16,9 +16,11 @@ def _method_is_included(name: str):
 
 
 @click.command("plot", help="Render the plots locally")
-@click.option("--export-all", "-e", default=False, is_flag=True)
+@click.option("--export-all", "-e", default=False, is_flag=True, help="Export all plots in the data/plots dir")
+@click.option("--export-format", "--format", default="png", help="Export format for exported plots (e.g. png/svg)")
+@click.option("--hide", "-h", default=False, is_flag=True, help="Hide plots when exporting")
 @click.pass_context
-def render_plots(ctx, export_all: bool):
+def render_plots(ctx, export_all: bool, export_format: str, hide: bool):
     faergria_map_data_skip = ctx.obj['faergria_map_data_skip']  # Get the shared option
     data = ctx.obj["data"]
     plot_gen_methods = filter(_method_is_included, dir(plots))
@@ -29,9 +31,10 @@ def render_plots(ctx, export_all: bool):
         method = getattr(plots, method_name)
         return_value = method(**data)
         if isinstance(return_value, plt.Figure):
-            return_value.show()
-            if (decorators.methods_to_export is None and export_all) or method_name in decorators.methods_to_export:
-                filename = method_name.replace("create_", "") + ".png"
+            if not hide:
+                plt.show()
+            if (decorators.methods_to_export is None and export_all) or (decorators.methods_to_export is not None and method_name in decorators.methods_to_export):
+                filename = method_name.replace("create_", "") + "." + export_format
                 return_value.savefig(os.path.join("data", "plots", filename))
 
 
