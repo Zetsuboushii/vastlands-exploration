@@ -14,6 +14,7 @@ from adjustText import adjust_text
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 from scipy import stats
 
+from decorators import include_plot
 from utils import calculate_age, get_day_of_year, get_evaluated_tierlist_df, \
     get_joined_tierlists_characters_df
 

@@ -31,11 +31,13 @@ def render_plots(ctx, export_all: bool, export_format: str, hide: bool):
         method = getattr(plots, method_name)
         return_value = method(**data)
         if isinstance(return_value, plt.Figure):
-            if not hide:
-                plt.show()
             if (decorators.methods_to_export is None and export_all) or (decorators.methods_to_export is not None and method_name in decorators.methods_to_export):
                 filename = method_name.replace("create_", "") + "." + export_format
                 return_value.savefig(os.path.join("data", "plots", filename))
+            if hide:
+                plt.close()
+            else:
+                plt.show()
 
 
 @click.command("serve", help="Start the server that hosts the interactive UI")
