@@ -1,4 +1,8 @@
+import os
+
 import click
+from matplotlib import pyplot as plt
+
 import decorators
 import plots
 from api import get_all_data, get_df_from_endpoint_data, fetch_faergria_map, save_character_images
@@ -45,8 +49,8 @@ def _method_is_included(name: str):
 @click.command
 @click.option("--faergria-map-url", "-u", default="http://localhost:1338")
 @click.option("--faergria-map-data-skip", "-s", default=False, is_flag=True)
-
-def main(faergria_map_url: str, faergria_map_data_skip: bool):
+@click.option("--export-all", "-e", default=False, is_flag=True)
+def main(faergria_map_url: str, faergria_map_data_skip: bool, export_all: bool):
     data, effect_data = setup(faergria_map_url,faergria_map_data_skip)
     data["effects"] = effect_data
     plot_gen_methods = filter(_method_is_included, dir(plots))
@@ -55,7 +59,10 @@ def main(faergria_map_url: str, faergria_map_data_skip: bool):
         if faergria_map_data_skip and method_name in faergria_map_dependend_methods:
             continue
         method = getattr(plots, method_name)
-        method(**data)
+        return_value = method(**data)
+        if isinstance(return_value, plt.Figure) and ((decorators.methods_to_export is None and export_all) or method_name in decorators.methods_to_export):
+            filename = method_name.replace("create_", "") + ".png"
+            return_value.savefig(os.path.join("data", "plots", filename))
 
 if __name__ == '__main__':
     main()
