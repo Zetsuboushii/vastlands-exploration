@@ -1,3 +1,5 @@
+import os
+
 import click
 from matplotlib import pyplot as plt
 
@@ -14,8 +16,9 @@ def _method_is_included(name: str):
 
 
 @click.command("plot", help="Render the plots locally")
+@click.option("--export-all", "-e", default=False, is_flag=True)
 @click.pass_context
-def render_plots(ctx):
+def render_plots(ctx, export_all: bool):
     faergria_map_data_skip = ctx.obj['faergria_map_data_skip']  # Get the shared option
     data = ctx.obj["data"]
     plot_gen_methods = filter(_method_is_included, dir(plots))
@@ -27,6 +30,9 @@ def render_plots(ctx):
         return_value = method(**data)
         if isinstance(return_value, plt.Figure):
             return_value.show()
+            if (decorators.methods_to_export is None and export_all) or method_name in decorators.methods_to_export:
+                filename = method_name.replace("create_", "") + ".png"
+                return_value.savefig(os.path.join("data", "plots", filename))
 
 
 @click.command("serve", help="Start the server that hosts the interactive UI")
