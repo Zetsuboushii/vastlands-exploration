@@ -195,4 +195,4 @@ def get_dataframes(faergria_map_url: str, faergria_map_data_skip: bool, force: b
     save_character_images(dataframes["characters"])
     tierlist_df = get_tierlist_df()
     dataframes['tierlists'] = tierlist_df
-    return dataframes
+    return dataframes, data["effect_data"]
