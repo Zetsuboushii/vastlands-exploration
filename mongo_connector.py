@@ -6,11 +6,17 @@ from pymongo import MongoClient
 from pymongo.collection import Collection
 from pymongo.database import Database
 
-host = os.environ["MONGODB_HOST"]
-port = int(os.environ["MONGODB_PORT"])
-username = os.environ["MONGODB_USER"]
-password = os.environ["MONGODB_PASSWORD"]
-database_name = os.environ["MONGODB_DATABASE"]
+
+def _get_env_var(key: str, default=None) -> str:
+    value = os.environ.get(key, default)
+    return value if value is not None and value != "" else default
+
+
+host = _get_env_var("MONGODB_HOST", "localhost")
+port = int(_get_env_var("MONGODB_PORT", "27017"))
+username = _get_env_var("MONGODB_USER", "mongo")
+password = _get_env_var("MONGODB_PASSWORD", "abc")
+database_name = _get_env_var("MONGODB_DATABASE", "vastlands-exploration")
 
 client = MongoClient(host, port, username=username, password=password)
 db: Database = client[database_name]
@@ -25,7 +31,7 @@ def load_tierlists_into_db():
     tierlist_dicts = []
     for filename in os.listdir(tierlists_dir):
         path = os.path.join(tierlists_dir, filename)
-        with open(path, "r") as f:
+        with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
         name, session_number = _parse_tierlist_name(filename)
         data["author"] = name

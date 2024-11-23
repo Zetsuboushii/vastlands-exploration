@@ -132,55 +132,40 @@ def create_birthday_distribution_clock_diagram(characters: pd.DataFrame, **kwarg
     return fig
 
 
-def create_weakness_distribution_pie_chart(enemies: pd.DataFrame, **kwargs):
-    df_normalized = enemies.explode("weaknesses").reset_index(drop=True)
-    weakness_group = df_normalized.groupby("weaknesses").size().sort_values()
-    fig, ax = plt.subplots(figsize=(6, 6))
-    plt.pie(weakness_group, labels=weakness_group.index, autopct='%1.1f%%', startangle=90)
-    ax.set_title('Distribution of Weaknesses')
-    return fig
+def create_combined_pie_charts(enemies: pd.DataFrame, min_percentage: float = 2.0, **kwargs):
+    fig, axes = plt.subplots(1, 3, figsize=(20, 8))
 
+    def group_and_plot(data, column, ax, title):
+        # Explode the column into separate rows
+        df_normalized = data.explode(column).reset_index(drop=True)
 
-def create_resistance_distribution_pie_chart(enemies: pd.DataFrame, **kwargs):
-    df_normalized = enemies.explode("resistances").reset_index(drop=True)
-    resistances_group = df_normalized.groupby("resistances").size().sort_values()
-    fig, ax = plt.subplots(figsize=(6, 6))
-    plt.pie(resistances_group, labels=resistances_group.index, autopct='%1.1f%%', startangle=90)
-    ax.set_title('Distribution of Resistances')
-    plt.tight_layout()
-    return fig
+        # Group by the column and count occurrences
+        group = df_normalized.groupby(column).size().sort_values(ascending=False)
+        total = group.sum()
 
+        # Calculate percentages and separate small groups
+        percentages = (group / total) * 100
+        large_groups = group[percentages >= min_percentage]
+        other_group = group[percentages < min_percentage].sum()
 
-def create_immunities_distribution_pie_chart(enemies: pd.DataFrame, **kwargs):
-    df_normalized = enemies.explode("immunities").reset_index(drop=True)
-    immunities_group = df_normalized.groupby("immunities").size().sort_values()
-    fig, ax = plt.subplots(figsize=(6, 6))
-    plt.pie(immunities_group, labels=immunities_group.index, autopct='%1.1f%%', startangle=90)
-    ax.set_title('Distribution of Immunities')
-    plt.tight_layout()
-    return fig
+        # Combine large groups and the "Other" category
+        if other_group > 0:
+            grouped_data = pd.concat([large_groups, pd.Series({'Other': other_group})])
+        else:
+            grouped_data = large_groups
 
+        # Plot pie chart
+        ax.pie(grouped_data, labels=grouped_data.index, autopct='%1.1f%%', startangle=90)
+        ax.set_title(title)
 
-def create_combined_pie_charts(enemies: pd.DataFrame, **kwargs):
-    fig, axes = plt.subplots(1, 3, figsize=(18, 6))
+    # Plot Weaknesses
+    group_and_plot(enemies, "weaknesses", axes[0], 'Distribution of Weaknesses')
 
-    # Weaknesses Pie Chart
-    df_normalized_weaknesses = enemies.explode("weaknesses").reset_index(drop=True)
-    weakness_group = df_normalized_weaknesses.groupby("weaknesses").size().sort_values()
-    axes[0].pie(weakness_group, labels=weakness_group.index, autopct='%1.1f%%', startangle=90)
-    axes[0].set_title('Distribution of Weaknesses')
+    # Plot Resistances
+    group_and_plot(enemies, "resistances", axes[1], 'Distribution of Resistances')
 
-    # Resistances Pie Chart
-    df_normalized_resistances = enemies.explode("resistances").reset_index(drop=True)
-    resistances_group = df_normalized_resistances.groupby("resistances").size().sort_values()
-    axes[1].pie(resistances_group, labels=resistances_group.index, autopct='%1.1f%%', startangle=90)
-    axes[1].set_title('Distribution of Resistances')
-
-    # Immunities Pie Chart
-    df_normalized_immunities = enemies.explode("immunities").reset_index(drop=True)
-    immunities_group = df_normalized_immunities.groupby("immunities").size().sort_values()
-    axes[2].pie(immunities_group, labels=immunities_group.index, autopct='%1.1f%%', startangle=90)
-    axes[2].set_title('Distribution of Immunities')
+    # Plot Immunities
+    group_and_plot(enemies, "immunities", axes[2], 'Distribution of Immunities')
 
     # Adjust layout
     plt.tight_layout()
@@ -230,14 +215,11 @@ def create_stats_distribution_plot(enemies: pd.DataFrame, **kwargs):
 def create_character_class_bar_chart(characters: pd.DataFrame, **kwargs):
     character_classes = characters["character_class"].unique()
     sexes = characters["sex"].unique()
-
     n_classes = len(character_classes)
     n_sexes = len(sexes)
     group_width = 0.8
     bar_width = group_width / n_sexes
-
     fig, ax = plt.subplots()
-
     colors = plt.cm.get_cmap('Set1')(np.linspace(0, 1, n_sexes))
 
     for i, sex in enumerate(sexes):
@@ -283,14 +265,8 @@ def _create_grouping_pie_chart(df: pd.DataFrame, group_column: str, title: str, 
     base_colors = plt.cm.Set3.colors
     colors = [base_colors[i % len(base_colors)] for i in range(len(labels))]
 
-    # fig, ax = plt.subplots(figsize=(12, 8))
     wedges, texts, autotexts = obj.pie(values, labels=labels, colors=colors, autopct='%1.1f%%',
                                        pctdistance=0.85, startangle=90)
-
-    # obj.setp(autotexts, size=8, weight="bold")
-    # obj.setp(texts, size=10)
-    # centre_circle = plt.Circle((0, 0), 0.70, fc='white')
-    # obj.gca().add_artist(centre_circle)
 
     if using_default_plt:
         obj.title(title)
@@ -357,7 +333,6 @@ def create_character_classes_combined_pie_charts(characters: pd.DataFrame, **kwa
 def create_relationship_web(characters: pd.DataFrame, **kwargs):
     # Initialize data structures
     df_characters = characters
-    # df_characters = characters.loc[~characters['name'].isin(['U-Ranos', 'Nayru'])]
     characters = {}
     relationships = []
     output_filename = "data/plots/character_relationships.svg"
@@ -517,13 +492,6 @@ def create_relationship_web(characters: pd.DataFrame, **kwargs):
 
     plt.axis('off')
     ax.set_title('Character Relationships Clustered by Type', fontsize=15)
-
-    # Save the plot as an SVG file
-    output_directory = os.path.dirname(output_filename)
-    if not os.path.exists(output_directory):
-        os.makedirs(output_directory)
-    plt.savefig(output_filename, format='svg', bbox_inches='tight')
-    print(f"The plot has been saved as {output_filename}")
     return fig
 
 
@@ -596,7 +564,6 @@ def create_height_distribution_chart(characters: pd.DataFrame, target_image_heig
     # characters['age'] = characters['birthday'].apply(calculate_age)
     # characters = characters[(characters["age"] >= 18) & (characters["age"] <= 30)]
     output_dir = "data/plots/height_distribution.svg"
-
     total_bar_height = target_image_height + bar_spacing
     plot_height = len(characters) * (total_bar_height / 70)
     plot_width = plot_height * aspect_ratio
@@ -770,7 +737,11 @@ def _create_grouped_boxplots(characters: pd.DataFrame, x_grouping: str, y_values
 
 
 def create_muscle_mass_boxplots_by_race(characters: pd.DataFrame, **kwargs):
-    _create_grouped_boxplots(characters, "race", "muscle_mass", "Muscle mass",
+    characters_copy = characters.copy()
+    characters_copy = characters_copy[
+        (characters_copy['muscle_mass'] != 0) & (characters_copy['muscle_mass'].notnull())]
+    characters_copy = characters_copy.reset_index(drop=True)
+    _create_grouped_boxplots(characters_copy, "race", "muscle_mass", "Muscle mass",
                              "Muscle mass distribution by race")
 
 
@@ -779,12 +750,13 @@ def create_weight_boxplots_by_race(characters: pd.DataFrame, **kwargs):
 
 
 def _create_correlation_plot(characters: pd.DataFrame, x_key: str, y_key: str, title: str,
-                             filter_zeros=False):
+                             filter_y_zeros=False, filter_x_zeros=False):
     fig, ax = plt.subplots()
-    if filter_zeros:
-        df = characters[characters[y_key] != 0]
-    else:
-        df = characters
+    df = characters.copy()
+    if filter_y_zeros:
+        df = df[df[y_key] != 0]
+    if filter_x_zeros:
+        df = df[df[x_key] != 0]
     x_values = df[x_key]
     y_values = df[y_key]
     ax.scatter(x_values, y_values)
@@ -812,22 +784,21 @@ def _create_correlation_plot(characters: pd.DataFrame, x_key: str, y_key: str, t
 
 def create_weight_height_correlation_plot_with_zero_weights(characters: pd.DataFrame, **kwargs):
     _create_correlation_plot(characters, "height", "weight", "Weight by height (w/ 0s)",
-                             filter_zeros=False)
+                             filter_y_zeros=False)
 
 
 def create_weight_height_correlation_plot_without_zero_weights(characters: pd.DataFrame, **kwargs):
     _create_correlation_plot(characters, "height", "weight", "Weight by height (w/o 0s)",
-                             filter_zeros=True)
+                             filter_y_zeros=True, filter_x_zeros=True)
 
 
 def create_weight_muscle_mass_correlation_plot(characters: pd.DataFrame, **kwargs):
-    _create_correlation_plot(characters, "muscle_mass", "weight", "Weight by muscle mass")
-
+    _create_correlation_plot(characters, "muscle_mass", "weight", "Weight by muscle mass", filter_y_zeros=True,
+                             filter_x_zeros=True)
 
 def create_muscle_mass_height_correlation_plot(characters: pd.DataFrame, **kwargs):
     _create_correlation_plot(characters, "muscle_mass", "height", "Height by muscle mass",
-                             filter_zeros=True)
-
+                             filter_y_zeros=True, filter_x_zeros=True)
 
 def create_cup_rating_plot(characters: pd.DataFrame, tierlists: pd.DataFrame, **kwargs):
     combined_df = get_joined_tierlists_characters_df(characters, tierlists)
@@ -835,35 +806,24 @@ def create_cup_rating_plot(characters: pd.DataFrame, tierlists: pd.DataFrame, **
     combined_df = combined_df[combined_df["underbust"] != 0]
     combined_df["cup"] = combined_df["bust"] - combined_df["underbust"]
     _create_correlation_plot(combined_df, "cup", "average_rating", "Rating by cup size",
-                             filter_zeros=True)
-
+                             filter_y_zeros=True, filter_x_zeros=True)
 
 def create_muscle_mass_rating_correlation_plot(characters: pd.DataFrame, tierlists: pd.DataFrame,
                                                **kwargs):
     combined_df = get_joined_tierlists_characters_df(characters, tierlists)
     _create_correlation_plot(combined_df, "muscle_mass", "average_rating", "Rating by muscle mass",
-                             filter_zeros=True)
+                             filter_y_zeros=True, filter_x_zeros=True)
 
 
 def create_height_rating_correlation_plot(characters: pd.DataFrame, tierlists: pd.DataFrame,
                                           **kwargs):
     combined_df = get_joined_tierlists_characters_df(characters, tierlists)
     _create_correlation_plot(combined_df, "height", "average_rating", "Rating by height",
-                             filter_zeros=True)
+                             filter_y_zeros=True, filter_x_zeros=True)
 
 
 def create_weight_rating_correlation_plot(characters: pd.DataFrame, tierlists: pd.DataFrame,
                                           **kwargs):
     combined_df = get_joined_tierlists_characters_df(characters, tierlists)
     _create_correlation_plot(combined_df, "weight", "average_rating", "Rating by weight",
-                             filter_zeros=True)
-
-
-'''
-WIP Danger Level Calculation
-- armor*ac value
-- damage per turn capability
-- action variety 
-- status effects usable and weighting of their strength
-- movement range and type with weighting
-'''
+                             filter_y_zeros=True, filter_x_zeros=True)
