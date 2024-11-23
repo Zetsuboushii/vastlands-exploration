@@ -70,7 +70,7 @@ def main(ctx, faergria_map_url: str, faergria_map_data_skip: bool, force: bool):
     ctx.ensure_object(dict)
     ctx.obj["faergria_map_url"] = faergria_map_url
     ctx.obj["faergria_map_data_skip"] = faergria_map_data_skip
-    data = get_dataframes(faergria_map_url, faergria_map_data_skip, force)
+    data, _ = get_dataframes(faergria_map_url, faergria_map_data_skip, force)
     ctx.obj["data"] = data
 
 

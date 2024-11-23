@@ -31,7 +31,7 @@ def load_tierlists_into_db():
     tierlist_dicts = []
     for filename in os.listdir(tierlists_dir):
         path = os.path.join(tierlists_dir, filename)
-        with open(path, "r") as f:
+        with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
         name, session_number = _parse_tierlist_name(filename)
         data["author"] = name
