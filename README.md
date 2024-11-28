@@ -17,8 +17,7 @@ There are 3 main commands (each called by ```python3 main.py <command>```:
 
 For each, you can specify the following global arguments like this: ```python3 main.py <global options> <command>```
 - _-u_: URL to fetch the faergria map data from (defaults to http://localhost:1338). **This requires that you start the server for the map API (https://github.com/Zetsuboushii/faergriaMap) locally.**
-- _-s_: Skip loading and showing faergria map data (use when faergria map server is **not** available. when this is used
-  only 26 out of 27 are plots are loaded)
+- _-s_: Skip loading and showing faergria map data (use when faergria map server is **not** available)
 - _-f_: Force refresh data (bypass database cache))
 
 For the _load_ command, you can additonally specify arguments like so: ```python3 main.py <global options> load <arguments>```

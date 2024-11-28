@@ -833,7 +833,6 @@ def create_weight_rating_correlation_plot(characters: pd.DataFrame, tierlists: p
                                     filter_y_zeros=True, filter_x_zeros=True)
 
 
-@include_plot
 def create_race_class_correlation_plot(characters: pd.DataFrame, **kwargs):
     df = characters.copy()
     df["character_class"] = df["character_class"].replace({None: "Unknown", "": "Unknown"})
