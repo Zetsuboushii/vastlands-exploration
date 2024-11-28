@@ -783,21 +783,21 @@ def _create_correlation_plot(characters: pd.DataFrame, x_key: str, y_key: str, t
 
 
 def create_weight_height_correlation_plot_with_zero_weights(characters: pd.DataFrame, **kwargs):
-    _create_correlation_plot(characters, "height", "weight", "Weight by height (w/ 0s)",
+    return _create_correlation_plot(characters, "height", "weight", "Weight by height (w/ 0s)",
                              filter_y_zeros=False)
 
 
 def create_weight_height_correlation_plot_without_zero_weights(characters: pd.DataFrame, **kwargs):
-    _create_correlation_plot(characters, "height", "weight", "Weight by height (w/o 0s)",
+    return _create_correlation_plot(characters, "height", "weight", "Weight by height (w/o 0s)",
                              filter_y_zeros=True, filter_x_zeros=True)
 
 
 def create_weight_muscle_mass_correlation_plot(characters: pd.DataFrame, **kwargs):
-    _create_correlation_plot(characters, "muscle_mass", "weight", "Weight by muscle mass", filter_y_zeros=True,
+    return _create_correlation_plot(characters, "muscle_mass", "weight", "Weight by muscle mass", filter_y_zeros=True,
                              filter_x_zeros=True)
 
 def create_muscle_mass_height_correlation_plot(characters: pd.DataFrame, **kwargs):
-    _create_correlation_plot(characters, "muscle_mass", "height", "Height by muscle mass",
+    return _create_correlation_plot(characters, "muscle_mass", "height", "Height by muscle mass",
                              filter_y_zeros=True, filter_x_zeros=True)
 
 def create_cup_rating_plot(characters: pd.DataFrame, tierlists: pd.DataFrame, **kwargs):
@@ -805,25 +805,25 @@ def create_cup_rating_plot(characters: pd.DataFrame, tierlists: pd.DataFrame, **
     combined_df = combined_df[combined_df["sex"] == "w"]
     combined_df = combined_df[combined_df["underbust"] != 0]
     combined_df["cup"] = combined_df["bust"] - combined_df["underbust"]
-    _create_correlation_plot(combined_df, "cup", "average_rating", "Rating by cup size",
+    return _create_correlation_plot(combined_df, "cup", "average_rating", "Rating by cup size",
                              filter_y_zeros=True, filter_x_zeros=True)
 
 def create_muscle_mass_rating_correlation_plot(characters: pd.DataFrame, tierlists: pd.DataFrame,
                                                **kwargs):
     combined_df = get_joined_tierlists_characters_df(characters, tierlists)
-    _create_correlation_plot(combined_df, "muscle_mass", "average_rating", "Rating by muscle mass",
+    return _create_correlation_plot(combined_df, "muscle_mass", "average_rating", "Rating by muscle mass",
                              filter_y_zeros=True, filter_x_zeros=True)
 
 
 def create_height_rating_correlation_plot(characters: pd.DataFrame, tierlists: pd.DataFrame,
                                           **kwargs):
     combined_df = get_joined_tierlists_characters_df(characters, tierlists)
-    _create_correlation_plot(combined_df, "height", "average_rating", "Rating by height",
+    return _create_correlation_plot(combined_df, "height", "average_rating", "Rating by height",
                              filter_y_zeros=True, filter_x_zeros=True)
 
 
 def create_weight_rating_correlation_plot(characters: pd.DataFrame, tierlists: pd.DataFrame,
                                           **kwargs):
     combined_df = get_joined_tierlists_characters_df(characters, tierlists)
-    _create_correlation_plot(combined_df, "weight", "average_rating", "Rating by weight",
+    return _create_correlation_plot(combined_df, "weight", "average_rating", "Rating by weight",
                              filter_y_zeros=True, filter_x_zeros=True)
