@@ -28,9 +28,10 @@ def render_plots(ctx, export_all: bool, export_format: str, hide: bool):
     faergria_map_dependend_methods = ["create_population_distribution_map"]
     with alive_bar(len(plot_gen_methods)) as bar:
         for method_name in plot_gen_methods:
-            if faergria_map_data_skip and method_name in faergria_map_dependend_methods:
-                continue
             bar.text(method_name)
+            if faergria_map_data_skip and method_name in faergria_map_dependend_methods:
+                bar()
+                continue
             method = getattr(plots, method_name)
             return_value = method(**data)
             if isinstance(return_value, plt.Figure):
