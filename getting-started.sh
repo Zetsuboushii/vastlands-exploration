@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 if [ "$(basename "$PWD")" != "vastlands-exploration" ]; then
   echo "You must be inside the root folder ('vastlands-exploration') for this script to work."
@@ -28,7 +28,7 @@ docker compose -f infrastructure/docker-compose.yml up -d
 
 read -p "Include map plots? Requires faergria map to be hosted locally. [Y/n] " response
 
-case "${response,,}" in
+case "$(echo "$response" | tr '[:upper:]' '[:lower:]')" in
     y|yes|"")
         suffix=""
         ;;
