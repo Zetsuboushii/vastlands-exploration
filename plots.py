@@ -617,6 +617,7 @@ def create_height_distribution_chart(characters: pd.DataFrame, target_image_heig
     return fig
 
 
+@include_plot
 def create_character_ranking_barchart(tierlists: pd.DataFrame, target_image_height=108,
                                       bar_spacing=0.1,
                                       aspect_ratio=0.05, **kwargs):
