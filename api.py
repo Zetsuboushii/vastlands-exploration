@@ -36,6 +36,13 @@ def get_potentially_cached_data(key: str, endpoint: str, force: bool, data_key: 
     return data
 
 
+def get_data_by_api(key: str, endpoint: str, force: bool, data_key: str = None) -> Dict[str, Any]:
+    response = requests.get(endpoint)
+    data = response.json()
+    if data_key is not None:
+        data = data.get(data_key, {})
+    return data
+
 def get_all_data(faergria_map_url: str, skip_faergria_map: bool = False, force: bool = False) -> \
 Dict[str, Dict[str, Any]]:
     endpoints = {
@@ -48,7 +55,7 @@ Dict[str, Dict[str, Any]]:
         "effect_data": "effects.json",
     }
     endpoints = {key: API_URL + endpoint for key, endpoint in endpoints.items()}
-    data = {key: get_potentially_cached_data(key, endpoint, force) for key, endpoint in
+    data = {key: get_data_by_api(key, endpoint, force) for key, endpoint in
             endpoints.items()}
 
     if not skip_faergria_map:
@@ -59,7 +66,7 @@ Dict[str, Dict[str, Any]]:
         faergria_endpoints = {key: faergria_map_url + endpoint for key, endpoint in
                               faergria_map_endpoints.items()}
 
-        data |= {key: get_potentially_cached_data(key, endpoint, force, "data") for key, endpoint in
+        data |= {key: get_data_by_api(key, endpoint, force, "data") for key, endpoint in
                  faergria_endpoints.items()}
 
         fetch_faergria_map(faergria_map_url)

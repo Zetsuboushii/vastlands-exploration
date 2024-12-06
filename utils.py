@@ -1,6 +1,7 @@
 from datetime import datetime
 
 import pandas as pd
+from soupsieve import select
 
 import mongo_connector
 from api import get_all_data, get_df_from_endpoint_data, save_character_images
@@ -126,9 +127,41 @@ def get_next_birthday(df_characters):
         print("No upcoming birthdays found.")
 
 
-def get_tierlist_df():
+def get_tierlist_df_by_db():
     tierlists = mongo_connector.fetch_tierlists()
     return pd.DataFrame(tierlists)
+
+def get_tierlist_df():
+    import pandas as pd
+    import json
+    import os
+    data_list = []
+    root_path = os.path.dirname(os.path.abspath(__file__))
+    directory = os.path.join(root_path, 'data', 'tierlists')
+    for filename in os.listdir(directory):
+        if filename.endswith('.json'):
+            filepath = os.path.join(directory, filename)
+            basename = filename[len('tierlist_'):-len('.json')]
+            try:
+                author, sessionNr = basename.rsplit('_', 1)
+            except ValueError:
+                print(f"Filename {filename} does not match expected format 'tierlist_author_sessionNr.json'")
+                continue
+            with open(filepath, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            entry = {
+                'author': str(author),
+                'sessionNr': int(sessionNr),
+                'SS': data.get('SS', []),
+                'S': data.get('S', []),
+                'A': data.get('A', []),
+                'B': data.get('B', []),
+                'C': data.get('C', []),
+                'D': data.get('D', [])
+            }
+            data_list.append(entry)
+    df = pd.DataFrame(data_list)
+    return df
 
 
 def get_evaluated_tierlist_df(tierlists):
@@ -196,3 +229,4 @@ def get_dataframes(faergria_map_url: str, faergria_map_data_skip: bool, force: b
     tierlist_df = get_tierlist_df()
     dataframes['tierlists'] = tierlist_df
     return dataframes, data["effect_data"]
+

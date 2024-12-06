@@ -616,8 +616,6 @@ def create_height_distribution_chart(characters: pd.DataFrame, target_image_heig
 
     return fig
 
-
-@include_plot
 def create_character_ranking_barchart(tierlists: pd.DataFrame, target_image_height=108,
                                       bar_spacing=0.1,
                                       aspect_ratio=0.05, **kwargs):
@@ -854,4 +852,57 @@ def create_race_class_correlation_plot(characters: pd.DataFrame, **kwargs):
     plt.xticks(rotation=45, ha='right')
 
     plt.tight_layout()
+    return fig
+
+
+@include_plot
+def create_character_ranking_trend(tierlists: pd.DataFrame, **kwargs):
+    selected_author = "u-ranos"
+    selected_character = None
+    filter_df = tierlists[tierlists['author'] == selected_author].copy()
+    tier_mapping = {"D": 1, "C": 2, "B": 3, "A": 4, "S": 5, "SS": 6}
+
+    tier_cols = ["D", "C", "B", "A", "S", "SS"]
+
+    exploded = []
+    for tier_col in tier_cols:
+        tmp = filter_df[['sessionNr', tier_col]].copy()
+        tmp = tmp.explode(tier_col)
+        tmp['Character'] = tmp[tier_col]
+        tmp['Tier'] = tier_col
+        tmp.drop(columns=[tier_col], inplace=True)
+        exploded.append(tmp)
+
+    long_df = pd.concat(exploded, ignore_index=True)
+    long_df = long_df.dropna(subset=["Character"])
+
+    tier_changes = long_df.groupby('Character')['Tier'].nunique()
+    changing_characters = tier_changes[tier_changes > 1].index
+
+    if selected_character:
+        if selected_character not in changing_characters:
+            print(f"The character '{selected_character}' never changed tiers.")
+            return None
+        changing_characters = [selected_character]
+
+    long_df = long_df[long_df['Character'].isin(changing_characters)]
+    long_df['TierValue'] = long_df['Tier'].map(tier_mapping)
+    long_df = long_df.sort_values(by='sessionNr')
+
+    fig, ax = plt.subplots(figsize=(10, 6))
+
+    # Use alpha for transparency
+    for char in long_df['Character'].unique():
+        char_data = long_df[long_df['Character'] == char]
+        ax.plot(char_data['sessionNr'], char_data['TierValue'], marker='o', label=char, alpha=0.7)
+
+    ax.set_title("Character Tier Changes Over Sessions")
+    ax.set_xlabel("Session Number")
+    ax.set_ylabel("Tier")
+    ax.set_xticks(sorted(long_df['sessionNr'].unique()))
+    ax.set_yticks([1, 2, 3, 4, 5, 6])
+    ax.set_yticklabels(["D", "C", "B", "A", "S", "SS"])
+    ax.legend()
+    ax.grid(True)
+
     return fig
