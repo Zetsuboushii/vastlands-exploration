@@ -616,6 +616,7 @@ def create_height_distribution_chart(characters: pd.DataFrame, target_image_heig
 
     return fig
 
+
 def create_character_ranking_barchart(tierlists: pd.DataFrame, target_image_height=108,
                                       bar_spacing=0.1,
                                       aspect_ratio=0.05, **kwargs):
@@ -857,46 +858,89 @@ def create_race_class_correlation_plot(characters: pd.DataFrame, **kwargs):
 
 @include_plot
 def create_character_ranking_trend(tierlists: pd.DataFrame, **kwargs):
-    selected_author = "u-ranos"
+    selected_authors = ["u-ranos", "Nayru"]
+    select_all_authors_flag = False
     selected_character = None
-    filter_df = tierlists[tierlists['author'] == selected_author].copy()
-    tier_mapping = {"D": 1, "C": 2, "B": 3, "A": 4, "S": 5, "SS": 6}
 
+    if select_all_authors_flag:
+        filter_df = tierlists.copy()
+    else:
+        # If selected_authors is a single string, convert it to a list for uniformity
+        if isinstance(selected_authors, str):
+            selected_authors = [selected_authors]
+        filter_df = tierlists[tierlists['author'].isin(selected_authors)].copy()
+
+    tier_mapping = {"D": 1, "C": 2, "B": 3, "A": 4, "S": 5, "SS": 6}
     tier_cols = ["D", "C", "B", "A", "S", "SS"]
 
     exploded = []
     for tier_col in tier_cols:
-        tmp = filter_df[['sessionNr', tier_col]].copy()
+        tmp = filter_df[['sessionNr', 'author', tier_col]].copy()
         tmp = tmp.explode(tier_col)
         tmp['Character'] = tmp[tier_col]
         tmp['Tier'] = tier_col
         tmp.drop(columns=[tier_col], inplace=True)
         exploded.append(tmp)
 
-    long_df = pd.concat(exploded, ignore_index=True)
-    long_df = long_df.dropna(subset=["Character"])
+    long_df = pd.concat(exploded, ignore_index=True).dropna(subset=["Character"])
+    long_df['TierValue'] = long_df['Tier'].map(tier_mapping)
 
-    tier_changes = long_df.groupby('Character')['Tier'].nunique()
-    changing_characters = tier_changes[tier_changes > 1].index
+    # Sort before grouping/diffing
+    long_df = long_df.sort_values(by=['Character', 'sessionNr'])
+
+    authors_used = filter_df['author'].unique()
+    # If multiple authors or all authors are selected, average the TierValue for each session and character
+    if select_all_authors_flag or len(authors_used) > 1:
+        long_df = (long_df
+                   .groupby(['sessionNr', 'Character'], as_index=False)['TierValue']
+                   .mean())
+
+    # Re-sort after averaging
+    long_df = long_df.sort_values(by=['Character', 'sessionNr'])
+
+    # Identify changing characters by checking if there's any difference between consecutive sessions
+    changes_per_char = (
+        long_df
+        .groupby('Character')['TierValue']
+        .apply(lambda x: (x.diff().fillna(0) != 0).any())
+    )
+
+    # Debug print
+    # print(changes_per_char)
+
+    changing_characters = changes_per_char[changes_per_char].index
 
     if selected_character:
         if selected_character not in changing_characters:
-            print(f"The character '{selected_character}' never changed tiers.")
+            print(f"The character '{selected_character}' never changed ratings.")
             return None
         changing_characters = [selected_character]
 
+    # Filter to only changing characters
     long_df = long_df[long_df['Character'].isin(changing_characters)]
-    long_df['TierValue'] = long_df['Tier'].map(tier_mapping)
-    long_df = long_df.sort_values(by='sessionNr')
+
+    # If empty, no characters actually changed
+    if long_df.empty:
+        print("No characters have changed their rating based on the specified conditions.")
+        return None
 
     fig, ax = plt.subplots(figsize=(10, 6))
-
-    # Use alpha for transparency
     for char in long_df['Character'].unique():
         char_data = long_df[long_df['Character'] == char]
         ax.plot(char_data['sessionNr'], char_data['TierValue'], marker='o', label=char, alpha=0.7)
 
-    ax.set_title("Character Tier Changes Over Sessions")
+    # Title handling
+    if select_all_authors_flag:
+        title_authors = "All Authors"
+    else:
+        if len(authors_used) == 1:
+            title_authors = authors_used[0]
+        elif 1 < len(authors_used) < 5:
+            title_authors = ", ".join(authors_used)
+        else:
+            title_authors = "Multiple Authors"
+
+    ax.set_title(f"Character Tier Changes Over Sessions\n(Authors: {title_authors})")
     ax.set_xlabel("Session Number")
     ax.set_ylabel("Tier")
     ax.set_xticks(sorted(long_df['sessionNr'].unique()))
