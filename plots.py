@@ -858,8 +858,8 @@ def create_race_class_correlation_plot(characters: pd.DataFrame, **kwargs):
 
 @include_plot
 def create_character_ranking_trend(tierlists: pd.DataFrame, **kwargs):
-    selected_authors = ["u-ranos", "Nayru"]
-    select_all_authors_flag = False
+    selected_authors = ["u-ranos", "Nayru", "zetsu"]
+    select_all_authors_flag = True
     selected_character = None
 
     if select_all_authors_flag:
@@ -870,6 +870,37 @@ def create_character_ranking_trend(tierlists: pd.DataFrame, **kwargs):
             selected_authors = [selected_authors]
         filter_df = tierlists[tierlists['author'].isin(selected_authors)].copy()
 
+    # Find the global maximum session number among the filtered authors
+    max_session = filter_df['sessionNr'].max()
+
+    continuous_author_dfs = []
+    for author, group in filter_df.groupby('author', group_keys=False):
+        # Set sessionNr as the index
+        group = group.set_index('sessionNr').sort_index()
+
+        # We want to ensure that the range goes up to the global max_session
+        # Use the author's minimum session as a start, and global max_session as the end
+        start_session = group.index.min()
+        all_sessions = range(start_session, max_session + 1)
+
+        # Reindex to this full range of sessions
+        group = group.reindex(all_sessions)
+
+        # Forward fill missing rows
+        group = group.ffill()
+
+        # Reset the index back to a column
+        group = group.reset_index().rename(columns={'index': 'sessionNr'})
+
+        # Add back the author column
+        group['author'] = author
+
+        continuous_author_dfs.append(group)
+
+    # Combine the processed DataFrames back
+    filter_df = pd.concat(continuous_author_dfs, ignore_index=True)
+
+    # Proceed with the existing logic
     tier_mapping = {"D": 1, "C": 2, "B": 3, "A": 4, "S": 5, "SS": 6}
     tier_cols = ["D", "C", "B", "A", "S", "SS"]
 
@@ -904,9 +935,6 @@ def create_character_ranking_trend(tierlists: pd.DataFrame, **kwargs):
         .groupby('Character')['TierValue']
         .apply(lambda x: (x.diff().fillna(0) != 0).any())
     )
-
-    # Debug print
-    # print(changes_per_char)
 
     changing_characters = changes_per_char[changes_per_char].index
 
