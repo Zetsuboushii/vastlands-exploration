@@ -858,9 +858,9 @@ def create_race_class_correlation_plot(characters: pd.DataFrame, **kwargs):
 
 @include_plot
 def create_character_ranking_trend(tierlists: pd.DataFrame, **kwargs):
-    selected_authors = ["u-ranos", "Nayru", "zetsu"]
-    select_all_authors_flag = True
-    selected_character = None
+    selected_authors = ["zetsu"]
+    select_all_authors_flag = False
+    selected_character = None  # name of character or None
 
     if select_all_authors_flag:
         filter_df = tierlists.copy()
@@ -879,7 +879,6 @@ def create_character_ranking_trend(tierlists: pd.DataFrame, **kwargs):
         group = group.set_index('sessionNr').sort_index()
 
         # We want to ensure that the range goes up to the global max_session
-        # Use the author's minimum session as a start, and global max_session as the end
         start_session = group.index.min()
         all_sessions = range(start_session, max_session + 1)
 
@@ -900,7 +899,6 @@ def create_character_ranking_trend(tierlists: pd.DataFrame, **kwargs):
     # Combine the processed DataFrames back
     filter_df = pd.concat(continuous_author_dfs, ignore_index=True)
 
-    # Proceed with the existing logic
     tier_mapping = {"D": 1, "C": 2, "B": 3, "A": 4, "S": 5, "SS": 6}
     tier_cols = ["D", "C", "B", "A", "S", "SS"]
 
@@ -929,13 +927,12 @@ def create_character_ranking_trend(tierlists: pd.DataFrame, **kwargs):
     # Re-sort after averaging
     long_df = long_df.sort_values(by=['Character', 'sessionNr'])
 
-    # Identify changing characters by checking if there's any difference between consecutive sessions
+    # Identify changing characters
     changes_per_char = (
         long_df
         .groupby('Character')['TierValue']
         .apply(lambda x: (x.diff().fillna(0) != 0).any())
     )
-
     changing_characters = changes_per_char[changes_per_char].index
 
     if selected_character:
@@ -947,15 +944,44 @@ def create_character_ranking_trend(tierlists: pd.DataFrame, **kwargs):
     # Filter to only changing characters
     long_df = long_df[long_df['Character'].isin(changing_characters)]
 
-    # If empty, no characters actually changed
     if long_df.empty:
         print("No characters have changed their rating based on the specified conditions.")
         return None
 
     fig, ax = plt.subplots(figsize=(10, 6))
-    for char in long_df['Character'].unique():
+
+    # Unique colors for each character
+    unique_chars = long_df['Character'].unique()
+    cmap = plt.cm.get_cmap('tab20', len(unique_chars))
+
+    # Optional: Different markers and line styles for better distinction
+    markers = ['o', 's', 'd', '^', 'v', '<', '>', 'p', 'h', 'H']
+    line_styles = ['-', '--', '-.', ':']
+
+    # Optional: Add jitter to slightly separate overlapping lines
+    # Set this to a small nonzero value if you'd like to visually separate overlapping lines
+    jitter_strength = 0.0  # Try 0.05 or 0.1 if needed
+
+    for i, char in enumerate(unique_chars):
         char_data = long_df[long_df['Character'] == char]
-        ax.plot(char_data['sessionNr'], char_data['TierValue'], marker='o', label=char, alpha=0.7)
+        marker = markers[i % len(markers)]
+        style = line_styles[(i // len(markers)) % len(line_styles)]
+
+        # Apply vertical jitter if desired
+        if jitter_strength > 0:
+            jitter = np.random.normal(0, jitter_strength, size=len(char_data))
+        else:
+            jitter = 0
+
+        ax.plot(
+            char_data['sessionNr'],
+            char_data['TierValue'] + jitter,
+            marker=marker,
+            linestyle=style,
+            label=char,
+            color=cmap(i),
+            alpha=0.8
+        )
 
     # Title handling
     if select_all_authors_flag:
